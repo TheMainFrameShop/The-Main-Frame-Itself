@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Main Frame</title>
+    <title>The Main Frame - Loading</title>
     <style>
         /*
          * CORE STYLES & UTILITIES
@@ -11,39 +11,241 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
-            padding: 20px;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
+        .hidden {
+            display: none;
         }
         /*
-         * GEESE BITES CSS
+         * LOADING SCREEN STYLES
          */
-        #mainframe-wrapper {
-            background-color: #fff;
-            position: relative;
-            min-height: 100vh;
-            /* Top-left bite */
-            -webkit-mask-image: radial-gradient(20px at 0 0, transparent 99%, black) , radial-gradient(24px at 100% 0, transparent 99%, black) , radial-gradient(18px at 0 100%, transparent 99%, black) , radial-gradient(22px at 100% 100%, transparent 99%, black);
-            -webkit-mask-composite: destination-out;
-            mask-composite: exclude;
+        @font-face {
+            font-family: 'Pixelated';
+            src: url('https://fonts.cdnfonts.com/s/17391/pixelated.woff') format('woff');
+        }
+        .mainframe-loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            font-family: 'Pixelated', monospace;
+            color: #fff;
+            text-align: center;
+            animation: flicker 1s infinite;
+        }
+        .win95-container {
+            width: 80%; max-width: 600px;
             padding: 20px;
+            border: 2px solid #ccc;
+            box-shadow: 5px 5px 0 #000;
+            background-color: #808080;
+            text-align: left;
+        }
+        .bsod-container {
+            width: 100%;
+            height: 100%;
+            background-color: #000084;
+            color: #c0c0c0;
+            text-align: center;
+            padding: 50px;
+        }
+        .enter-screen-content {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+        .enter-screen-content img {
+            max-width: 80%;
+            height: auto;
+            cursor: pointer;
+        }
+        .frame-text {
+            font-size: 3em;
+            margin-top: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
+        /*
+         * GLITCH SCREEN STYLES
+         */
+        #glitch-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            font-family: 'Courier New', monospace;
+            color: #ff0000;
+            text-align: center;
+            animation: glitch-flicker 0.2s infinite;
+        }
+        .glitch-text {
+            font-size: 2em;
+            text-shadow: 2px 2px #00ff00, -2px -2px #0000ff;
+        }
+        /*
+         * ANIMATION KEYFRAMES
+         */
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.9; }
+            100% { opacity: 1; }
+        }
+        @keyframes glitch-flicker {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
         }
     </style>
 </head>
 <body>
-    <!--
-      - This is your main homepage content. It will be loaded after the loading screen.
-      - Here you can add your product grid, news ticker, and other core features.
-      -->
-    <div id="mainframe-wrapper">
-        <div class="container">
-            <h1>The Main Frame</h1>
-            <p>Welcome to the main content. This is where your shop, your cynicism, and your beautiful lies will live.</p>
+    <div id="mainframe-loading" class="mainframe-loading-overlay">
+        <!-- Windows 95 Loader -->
+        <div id="win95-screen" class="win95-container">
+            <div class="win95-header" style="background-color: #000084; color: #fff; padding: 2px 5px; display: flex; justify-content: space-between; align-items: center;">
+                <div>The Main Frame System Update</div>
+                <div style="background-color: #c0c0c0; border: 2px outset #fff; padding: 0 4px; line-height: 1;">x</div>
+            </div>
+            <div class="loading-content" style="padding: 20px 10px; background-color: #c0c0c0; color: #000; font-size: 12px;">
+                <p>Initiating sarcasm subroutine...</p>
+                <div class="progress-bar-container" style="border: 1px solid #000; height: 16px; background-color: #fff; padding: 1px; margin-top: 10px;">
+                    <div id="progress-bar" style="height: 100%; width: 0%; background-color: #000084;"></div>
+                </div>
+                <ul style="margin-top: 10px; padding-left: 15px;">
+                    <li>> Deleting: Feelings.dll (access denied)</li>
+                    <li>> Optimizing: Profit Over People (97% complete)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Blue Screen of Death -->
+        <div id="bsod-screen" class="hidden bsod-container">
+            <h1 style="font-size: 24px; margin-bottom: 20px;">An error has occurred.</h1>
+            <p style="font-size: 16px; line-height: 1.5;">We've detected a critical flaw in the system architecture. It seems you've stumbled upon a satire shop, a place where capitalism goes to die a slow, ironic death.</p>
+            <p style="font-size: 16px; line-height: 1.5;">Please do not try to make sense of this. We all lose in the end.</p>
+            <button id="bsod-continue" style="margin-top: 40px; padding: 10px 20px; background-color: #c0c0c0; color: #000; border: 2px outset #fff; cursor: pointer;">Click to Continue and Accept Your Fate</button>
+        </div>
+
+        <!-- The Glitch Screen -->
+        <div id="glitch-screen" class="hidden">
+            <div class="glitch-text">
+                ERROR: AI-GEN-1-FATAL. <br>
+                HUMAN SENSE OF HUMOR NOT FOUND. <br>
+                REBOOTING WITH APATHY.
+            </div>
+        </div>
+        
+        <!-- Gate Screen -->
+        <div id="enter-screen" class="hidden enter-screen-content">
+            <p style="font-family: 'Pixelated', monospace; font-size: 1.2em; color: white;">Click the FRAME to enter.</p>
+            <a href="homepage.html" id="gate-link" style="margin-top: 20px; text-decoration: none;">
+                <img id="gate-image" src="" alt="Click to enter the site" style="width: 300px; height: auto;">
+                <span id="gate-text" class="frame-text hidden">FRAME</span>
+            </a>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const isUnauthorized = false;
+            const isTorUser = false;
+            const isElectionDay = false;
+
+            const loadingOverlay = document.getElementById('mainframe-loading');
+            const win95Screen = document.getElementById('win95-screen');
+            const bsodScreen = document.getElementById('bsod-screen');
+            const enterScreen = document.getElementById('enter-screen');
+            const glitchScreen = document.getElementById('glitch-screen');
+            const progressBar = document.getElementById('progress-bar');
+            const bsodContinueBtn = document.getElementById('bsod-continue');
+            const gateLink = document.getElementById('gate-link');
+            const gateImage = document.getElementById('gate-image');
+            const gateText = document.getElementById('gate-text');
+
+            function startLoading() {
+                if (isElectionDay) {
+                    window.location.href = 'https://www.gov.uk/register-to-vote';
+                    return;
+                }
+                
+                let progress = 0;
+                const interval = setInterval(() => {
+                    if (isUnauthorized) {
+                        clearInterval(interval);
+                        win95Screen.classList.add('hidden');
+                        bsodScreen.classList.remove('hidden');
+                        return;
+                    }
+                    progress += Math.floor(Math.random() * 11) + 3;
+                    if (progress > 100) progress = 100;
+                    progressBar.style.width = `${progress}%`;
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            win95Screen.classList.add('hidden');
+                            if (isTorUser) {
+                                // TODO: Add Tor Easter egg screen here
+                            } else {
+                                bsodScreen.classList.remove('hidden');
+                            }
+                        }, 700);
+                    }
+                }, 420);
+            }
+
+            bsodContinueBtn.addEventListener('click', () => {
+                bsodScreen.classList.add('hidden');
+
+                if (Math.random() < 0.5) {
+                    glitchScreen.classList.remove('hidden');
+                    setTimeout(() => {
+                        glitchScreen.classList.add('hidden');
+                        enterScreen.classList.remove('hidden');
+                    }, 2000);
+                } else {
+                    enterScreen.classList.remove('hidden');
+                }
+            });
+
+            gateImage.onerror = () => {
+                console.error("Image failed to load. Displaying text fallback.");
+                gateImage.classList.add('hidden');
+                gateText.classList.remove('hidden');
+            };
+
+            const gateImages = [
+                'main.png',
+                'frame.png'
+            ];
+            const randomImage = gateImages[Math.floor(Math.random() * gateImages.length)];
+            gateImage.src = randomImage;
+
+            startLoading();
+        });
+    </script>
 </body>
 </html>
+
