@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Main Frame</title>
+    <style>
+        /*
+         * CORE STYLES & UTILITIES
+         * This is the foundation of our digital dystopia. A perfect, clean slate for our nihilism.
+         */
+        body {
+            /* A black void for our nihilism to fester in. */
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+            height: 100vh;
+        }
+        .hidden {
+            /* For things we'd rather not look at. Like our own self-doubt. */
+            display: none;
+        }
+
+        /*
+         * LOADING SCREEN STYLES
+         * The tone is set from the first moment of contact. A digital anachronism.
+         */
+        @font-face {
+            font-family: 'Pixelated';
+            src: url('https://fonts.cdnfonts.com/s/17391/pixelated.woff') format('woff');
+        }
+        .mainframe-loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            font-family: 'Pixelated', monospace;
+            color: #fff;
+            text-align: center;
+            animation: flicker 1s infinite;
+        }
+        .win95-container {
+            /* A tribute to a simpler, more confusing time. A digital nostalgia trip. */
+            width: 80%; max-width: 600px;
+            padding: 20px;
+            border: 2px solid #ccc;
+            box-shadow: 5px 5px 0 #000;
+            background-color: #808080;
+            text-align: left;
+        }
+        .bsod-container {
+            /* A classic, and a promise of what's to come. A polite fiction of failure. */
+            width: 100%;
+            height: 100%;
+            background-color: #000084;
+            color: #c0c0c0;
+            text-align: center;
+            padding: 50px;
+        }
+        .enter-screen-content {
+            /* The final gateway. The point of no return. */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+        .enter-screen-content img {
+            max-width: 80%;
+            height: auto;
+            cursor: pointer;
+        }
+        /*
+         * GEESE BITES CSS (Applied to main container)
+         * This is the subtle, cynical joke. The website looks like a goose took a bite out of it.
+         */
+        #mainframe-wrapper {
+            background-color: #f0f0f0;
+            position: relative;
+            min-height: 100vh;
+            color: #333;
+            /* Top-left bite */
+            -webkit-mask-image: radial-gradient(20px at 0 0, transparent 99%, black) , radial-gradient(24px at 100% 0, transparent 99%, black) , radial-gradient(18px at 0 100%, transparent 99%, black) , radial-gradient(22px at 100% 100%, transparent 99%, black);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            padding: 20px;
+        }
+        /*
+         * ANIMATION KEYFRAMES
+         */
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.9; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<!--
+  - MAIN WRAPPER
+  - Your entire BigCommerce theme content would go inside this.
+  -->
+<div id="mainframe-wrapper" class="hidden">
+    <h1>The Main Frame</h1>
+    <p>Welcome to the main content. This is where your shop, your cynicism, and your beautiful lies will live.</p>
+</div>
+
+<!--
+  - LOADING SEQUENCE HTML
+  -->
+<div id="mainframe-loading" class="mainframe-loading-overlay">
+    <!-- Windows 95 Loader -->
+    <div id="win95-screen" class="win95-container">
+        <div class="win95-header" style="background-color: #000084; color: #fff; padding: 2px 5px; display: flex; justify-content: space-between; align-items: center;">
+            <div>The Main Frame System Update</div>
+            <div style="background-color: #c0c0c0; border: 2px outset #fff; padding: 0 4px; line-height: 1;">x</div>
+        </div>
+        <div class="loading-content" style="padding: 20px 10px; background-color: #c0c0c0; color: #000; font-size: 12px;">
+            <p>Initiating sarcasm subroutine...</p>
+            <div class="progress-bar-container" style="border: 1px solid #000; height: 16px; background-color: #fff; padding: 1px; margin-top: 10px;">
+                <div id="progress-bar" style="height: 100%; width: 0%; background-color: #000084;"></div>
+            </div>
+            <ul style="margin-top: 10px; padding-left: 15px;">
+                <li>> Deleting: Feelings.dll (access denied)</li>
+                <li>> Optimizing: Profit Over People (97% complete)</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Blue Screen of Death -->
+    <div id="bsod-screen" class="hidden bsod-container">
+        <h1 style="font-size: 24px; margin-bottom: 20px;">An error has occurred.</h1>
+        <p style="font-size: 16px; line-height: 1.5;">We've detected a critical flaw in the system architecture. It seems you've stumbled upon a satire shop, a place where capitalism goes to die a slow, ironic death.</p>
+        <p style="font-size: 16px; line-height: 1.5;">Please do not try to make sense of this. We all lose in the end.</p>
+        <button id="bsod-continue" style="margin-top: 40px; padding: 10px 20px; background-color: #c0c0c0; color: #000; border: 2px outset #fff; cursor: pointer;">Click to Continue and Accept Your Fate</button>
+    </div>
+    
+    <!-- Gate Screen -->
+    <div id="enter-screen" class="hidden enter-screen-content">
+        <p style="font-family: 'Pixelated', monospace; font-size: 1.2em; color: white;">Click the FRAME to enter.</p>
+        <a href="#" id="gate-link" style="margin-top: 20px;">
+            <img id="gate-image" src="" alt="Click to enter the site" style="width: 300px; height: auto;">
+        </a>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Flags (for now, these are hardcoded for demonstration)
+        const isUnauthorized = false;
+        const isTorUser = false;
+        const isElectionDay = false;
+
+        // DOM elements for our loading sequence
+        const mainframeWrapper = document.getElementById('mainframe-wrapper');
+        const loadingOverlay = document.getElementById('mainframe-loading');
+        const win95Screen = document.getElementById('win95-screen');
+        const bsodScreen = document.getElementById('bsod-screen');
+        const enterScreen = document.getElementById('enter-screen');
+        const progressBar = document.getElementById('progress-bar');
+        const bsodContinueBtn = document.getElementById('bsod-continue');
+        const gateLink = document.getElementById('gate-link');
+        const gateImage = document.getElementById('gate-image');
+
+        // Start the loading process
+        function startLoading() {
+            if (isElectionDay) {
+                window.location.href = 'https://www.gov.uk/register-to-vote';
+                return;
+            }
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                if (isUnauthorized) {
+                    clearInterval(interval);
+                    win95Screen.classList.add('hidden');
+                    bsodScreen.classList.remove('hidden');
+                    return;
+                }
+                progress += Math.floor(Math.random() * 11) + 3;
+                if (progress > 100) progress = 100;
+                progressBar.style.width = `${progress}%`;
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        win95Screen.classList.add('hidden');
+                        if (isTorUser) {
+                            // TODO: Add Tor Easter egg screen here
+                        } else {
+                            bsodScreen.classList.remove('hidden');
+                        }
+                    }, 700);
+                }
+            }, 420);
+        }
+
+        // BSOD to Gate Transition
+        bsodContinueBtn.addEventListener('click', () => {
+            bsodScreen.classList.add('hidden');
+            enterScreen.classList.remove('hidden');
+
+            const gateImages = [
+                'http://googleusercontent.com/image_generation_content/113', // Mains socket
+                'http://googleusercontent.com/image_generation_content/102'  // Falling picture frame
+            ];
+            const randomImage = gateImages[Math.floor(Math.random() * gateImages.length)];
+            gateImage.src = randomImage;
+        });
+
+        // Enter the Main Site
+        gateLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            loadingOverlay.classList.add('hidden');
+            mainframeWrapper.classList.remove('hidden');
+            
+            // Your other core scripts (like the ticker) would be initialized here.
+        });
+
+        startLoading();
+    });
+</script>
+
+</body>
+</html>
