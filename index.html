@@ -3,242 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Main Frame - Homepage</title>
+    <title>The Main Frame - Loading</title>
     <style>
         /*
          * CORE STYLES & UTILITIES
-         * The foundation of our chaotic shop.
          */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
         }
         .hidden {
             display: none;
         }
         /*
-         * GEESE BITES CSS
-         * The iconic mark of our cynicism.
+         * LOADING SCREEN STYLES
          */
-        #mainframe-wrapper {
-            background-color: #fff;
-            position: relative;
-            min-height: 100vh;
-            /* Top-left bite */
-            -webkit-mask-image: radial-gradient(20px at 0 0, transparent 99%, black), 
-                                radial-gradient(24px at 100% 0, transparent 99%, black), 
-                                radial-gradient(18px at 0 100%, transparent 99%, black), 
-                                radial-gradient(22px at 100% 100%, transparent 99%, black);
-            -webkit-mask-composite: destination-out;
-            mask-composite: exclude;
-            padding: 20px;
-            overflow: hidden;
+        @font-face {
+            font-family: 'Pixelated';
+            src: url('https://fonts.cdnfonts.com/s/17391/pixelated.woff') format('woff');
         }
-        .text-center {
-            text-align: center;
-        }
-        .main-slogan {
-            font-size: 2em;
-            margin-bottom: 40px;
-        }
-        .nav-bar {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .nav-bar a {
-            text-decoration: none;
-            color: #333;
-            margin: 0 15px;
-            font-weight: bold;
-            font-size: 1.1em;
-            transition: color 0.2s ease;
-        }
-        .nav-bar a:hover {
-            color: #e74c3c;
-        }
-        /*
-         * GENERATION GAME STYLE
-         * This is the core CSS for the conveyor belt animation.
-         */
-        .conveyor-belt-container {
-            position: relative;
-            overflow: hidden;
-            height: 300px;
-            border-top: 5px solid #666;
-            border-bottom: 5px solid #666;
-            background-color: #555;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-            cursor: pointer;
-        }
-        .conveyor-belt {
-            position: absolute;
+        .mainframe-loading-overlay {
+            position: fixed;
             top: 0;
             left: 0;
-            white-space: nowrap;
-            animation: conveyor-scroll 45s linear infinite;
-        }
-        .conveyor-belt-container:hover .conveyor-belt {
-            animation-play-state: paused;
-        }
-        .product-item {
-            display: inline-block;
-            width: 250px;
-            height: 250px;
-            margin: 25px;
-            background-color: #f8f8f8;
-            border: 2px solid #333;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            font-family: 'Pixelated', monospace;
+            color: #fff;
             text-align: center;
-            padding: 10px;
-            box-sizing: border-box;
-            vertical-align: top;
-            transition: transform 0.2s ease-in-out;
         }
-        .product-item:hover {
-            transform: scale(1.05);
-        }
-        .product-item img {
-            max-width: 100%;
-            max-height: 150px;
-        }
-        .product-title {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        .buy-button {
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            text-transform: uppercase;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .nav-bar {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .nav-bar a {
-            text-decoration: none;
-            color: #333;
-            margin: 0 15px;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-        .containment-unit {
-            text-align: center;
-            margin-top: 40px;
-            border: 2px solid #e74c3c;
+        .win95-container {
+            width: 80%; max-width: 600px;
             padding: 20px;
-            background-color: #2c3e50;
-            color: #ecf0f1;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            border: 2px solid #ccc;
+            box-shadow: 5px 5px 0 #000;
+            background-color: #808080;
+            text-align: left;
         }
-        .containment-unit img {
-            max-width: 80%;
-            height: auto;
-            margin-top: 20px;
+        .bsod-container {
+            width: 100%;
+            height: 100%;
+            background-color: #000084;
+            color: #c0c0c0;
+            text-align: center;
+            padding: 50px;
         }
-
-        @keyframes conveyor-scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
+        .win95-video-player {
+            width: 400px;
+            border: 2px solid #ccc;
+            box-shadow: 5px 5px 0 #000;
+            background-color: #808080;
+            text-align: left;
+            position: fixed;
+            bottom: 50px;
+            right: 50px;
+            z-index: 100;
+        }
+        .win95-header {
+            background-color: #000084;
+            color: #fff;
+            padding: 2px 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Pixelated', monospace;
+        }
+        .win95-header-button {
+            background-color: #c0c0c0;
+            border: 2px outset #fff;
+            padding: 0 4px;
+            line-height: 1;
+            font-size: 12px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div id="mainframe-wrapper">
-        <div class="container">
-            <!-- Navigation Bar -->
-            <nav class="nav-bar">
-                <a href="index.html">Home</a>
-                <a href="about-us.html">About Us</a>
-            </nav>
-            <h1 class="text-center">The Main Frame</h1>
-            <p class="text-center main-slogan">Welcome to the main content. This is where your shop, your cynicism, and your beautiful lies will live.</p>
-
-            <!-- Generation Game Conveyor Belt -->
-            <div class="conveyor-belt-container">
-                <div class="conveyor-belt">
-                    <!-- Product 1 -->
-                    <div class="product-item">
-                        <img src="[Your Trophy Image Link]" alt="The Unremarkable Award">
-                        <div class="product-title">The Unremarkable Award</div>
-                        <button class="buy-button">Buy Now</button>
-                    </div>
-                    <!-- Product 2 -->
-                    <div class="product-item">
-                        <img src="[Your Spinach Image Link]" alt="Caravan Spinach">
-                        <div class="product-title">Caravan Spinach</div>
-                        <button class="buy-button">Buy Now</button>
-                    </div>
-                    <!-- Product 3 -->
-                    <div class="product-item">
-                        <img src="[Your Subscription Box Image Link]" alt="The Unremembered">
-                        <div class="product-title">The Unremembered</div>
-                        <button class="buy-button">Buy Now</button>
-                    </div>
-                    <!-- Repeat products to fill the conveyor belt -->
-                    <div class="product-item">
-                        <img src="[Your Trophy Image Link]" alt="The Unremarkable Award">
-                        <div class="product-title">The Unremarkable Award</div>
-                        <button class="buy-button">Buy Now</button>
-                    </div>
-                    <div class="product-item">
-                        <img src="[Your Spinach Image Link]" alt="Caravan Spinach">
-                        <div class="product-title">Caravan Spinach</div>
-                        <button class="buy-button">Buy Now</button>
-                    </div>
-                    <div class="product-item">
-                        <img src="[Your Subscription Box Image Link]" alt="The Unremembered">
-                        <div class="product-title">The Unremembered</div>
-                        <button class="buy-button">Buy Now</button>
-                    </div>
-                </div>
+    <div id="mainframe-loading" class="mainframe-loading-overlay">
+        <!-- Windows 95 Loader -->
+        <div id="win95-screen" class="win95-container">
+            <div class="win95-header">
+                <div>The Main Frame System Update</div>
+                <div class="win95-header-button">x</div>
             </div>
-
-            <!-- The new Containment Unit section -->
-            <div class="containment-unit">
-                <h2>Welcome to the containment unit.</h2>
-                <p>Come get the products quicks before they're incinerated or you know don't.</p>
-                <div id="meme-container">
-                    <!-- The meme/gif/video will be displayed here -->
+            <div class="loading-content" style="padding: 20px 10px; background-color: #c0c0c0; color: #000; font-size: 12px;">
+                <p>Initiating sarcasm subroutine...</p>
+                <div class="progress-bar-container" style="border: 1px solid #000; height: 16px; background-color: #fff; padding: 1px; margin-top: 10px;">
+                    <div id="progress-bar" style="height: 100%; width: 0%; background-color: #000084;"></div>
                 </div>
+                <ul style="margin-top: 10px; padding-left: 15px;">
+                    <li>> Deleting: Feelings.dll (access denied)</li>
+                    <li>> Optimizing: Profit Over People (97% complete)</li>
+                </ul>
             </div>
+        </div>
+        
+        <!-- Blue Screen of Death -->
+        <div id="bsod-screen" class="hidden bsod-container">
+            <h1 style="font-size: 24px; margin-bottom: 20px;">An error has occurred.</h1>
+            <p style="font-size: 16px; line-height: 1.5;">We've detected a critical flaw in the system architecture. It seems you've stumbled upon a satire shop, a place where capitalism goes to die a slow, ironic death.</p>
+            <p style="font-size: 16px; line-height: 1.5;">Please do not try to make sense of this. We all lose in the end.</p>
+            <button id="bsod-continue" style="margin-top: 40px; padding: 10px 20px; background-color: #c0c0c0; color: #000; border: 2px outset #fff; cursor: pointer;">Click to Continue and Accept Your Fate</button>
         </div>
     </div>
 
+    <!-- The new Windows 95-themed video player with the Madam Missfit song -->
+    <div class="win95-video-player">
+        <div class="win95-header">
+            <div>Please Hold...</div>
+            <div class="win95-header-button">x</div>
+        </div>
+        <iframe width="100%" height="152" src="https://www.youtube-nocookie.com/embed/uAF5vE3cF80?autoplay=1&loop=1&playlist=uAF5vE3cF80" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // A collection of cynical memes, GIFs, and videos.
-            // In a real-world scenario, you would need a server-side script
-            // to fetch truly random content, but this is a good on-brand
-            // demonstration for a static site.
-            const memeContent = [
-                // A classic "This is fine" meme image
-                '<img src="https://i.kym-cdn.com/photos/images/newsfeed/001/374/613/96f.jpg" alt="This is fine meme">',
-                // A YouTube embed of a chaotic video
-                '<iframe width="560" height="315" src="https://www.youtube.com/embed/2_d85Q_81n8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
-                // Another apathetic meme
-                '<p style="color: #ecf0f1; font-size: 1.5em; font-family: monospace;">This is the part where I pretend to care.</p>'
-            ];
-
-            const memeContainer = document.getElementById('meme-container');
-            const randomMeme = memeContent[Math.floor(Math.random() * memeContent.length)];
-
-            if (memeContainer) {
-                memeContainer.innerHTML = randomMeme;
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                window.speechSynthesis.speak(utterance);
             }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const isUnauthorized = false;
+            const isTorUser = false;
+            const isElectionDay = false;
+
+            const loadingOverlay = document.getElementById('mainframe-loading');
+            const win95Screen = document.getElementById('win95-container');
+            const bsodScreen = document.getElementById('bsod-screen');
+            const progressBar = document.getElementById('progress-bar');
+            const bsodContinueBtn = document.getElementById('bsod-continue');
+            const win95VideoPlayer = document.querySelector('.win95-video-player');
+            const win95VideoPlayerCloseBtn = win95VideoPlayer.querySelector('.win95-header-button');
+
+            win95VideoPlayerCloseBtn.addEventListener('click', () => {
+                win95VideoPlayer.classList.add('hidden');
+            });
+
+            function startLoading() {
+                if (isElectionDay) {
+                    window.location.href = 'https://www.gov.uk/register-to-vote';
+                    return;
+                }
+                
+                let progress = 0;
+                const interval = setInterval(() => {
+                    if (isUnauthorized) {
+                        clearInterval(interval);
+                        win95Screen.classList.add('hidden');
+                        bsodScreen.classList.remove('hidden');
+                        return;
+                    }
+                    progress += Math.floor(Math.random() * 11) + 3;
+                    if (progress > 100) progress = 100;
+                    progressBar.style.width = `${progress}%`;
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            win95Screen.classList.add('hidden');
+                            bsodScreen.classList.remove('hidden');
+                            speak("Don't worry, it's a joke. Sorry if this scared you.");
+                        }, 700);
+                    }
+                }, 420);
+            }
+
+            bsodContinueBtn.addEventListener('click', () => {
+                window.location.href = 'homepage.html';
+            });
+
+            startLoading();
         });
     </script>
 </body>
 </html>
-
