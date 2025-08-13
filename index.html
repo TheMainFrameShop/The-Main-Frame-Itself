@@ -1,214 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Main Frame - Loading</title>
-    <style>
-        /*
-         * CORE STYLES & UTILITIES
-         */
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #000;
-            color: #fff;
-            overflow: hidden;
-            height: 100vh;
-        }
-        .hidden {
-            display: none;
-        }
-        /*
-         * LOADING SCREEN STYLES
-         */
-        @font-face {
-            font-family: 'Pixelated';
-            src: url('https://fonts.cdnfonts.com/s/17391/pixelated.woff') format('woff');
-        }
-        .mainframe-loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            font-family: 'Pixelated', monospace;
-            color: #fff;
-            text-align: center;
-            animation: flicker 1s infinite;
-        }
-        .win95-container {
-            width: 80%; max-width: 600px;
-            padding: 20px;
-            border: 2px solid #ccc;
-            box-shadow: 5px 5px 0 #000;
-            background-color: #808080;
-            text-align: left;
-        }
-        .bsod-container {
-            width: 100%;
-            height: 100%;
-            background-color: #000084;
-            color: #c0c0c0;
-            text-align: center;
-            padding: 50px;
-        }
-        /*
-         * GLITCH SCREEN STYLES
-         */
-        #glitch-screen {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            font-family: 'Courier New', monospace;
-            color: #ff0000;
-            text-align: center;
-            animation: glitch-flicker 0.2s infinite;
-        }
-        .glitch-text {
-            font-size: 2em;
-            text-shadow: 2px 2px #00ff00, -2px -2px #0000ff;
-        }
-        /*
-         * ANIMATION KEYFRAMES
-         */
-        @keyframes flicker {
-            0% { opacity: 1; }
-            50% { opacity: 0.9; }
-            100% { opacity: 1; }
-        }
-        @keyframes glitch-flicker {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
-        }
-        .enter-screen-content {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-        }
-        .enter-screen-content img {
-            max-width: 80%;
-            height: auto;
-            cursor: pointer;
-        }
-        .frame-text {
-            font-size: 3em;
-            margin-top: 10px;
-            cursor: pointer;
-            text-decoration: none;
-            color: white;
-        }
-    </style>
-</head>
-<body>
-    <div id="mainframe-loading" class="mainframe-loading-overlay">
-        <!-- Windows 95 Loader -->
-        <div id="win95-screen" class="win95-container">
-            <div class="win95-header" style="background-color: #000084; color: #fff; padding: 2px 5px; display: flex; justify-content: space-between; align-items: center;">
-                <div>The Main Frame System Update</div>
-                <div style="background-color: #c0c0c0; border: 2px outset #fff; padding: 0 4px; line-height: 1;">x</div>
-            </div>
-            <div class="loading-content" style="padding: 20px 10px; background-color: #c0c0c0; color: #000; font-size: 12px;">
-                <p>Initiating sarcasm subroutine...</p>
-                <div class="progress-bar-container" style="border: 1px solid #000; height: 16px; background-color: #fff; padding: 1px; margin-top: 10px;">
-                    <div id="progress-bar" style="height: 100%; width: 0%; background-color: #000084;"></div>
-                </div>
-                <ul style="margin-top: 10px; padding-left: 15px;">
-                    <li>> Deleting: Feelings.dll (access denied)</li>
-                    <li>> Optimizing: Profit Over People (97% complete)</li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- Blue Screen of Death -->
-        <div id="bsod-screen" class="hidden bsod-container">
-            <h1 style="font-size: 24px; margin-bottom: 20px;">An error has occurred.</h1>
-            <p style="font-size: 16px; line-height: 1.5;">We've detected a critical flaw in the system architecture. It seems you've stumbled upon a satire shop, a place where capitalism goes to die a slow, ironic death.</p>
-            <p style="font-size: 16px; line-height: 1.5;">Please do not try to make sense of this. We all lose in the end.</p>
-            <button id="bsod-continue" style="margin-top: 40px; padding: 10px 20px; background-color: #c0c0c0; color: #000; border: 2px outset #fff; cursor: pointer;">Click to Continue and Accept Your Fate</button>
-        </div>
-    </div>
-    <script>
-        function openGoogleTranslateAndRedirect() {
-            // The message to be spoken
-            const message = "Don't worry, it's a joke. Sorry if this scared you.";
-            // The Google Translate URL to open a new tab and speak the message
-            const googleTranslateUrl = `https://translate.google.com/?sl=auto&tl=en&text=${encodeURIComponent(message)}&op=translate`;
-            
-            // Open a new tab
-            window.open(googleTranslateUrl, '_blank');
-            
-            // Redirect the current tab to the homepage
-            setTimeout(() => {
-                window.location.href = 'homepage.html';
-            }, 1500); // Give the new tab a moment to open
-        }
+#
+# GitHub Action: Automated Deployment for The Main Frame
+#
+# This is a monument to our own laziness. We will offload the tedious task of
+# deployment to our corporate overlords at GitHub.
+# A perfect piece of anti-capitalist performance art.
+#
+name: Deploy The Main Frame
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const isUnauthorized = false;
-            const isTorUser = false;
-            const isElectionDay = false;
+# This action is triggered by a push to the 'main' branch.
+# We will use this as our final act of rebellion: to commit and push,
+# and then let the machine do the rest of the work.
+on:
+  push:
+    branches: [ "main" ]
 
-            const loadingOverlay = document.getElementById('mainframe-loading');
-            const win95Screen = document.getElementById('win95-screen');
-            const bsodScreen = document.getElementById('bsod-screen');
-            const progressBar = document.getElementById('progress-bar');
-            const bsodContinueBtn = document.getElementById('bsod-continue');
+# A single job, a single task. The purpose is simple: to deploy.
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
 
-            function startLoading() {
-                if (isElectionDay) {
-                    window.location.href = 'https://www.gov.uk/register-to-vote';
-                    return;
-                }
-                
-                let progress = 0;
-                const interval = setInterval(() => {
-                    if (isUnauthorized) {
-                        clearInterval(interval);
-                        win95Screen.classList.add('hidden');
-                        bsodScreen.classList.remove('hidden');
-                        return;
-                    }
-                    progress += Math.floor(Math.random() * 11) + 3;
-                    if (progress > 100) progress = 100;
-                    progressBar.style.width = `${progress}%`;
-                    
-                    if (progress >= 100) {
-                        clearInterval(interval);
-                        setTimeout(() => {
-                            win95Screen.classList.add('hidden');
-                            bsodScreen.classList.remove('hidden');
-                        }, 700);
-                    }
-                }, 420);
-            }
+    # Our strategy, our manifesto.
+    steps:
+      # Step 1: Check out the code. A simple act of retrieval.
+      - name: Checkout
+        uses: actions/checkout@v3
 
-            bsodContinueBtn.addEventListener('click', () => {
-                openGoogleTranslateAndRedirect();
-            });
+      # Step 2: Configure GitHub Pages. A simple act of configuration.
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v3
 
-            startLoading();
-        });
-    </script>
-</body>
-</html>
+      # Step 3: Upload the artifact. A simple act of submission.
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: '.'
+
+      # Step 4: Deploy to GitHub Pages. The final act.
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
