@@ -58,27 +58,6 @@
             text-align: center;
             padding: 50px;
         }
-        .enter-screen-content {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-        }
-        .enter-screen-content img {
-            max-width: 80%;
-            height: auto;
-            cursor: pointer;
-        }
-        .frame-text {
-            font-size: 3em;
-            margin-top: 10px;
-            cursor: pointer;
-            text-decoration: none;
-            color: white;
-        }
         /*
          * GLITCH SCREEN STYLES
          */
@@ -147,26 +126,7 @@
             <p style="font-size: 16px; line-height: 1.5;">Please do not try to make sense of this. We all lose in the end.</p>
             <button id="bsod-continue" style="margin-top: 40px; padding: 10px 20px; background-color: #c0c0c0; color: #000; border: 2px outset #fff; cursor: pointer;">Click to Continue and Accept Your Fate</button>
         </div>
-
-        <!-- The Glitch Screen -->
-        <div id="glitch-screen" class="hidden">
-            <div class="glitch-text">
-                ERROR: AI-GEN-1-FATAL. <br>
-                HUMAN SENSE OF HUMOR NOT FOUND. <br>
-                REBOOTING WITH APATHY.
-            </div>
-        </div>
-        
-        <!-- Gate Screen -->
-        <div id="enter-screen" class="hidden enter-screen-content">
-            <p style="font-family: 'Pixelated', monospace; font-size: 1.2em; color: white;">Click the FRAME to enter.</p>
-            <a href="homepage.html" id="gate-link" style="margin-top: 20px; text-decoration: none;">
-                <img id="gate-image" src="" alt="Click to enter the site" style="width: 300px; height: auto;">
-                <span id="gate-text" class="frame-text hidden">FRAME</span>
-            </a>
-        </div>
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const isUnauthorized = false;
@@ -176,13 +136,8 @@
             const loadingOverlay = document.getElementById('mainframe-loading');
             const win95Screen = document.getElementById('win95-screen');
             const bsodScreen = document.getElementById('bsod-screen');
-            const enterScreen = document.getElementById('enter-screen');
-            const glitchScreen = document.getElementById('glitch-screen');
             const progressBar = document.getElementById('progress-bar');
             const bsodContinueBtn = document.getElementById('bsod-continue');
-            const gateLink = document.getElementById('gate-link');
-            const gateImage = document.getElementById('gate-image');
-            const gateText = document.getElementById('gate-text');
 
             function startLoading() {
                 if (isElectionDay) {
@@ -206,42 +161,15 @@
                         clearInterval(interval);
                         setTimeout(() => {
                             win95Screen.classList.add('hidden');
-                            if (isTorUser) {
-                                // TODO: Add Tor Easter egg screen here
-                            } else {
-                                bsodScreen.classList.remove('hidden');
-                            }
+                            bsodScreen.classList.remove('hidden');
                         }, 700);
                     }
                 }, 420);
             }
 
             bsodContinueBtn.addEventListener('click', () => {
-                bsodScreen.classList.add('hidden');
-
-                if (Math.random() < 0.5) {
-                    glitchScreen.classList.remove('hidden');
-                    setTimeout(() => {
-                        glitchScreen.classList.add('hidden');
-                        enterScreen.classList.remove('hidden');
-                    }, 2000);
-                } else {
-                    enterScreen.classList.remove('hidden');
-                }
+                window.location.href = 'homepage.html';
             });
-
-            gateImage.onerror = () => {
-                console.error("Image failed to load. Displaying text fallback.");
-                gateImage.classList.add('hidden');
-                gateText.classList.remove('hidden');
-            };
-
-            const gateImages = [
-                'main.jpg',
-                'frame.jpg'
-            ];
-            const randomImage = gateImages[Math.floor(Math.random() * gateImages.length)];
-            gateImage.src = randomImage;
 
             startLoading();
         });
