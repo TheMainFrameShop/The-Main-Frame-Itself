@@ -56,6 +56,66 @@
             text-align: center;
             padding: 50px;
         }
+        /*
+         * GLITCH SCREEN STYLES
+         */
+        #glitch-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            font-family: 'Courier New', monospace;
+            color: #ff0000;
+            text-align: center;
+            animation: glitch-flicker 0.2s infinite;
+        }
+        .glitch-text {
+            font-size: 2em;
+            text-shadow: 2px 2px #00ff00, -2px -2px #0000ff;
+        }
+        /*
+         * ANIMATION KEYFRAMES
+         */
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.9; }
+            100% { opacity: 1; }
+        }
+        @keyframes glitch-flicker {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        .enter-screen-content {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+        .enter-screen-content img {
+            max-width: 80%;
+            height: auto;
+            cursor: pointer;
+        }
+        .frame-text {
+            font-size: 3em;
+            margin-top: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
         .win95-video-player {
             width: 400px;
             border: 2px solid #ccc;
@@ -83,17 +143,6 @@
             line-height: 1;
             font-size: 12px;
             cursor: pointer;
-        }
-        .play-button {
-            background-color: #1ed760;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            text-transform: uppercase;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 8px;
-            margin-top: 10px;
         }
     </style>
 </head>
@@ -125,13 +174,15 @@
             <button id="bsod-continue" style="margin-top: 40px; padding: 10px 20px; background-color: #c0c0c0; color: #000; border: 2px outset #fff; cursor: pointer;">Click to Continue and Accept Your Fate</button>
         </div>
     </div>
-    
-    <!-- The Spotify embed and mute button -->
-    <div class="spotify-container">
-        <iframe id="spotify-embed" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6M6RfNRRehWaG3lI0BUpI5?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" loading="lazy"></iframe>
-        <button id="play-button" class="play-button">Play Hold Music</button>
-    </div>
 
+    <!-- The new Windows 95-themed video player with the Madam Missfit song -->
+    <div class="win95-video-player">
+        <div class="win95-header">
+            <div>Please Hold...</div>
+            <div class="win95-header-button">x</div>
+        </div>
+        <iframe width="100%" height="152" src="https://www.youtube-nocookie.com/embed/uAF5vE3cF80?si=EyN-qCFJ86TcsRIP&autoplay=1&loop=1&playlist=uAF5vE3cF80" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
     <script>
         function speak(text) {
             if ('speechSynthesis' in window) {
@@ -150,12 +201,11 @@
             const bsodScreen = document.getElementById('bsod-screen');
             const progressBar = document.getElementById('progress-bar');
             const bsodContinueBtn = document.getElementById('bsod-continue');
-            const spotifyEmbed = document.getElementById('spotify-embed');
-            const playButton = document.getElementById('play-button');
+            const win95VideoPlayer = document.querySelector('.win95-video-player');
+            const win95VideoPlayerCloseBtn = win95VideoPlayer.querySelector('.win95-header-button');
 
-            playButton.addEventListener('click', () => {
-                const player = spotifyEmbed.contentWindow;
-                player.postMessage({command: 'togglePlay'}, '*');
+            win95VideoPlayerCloseBtn.addEventListener('click', () => {
+                win95VideoPlayer.classList.add('hidden');
             });
 
             function startLoading() {
