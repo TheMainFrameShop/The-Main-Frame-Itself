@@ -7,300 +7,43 @@
     <style>
         /*
          * CORE STYLES & UTILITIES
-         * This is the foundation of our digital dystopia. A perfect, clean slate for our nihilism.
          */
         body {
-            /* A black void for our nihilism to fester in. */
             margin: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: #000;
-            color: #fff;
-            overflow-x: hidden;
-            height: 100vh;
-        }
-        .hidden {
-            /* For things we'd rather not look at. Like our own self-doubt. */
-            display: none;
-        }
-
-        /*
-         * LOADING SCREEN STYLES
-         * The tone is set from the first moment of contact. A digital anachronism.
-         */
-        @font-face {
-            font-family: 'Pixelated';
-            src: url('https://fonts.cdnfonts.com/s/17391/pixelated.woff') format('woff');
-        }
-        .mainframe-loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            font-family: 'Pixelated', monospace;
-            color: #fff;
-            text-align: center;
-            animation: flicker 1s infinite;
-        }
-        .win95-container {
-            /* A tribute to a simpler, more confusing time. A digital nostalgia trip. */
-            width: 80%; max-width: 600px;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
             padding: 20px;
-            border: 2px solid #ccc;
-            box-shadow: 5px 5px 0 #000;
-            background-color: #808080;
-            text-align: left;
         }
-        .bsod-container {
-            /* A classic, and a promise of what's to come. A polite fiction of failure. */
-            width: 100%;
-            height: 100%;
-            background-color: #000084;
-            color: #c0c0c0;
-            text-align: center;
-            padding: 50px;
-        }
-        .enter-screen-content {
-            /* The final gateway. The point of no return. */
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-        }
-        .enter-screen-content img {
-            max-width: 80%;
-            height: auto;
-            cursor: pointer;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
         }
         /*
-         * GLITCH SCREEN STYLES
-         * A meta-joke about the code itself.
-         */
-        #glitch-screen {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            font-family: 'Courier New', monospace;
-            color: #ff0000;
-            text-align: center;
-            animation: glitch-flicker 0.2s infinite;
-        }
-        .glitch-text {
-            font-size: 2em;
-            text-shadow: 2px 2px #00ff00, -2px -2px #0000ff;
-        }
-        .frame-text {
-            font-size: 3em;
-            margin-top: 10px;
-            cursor: pointer;
-            text-decoration: none;
-            color: white;
-        }
-
-        /*
-         * GEESE BITES CSS (Applied to main container)
-         * This is the subtle, cynical joke. The website looks like a goose took a bite out of it.
+         * GEESE BITES CSS
          */
         #mainframe-wrapper {
-            background-color: #f0f0f0;
+            background-color: #fff;
             position: relative;
             min-height: 100vh;
-            color: #333;
             /* Top-left bite */
             -webkit-mask-image: radial-gradient(20px at 0 0, transparent 99%, black) , radial-gradient(24px at 100% 0, transparent 99%, black) , radial-gradient(18px at 0 100%, transparent 99%, black) , radial-gradient(22px at 100% 100%, transparent 99%, black);
             -webkit-mask-composite: destination-out;
             mask-composite: exclude;
             padding: 20px;
         }
-        /*
-         * ANIMATION KEYFRAMES
-         */
-        @keyframes flicker {
-            0% { opacity: 1; }
-            50% { opacity: 0.9; }
-            100% { opacity: 1; }
-        }
-        @keyframes glitch-flicker {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
-        }
     </style>
 </head>
 <body>
-
-<!--
-  - MAIN WRAPPER
-  - Your entire BigCommerce theme content would go inside this.
-  -->
-<div id="mainframe-wrapper" class="hidden">
-    <h1>The Main Frame</h1>
-    <p>Welcome to the main content. This is where your shop, your cynicism, and your beautiful lies will live.</p>
-</div>
-
-<!--
-  - LOADING SEQUENCE HTML
-  -->
-<div id="mainframe-loading" class="mainframe-loading-overlay">
-    <!-- Windows 95 Loader -->
-    <div id="win95-screen" class="win95-container">
-        <div class="win95-header" style="background-color: #000084; color: #fff; padding: 2px 5px; display: flex; justify-content: space-between; align-items: center;">
-            <div>The Main Frame System Update</div>
-            <div style="background-color: #c0c0c0; border: 2px outset #fff; padding: 0 4px; line-height: 1;">x</div>
-        </div>
-        <div class="loading-content" style="padding: 20px 10px; background-color: #c0c0c0; color: #000; font-size: 12px;">
-            <p>Initiating sarcasm subroutine...</p>
-            <div class="progress-bar-container" style="border: 1px solid #000; height: 16px; background-color: #fff; padding: 1px; margin-top: 10px;">
-                <div id="progress-bar" style="height: 100%; width: 0%; background-color: #000084;"></div>
-            </div>
-            <ul style="margin-top: 10px; padding-left: 15px;">
-                <li>> Deleting: Feelings.dll (access denied)</li>
-                <li>> Optimizing: Profit Over People (97% complete)</li>
-            </ul>
+    <!--
+      - This is your main homepage content. It will be loaded after the loading screen.
+      - Here you can add your product grid, news ticker, and other core features.
+      -->
+    <div id="mainframe-wrapper">
+        <div class="container">
+            <h1>The Main Frame</h1>
+            <p>Welcome to the main content. This is where your shop, your cynicism, and your beautiful lies will live.</p>
         </div>
     </div>
-    
-    <!-- Blue Screen of Death -->
-    <div id="bsod-screen" class="hidden bsod-container">
-        <h1 style="font-size: 24px; margin-bottom: 20px;">An error has occurred.</h1>
-        <p style="font-size: 16px; line-height: 1.5;">We've detected a critical flaw in the system architecture. It seems you've stumbled upon a satire shop, a place where capitalism goes to die a slow, ironic death.</p>
-        <p style="font-size: 16px; line-height: 1.5;">Please do not try to make sense of this. We all lose in the end.</p>
-        <button id="bsod-continue" style="margin-top: 40px; padding: 10px 20px; background-color: #c0c0c0; color: #000; border: 2px outset #fff; cursor: pointer;">Click to Continue and Accept Your Fate</button>
-    </div>
-
-    <!-- The Glitch Screen -->
-    <div id="glitch-screen" class="hidden">
-        <div class="glitch-text">
-            ERROR: AI-GEN-1-FATAL. <br>
-            HUMAN SENSE OF HUMOR NOT FOUND. <br>
-            REBOOTING WITH APATHY.
-        </div>
-    </div>
-    
-    <!-- Gate Screen -->
-    <div id="enter-screen" class="hidden enter-screen-content">
-        <p style="font-family: 'Pixelated', monospace; font-size: 1.2em; color: white;">Click the FRAME to enter.</p>
-        <a href="#" id="gate-link" style="margin-top: 20px; text-decoration: none;">
-            <img id="gate-image" src="" alt="Click to enter the site" style="width: 300px; height: auto;">
-            <span id="gate-text" class="frame-text hidden">FRAME</span>
-        </a>
-    </div>
-</div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Flags (for now, these are hardcoded for demonstration)
-        const isUnauthorized = false;
-        const isTorUser = false;
-        const isElectionDay = false;
-
-        // DOM elements for our loading sequence
-        const mainframeWrapper = document.getElementById('mainframe-wrapper');
-        const loadingOverlay = document.getElementById('mainframe-loading');
-        const win95Screen = document.getElementById('win95-screen');
-        const bsodScreen = document.getElementById('bsod-screen');
-        const enterScreen = document.getElementById('enter-screen');
-        const glitchScreen = document.getElementById('glitch-screen');
-        const progressBar = document.getElementById('progress-bar');
-        const bsodContinueBtn = document.getElementById('bsod-continue');
-        const gateLink = document.getElementById('gate-link');
-        const gateImage = document.getElementById('gate-image');
-        const gateText = document.getElementById('gate-text');
-
-        // Start the loading process
-        function startLoading() {
-            if (isElectionDay) {
-                window.location.href = 'https://www.gov.uk/register-to-vote';
-                return;
-            }
-            
-            let progress = 0;
-            const interval = setInterval(() => {
-                if (isUnauthorized) {
-                    clearInterval(interval);
-                    win95Screen.classList.add('hidden');
-                    bsodScreen.classList.remove('hidden');
-                    return;
-                }
-                progress += Math.floor(Math.random() * 11) + 3;
-                if (progress > 100) progress = 100;
-                progressBar.style.width = `${progress}%`;
-                
-                if (progress >= 100) {
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        win95Screen.classList.add('hidden');
-                        if (isTorUser) {
-                            // TODO: Add Tor Easter egg screen here
-                        } else {
-                            bsodScreen.classList.remove('hidden');
-                        }
-                    }, 700);
-                }
-            }, 420);
-        }
-
-        // BSOD to Gate Transition
-        bsodContinueBtn.addEventListener('click', () => {
-            bsodScreen.classList.add('hidden');
-
-            // Randomly trigger the glitch screen
-            if (Math.random() < 0.5) { // 50% chance of glitch
-                glitchScreen.classList.remove('hidden');
-                setTimeout(() => {
-                    glitchScreen.classList.add('hidden');
-                    enterScreen.classList.remove('hidden');
-                }, 2000); // Glitch lasts 2 seconds
-            } else {
-                enterScreen.classList.remove('hidden');
-            }
-        });
-
-        // Enter the Main Site
-        gateLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            loadingOverlay.classList.add('hidden');
-            mainframeWrapper.classList.remove('hidden');
-            
-            // Your other core scripts (like the ticker) would be initialized here.
-        });
-
-        startLoading();
-
-        // Check if the image failed to load and display text instead
-        gateImage.onerror = () => {
-            console.error("Image failed to load. Displaying text fallback.");
-            gateImage.classList.add('hidden');
-            gateText.classList.remove('hidden');
-        };
-
-        // Set the gate image source
-        const gateImages = [
-            'main.png', // Mains socket
-            'frame.png'  // Falling picture frame
-        ];
-        const randomImage = gateImages[Math.floor(Math.random() * gateImages.length)];
-        gateImage.src = randomImage;
-    });
-</script>
-
 </body>
 </html>
