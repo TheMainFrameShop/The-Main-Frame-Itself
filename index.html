@@ -186,4 +186,65 @@
 
             function startLoading() {
                 if (isElectionDay) {
-                    window.location.href 
+                    window.location.href = 'https://www.gov.uk/register-to-vote';
+                    return;
+                }
+                
+                let progress = 0;
+                const interval = setInterval(() => {
+                    if (isUnauthorized) {
+                        clearInterval(interval);
+                        win95Screen.classList.add('hidden');
+                        bsodScreen.classList.remove('hidden');
+                        return;
+                    }
+                    progress += Math.floor(Math.random() * 11) + 3;
+                    if (progress > 100) progress = 100;
+                    progressBar.style.width = `${progress}%`;
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            win95Screen.classList.add('hidden');
+                            if (isTorUser) {
+                                // TODO: Add Tor Easter egg screen here
+                            } else {
+                                bsodScreen.classList.remove('hidden');
+                            }
+                        }, 700);
+                    }
+                }, 420);
+            }
+
+            bsodContinueBtn.addEventListener('click', () => {
+                bsodScreen.classList.add('hidden');
+
+                if (Math.random() < 0.5) {
+                    glitchScreen.classList.remove('hidden');
+                    setTimeout(() => {
+                        glitchScreen.classList.add('hidden');
+                        enterScreen.classList.remove('hidden');
+                    }, 2000);
+                } else {
+                    enterScreen.classList.remove('hidden');
+                }
+            });
+
+            gateImage.onerror = () => {
+                console.error("Image failed to load. Displaying text fallback.");
+                gateImage.classList.add('hidden');
+                gateText.classList.remove('hidden');
+            };
+
+            const gateImages = [
+                'main.jpg',
+                'frame.jpg'
+            ];
+            const randomImage = gateImages[Math.floor(Math.random() * gateImages.length)];
+            gateImage.src = randomImage;
+
+            startLoading();
+        });
+    </script>
+</body>
+</html>
