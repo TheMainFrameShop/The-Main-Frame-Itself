@@ -95,27 +95,6 @@
             80% { transform: translate(2px, -2px); }
             100% { transform: translate(0); }
         }
-        .enter-screen-content {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-        }
-        .enter-screen-content img {
-            max-width: 80%;
-            height: auto;
-            cursor: pointer;
-        }
-        .frame-text {
-            font-size: 3em;
-            margin-top: 10px;
-            cursor: pointer;
-            text-decoration: none;
-            color: white;
-        }
         .win95-video-player {
             width: 400px;
             border: 2px solid #ccc;
@@ -174,15 +153,16 @@
             <button id="bsod-continue" style="margin-top: 40px; padding: 10px 20px; background-color: #c0c0c0; color: #000; border: 2px outset #fff; cursor: pointer;">Click to Continue and Accept Your Fate</button>
         </div>
     </div>
-
+    
     <!-- The new Windows 95-themed video player with the Madam Missfit song -->
     <div class="win95-video-player">
         <div class="win95-header">
             <div>Please Hold...</div>
             <div class="win95-header-button">x</div>
         </div>
-        <iframe width="100%" height="152" src="https://www.youtube-nocookie.com/embed/uAF5vE3cF80?si=EyN-qCFJ86TcsRIP&autoplay=1&loop=1&playlist=uAF5vE3cF80" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe id="youtube-player" width="100%" height="152" src="https://www.youtube-nocookie.com/embed/uAF5vE3cF80?autoplay=1&loop=1&playlist=uAF5vE3cF80" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
+
     <script>
         function speak(text) {
             if ('speechSynthesis' in window) {
@@ -246,3 +226,4 @@
     </script>
 </body>
 </html>
+
