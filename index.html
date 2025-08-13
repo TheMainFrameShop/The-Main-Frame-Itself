@@ -56,7 +56,7 @@
             text-align: center;
             padding: 50px;
         }
-        .win95-video-player {
+        .win95-audio-player {
             width: 400px;
             border: 2px solid #ccc;
             box-shadow: 5px 5px 0 #000;
@@ -117,13 +117,13 @@
         </div>
     </div>
     
-    <!-- The new Windows 95-themed video player with the Madam Missfit song -->
-    <div class="win95-video-player">
+    <!-- The new Windows 95-themed audio player with the Madam Missfit song -->
+    <div class="win95-audio-player">
         <div class="win95-header">
             <div>Please Hold...</div>
             <div class="win95-header-button">x</div>
         </div>
-        <iframe id="youtube-player" width="100%" height="152" src="https://www.youtube-nocookie.com/embed/uAF5vE3cF80?autoplay=1&loop=1&playlist=uAF5vE3cF80" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1379342917&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
     </div>
 
     <script>
@@ -141,14 +141,14 @@
 
             const loadingOverlay = document.getElementById('mainframe-loading');
             const win95Screen = document.getElementById('win95-container');
-            const bsodScreen = document.getElementById('bsod-container');
+            const bsodScreen = document.getElementById('bsod-screen');
             const progressBar = document.getElementById('progress-bar');
             const bsodContinueBtn = document.getElementById('bsod-continue');
-            const win95VideoPlayer = document.querySelector('.win95-video-player');
-            const win95VideoPlayerCloseBtn = win95VideoPlayer.querySelector('.win95-header-button');
+            const win95AudioPlayer = document.querySelector('.win95-audio-player');
+            const win95AudioPlayerCloseBtn = win95AudioPlayer.querySelector('.win95-header-button');
 
-            win95VideoPlayerCloseBtn.addEventListener('click', () => {
-                win95VideoPlayer.classList.add('hidden');
+            win95AudioPlayerCloseBtn.addEventListener('click', () => {
+                win95AudioPlayer.classList.add('hidden');
             });
 
             function startLoading() {
@@ -179,13 +179,9 @@
                     }
                 }, 420);
             }
-
-            // The button now uses a simple HTML <a> tag to redirect,
-            // which will work even if JavaScript fails.
             
             startLoading();
         });
     </script>
 </body>
 </html>
-
