@@ -115,13 +115,13 @@
         </div>
     </div>
     
-    <!-- The new Windows 95-themed video player with the Madam Missfit song -->
+    <!-- The new Windows 95-themed audio player with the Madam Missfit song -->
     <div class="win95-video-player">
         <div class="win95-header">
             <div>Please Hold...</div>
             <div class="win95-header-button">x</div>
         </div>
-        <iframe id="youtube-player" width="100%" height="152" src="https://www.youtube-nocookie.com/embed/uAF5vE3cF80?autoplay=0&loop=1&playlist=uAF5vE3cF80" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="100%" height="152" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1379342917&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
     </div>
 
     <script>
@@ -144,8 +144,7 @@
             const bsodContinueBtn = document.getElementById('bsod-continue');
             const win95VideoPlayer = document.querySelector('.win95-video-player');
             const win95VideoPlayerCloseBtn = win95VideoPlayer.querySelector('.win95-header-button');
-            const youtubePlayer = document.getElementById('youtube-player');
-            
+
             win95VideoPlayerCloseBtn.addEventListener('click', () => {
                 win95VideoPlayer.classList.add('hidden');
             });
