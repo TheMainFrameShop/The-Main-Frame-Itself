@@ -81,6 +81,31 @@
             cursor: pointer;
         }
         /*
+         * GLITCH SCREEN STYLES
+         * A meta-joke about the code itself.
+         */
+        #glitch-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            font-family: 'Courier New', monospace;
+            color: #ff0000;
+            text-align: center;
+            animation: glitch-flicker 0.2s infinite;
+        }
+        .glitch-text {
+            font-size: 2em;
+            text-shadow: 2px 2px #00ff00, -2px -2px #0000ff;
+        }
+
+        /*
          * GEESE BITES CSS (Applied to main container)
          * This is the subtle, cynical joke. The website looks like a goose took a bite out of it.
          */
@@ -102,6 +127,14 @@
             0% { opacity: 1; }
             50% { opacity: 0.9; }
             100% { opacity: 1; }
+        }
+        @keyframes glitch-flicker {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
         }
     </style>
 </head>
@@ -145,6 +178,15 @@
         <p style="font-size: 16px; line-height: 1.5;">Please do not try to make sense of this. We all lose in the end.</p>
         <button id="bsod-continue" style="margin-top: 40px; padding: 10px 20px; background-color: #c0c0c0; color: #000; border: 2px outset #fff; cursor: pointer;">Click to Continue and Accept Your Fate</button>
     </div>
+
+    <!-- The Glitch Screen -->
+    <div id="glitch-screen" class="hidden">
+        <div class="glitch-text">
+            ERROR: AI-GEN-1-FATAL. <br>
+            HUMAN SENSE OF HUMOR NOT FOUND. <br>
+            REBOOTING WITH APATHY.
+        </div>
+    </div>
     
     <!-- Gate Screen -->
     <div id="enter-screen" class="hidden enter-screen-content">
@@ -168,6 +210,7 @@
         const win95Screen = document.getElementById('win95-screen');
         const bsodScreen = document.getElementById('bsod-screen');
         const enterScreen = document.getElementById('enter-screen');
+        const glitchScreen = document.getElementById('glitch-screen');
         const progressBar = document.getElementById('progress-bar');
         const bsodContinueBtn = document.getElementById('bsod-continue');
         const gateLink = document.getElementById('gate-link');
@@ -209,28 +252,14 @@
         // BSOD to Gate Transition
         bsodContinueBtn.addEventListener('click', () => {
             bsodScreen.classList.add('hidden');
-            enterScreen.classList.remove('hidden');
 
-            const gateImages = [
-                'http://googleusercontent.com/image_generation_content/113', // Mains socket
-                'http://googleusercontent.com/image_generation_content/102'  // Falling picture frame
-            ];
-            const randomImage = gateImages[Math.floor(Math.random() * gateImages.length)];
-            gateImage.src = randomImage;
-        });
-
-        // Enter the Main Site
-        gateLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            loadingOverlay.classList.add('hidden');
-            mainframeWrapper.classList.remove('hidden');
-            
-            // Your other core scripts (like the ticker) would be initialized here.
-        });
-
-        startLoading();
-    });
-</script>
-
-</body>
-</html>
+            // Randomly trigger the glitch screen
+            if (Math.random() < 0.5) { // 50% chance of glitch
+                glitchScreen.classList.remove('hidden');
+                setTimeout(() => {
+                    glitchScreen.classList.add('hidden');
+                    enterScreen.classList.remove('hidden');
+                }, 2000); // Glitch lasts 2 seconds
+            } else {
+                enterScreen.classList.remove('hidden');
+            }
