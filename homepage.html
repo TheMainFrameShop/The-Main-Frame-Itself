@@ -19,6 +19,9 @@
             max-width: 1200px;
             margin: 0 auto;
         }
+        .hidden {
+            display: none;
+        }
         /*
          * GEESE BITES CSS
          */
@@ -27,7 +30,10 @@
             position: relative;
             min-height: 100vh;
             /* Top-left bite */
-            -webkit-mask-image: radial-gradient(20px at 0 0, transparent 99%, black) , radial-gradient(24px at 100% 0, transparent 99%, black) , radial-gradient(18px at 0 100%, transparent 99%, black) , radial-gradient(22px at 100% 100%, transparent 99%, black);
+            -webkit-mask-image: radial-gradient(20px at 0 0, transparent 99%, black), 
+                                radial-gradient(24px at 100% 0, transparent 99%, black), 
+                                radial-gradient(18px at 0 100%, transparent 99%, black), 
+                                radial-gradient(22px at 100% 100%, transparent 99%, black);
             -webkit-mask-composite: destination-out;
             mask-composite: exclude;
             padding: 20px;
@@ -40,9 +46,23 @@
             font-size: 2em;
             margin-bottom: 40px;
         }
+        .nav-bar {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .nav-bar a {
+            text-decoration: none;
+            color: #333;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: color 0.2s ease;
+        }
+        .nav-bar a:hover {
+            color: #e74c3c;
+        }
         /*
          * GENERATION GAME STYLE
-         * This is the core CSS for the conveyor belt animation.
          */
         .conveyor-belt-container {
             position: relative;
@@ -69,7 +89,7 @@
             width: 250px;
             height: 250px;
             margin: 25px;
-            background-color: #f8ff8f8;
+            background-color: #f8f8f8;
             border: 2px solid #333;
             box-shadow: 0 4px 8px rgba(0,0,0,0.3);
             text-align: center;
@@ -218,3 +238,4 @@
     </script>
 </body>
 </html>
+
