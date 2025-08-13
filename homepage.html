@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Main Frame</title>
+    <style>
+        /*
+         * CORE STYLES & UTILITIES
+         */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        /*
+         * GEESE BITES CSS
+         */
+        #mainframe-wrapper {
+            background-color: #fff;
+            position: relative;
+            min-height: 100vh;
+            /* Top-left bite */
+            -webkit-mask-image: radial-gradient(20px at 0 0, transparent 99%, black) , radial-gradient(24px at 100% 0, transparent 99%, black) , radial-gradient(18px at 0 100%, transparent 99%, black) , radial-gradient(22px at 100% 100%, transparent 99%, black);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!--
+      - This is your main homepage content. It will be loaded after the loading screen.
+      - Here you can add your product grid, news ticker, and other core features.
+      -->
+    <div id="mainframe-wrapper">
+        <div class="container">
+            <h1>The Main Frame</h1>
+            <p>Welcome to the main content. This is where your shop, your cynicism, and your beautiful lies will live.</p>
+        </div>
+    </div>
+</body>
+</html>
