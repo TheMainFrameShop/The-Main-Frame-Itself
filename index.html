@@ -128,6 +128,13 @@
         </div>
     </div>
     <script>
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const isUnauthorized = false;
             const isTorUser = false;
@@ -162,6 +169,7 @@
                         setTimeout(() => {
                             win95Screen.classList.add('hidden');
                             bsodScreen.classList.remove('hidden');
+                            speak("Don't worry, it's a joke. Sorry if this scared you.");
                         }, 700);
                     }
                 }, 420);
