@@ -263,3 +263,20 @@
             } else {
                 enterScreen.classList.remove('hidden');
             }
+        });
+
+        // Enter the Main Site
+        gateLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            loadingOverlay.classList.add('hidden');
+            mainframeWrapper.classList.remove('hidden');
+            
+            // Your other core scripts (like the ticker) would be initialized here.
+        });
+
+        startLoading();
+    });
+</script>
+
+</body>
+</html>
