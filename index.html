@@ -56,9 +56,55 @@
             text-align: center;
             padding: 50px;
         }
-        /*
-         * GLITCH SCREEN STYLES
-         */
+        .win95-video-player {
+            width: 400px;
+            border: 2px solid #ccc;
+            box-shadow: 5px 5px 0 #000;
+            background-color: #808080;
+            text-align: left;
+            position: fixed;
+            bottom: 50px;
+            right: 50px;
+            z-index: 100;
+        }
+        .win95-header {
+            background-color: #000084;
+            color: #fff;
+            padding: 2px 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Pixelated', monospace;
+        }
+        .win95-header-button {
+            background-color: #c0c0c0;
+            border: 2px outset #fff;
+            padding: 0 4px;
+            line-height: 1;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .enter-screen-content {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+        .enter-screen-content img {
+            max-width: 80%;
+            height: auto;
+            cursor: pointer;
+        }
+        .frame-text {
+            font-size: 3em;
+            margin-top: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
         #glitch-screen {
             position: absolute;
             top: 0;
@@ -94,34 +140,6 @@
             60% { transform: translate(2px, 2px); }
             80% { transform: translate(2px, -2px); }
             100% { transform: translate(0); }
-        }
-        .win95-video-player {
-            width: 400px;
-            border: 2px solid #ccc;
-            box-shadow: 5px 5px 0 #000;
-            background-color: #808080;
-            text-align: left;
-            position: fixed;
-            bottom: 50px;
-            right: 50px;
-            z-index: 100;
-        }
-        .win95-header {
-            background-color: #000084;
-            color: #fff;
-            padding: 2px 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: 'Pixelated', monospace;
-        }
-        .win95-header-button {
-            background-color: #c0c0c0;
-            border: 2px outset #fff;
-            padding: 0 4px;
-            line-height: 1;
-            font-size: 12px;
-            cursor: pointer;
         }
     </style>
 </head>
@@ -226,4 +244,3 @@
     </script>
 </body>
 </html>
-
