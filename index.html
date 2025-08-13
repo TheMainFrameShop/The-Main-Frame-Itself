@@ -104,6 +104,13 @@
             font-size: 2em;
             text-shadow: 2px 2px #00ff00, -2px -2px #0000ff;
         }
+        .frame-text {
+            font-size: 3em;
+            margin-top: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
 
         /*
          * GEESE BITES CSS (Applied to main container)
@@ -191,8 +198,9 @@
     <!-- Gate Screen -->
     <div id="enter-screen" class="hidden enter-screen-content">
         <p style="font-family: 'Pixelated', monospace; font-size: 1.2em; color: white;">Click the FRAME to enter.</p>
-        <a href="#" id="gate-link" style="margin-top: 20px;">
+        <a href="#" id="gate-link" style="margin-top: 20px; text-decoration: none;">
             <img id="gate-image" src="" alt="Click to enter the site" style="width: 300px; height: auto;">
+            <span id="gate-text" class="frame-text hidden">FRAME</span>
         </a>
     </div>
 </div>
@@ -215,6 +223,7 @@
         const bsodContinueBtn = document.getElementById('bsod-continue');
         const gateLink = document.getElementById('gate-link');
         const gateImage = document.getElementById('gate-image');
+        const gateText = document.getElementById('gate-text');
 
         // Start the loading process
         function startLoading() {
@@ -275,6 +284,21 @@
         });
 
         startLoading();
+
+        // Check if the image failed to load and display text instead
+        gateImage.onerror = () => {
+            console.error("Image failed to load. Displaying text fallback.");
+            gateImage.classList.add('hidden');
+            gateText.classList.remove('hidden');
+        };
+
+        // Set the gate image source
+        const gateImages = [
+            'http://googleusercontent.com/image_generation_content/113', // Mains socket
+            'http://googleusercontent.com/image_generation_content/102'  // Falling picture frame
+        ];
+        const randomImage = gateImages[Math.floor(Math.random() * gateImages.length)];
+        gateImage.src = randomImage;
     });
 </script>
 
