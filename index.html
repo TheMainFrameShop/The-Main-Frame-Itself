@@ -97,6 +97,27 @@
             80% { transform: translate(2px, -2px); }
             100% { transform: translate(0); }
         }
+        .enter-screen-content {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+        .enter-screen-content img {
+            max-width: 80%;
+            height: auto;
+            cursor: pointer;
+        }
+        .frame-text {
+            font-size: 3em;
+            margin-top: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -128,11 +149,19 @@
         </div>
     </div>
     <script>
-        function speak(text) {
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                window.speechSynthesis.speak(utterance);
-            }
+        function openGoogleTranslateAndRedirect() {
+            // The message to be spoken
+            const message = "Don't worry, it's a joke. Sorry if this scared you.";
+            // The Google Translate URL to open a new tab and speak the message
+            const googleTranslateUrl = `https://translate.google.com/?sl=auto&tl=en&text=${encodeURIComponent(message)}&op=translate`;
+            
+            // Open a new tab
+            window.open(googleTranslateUrl, '_blank');
+            
+            // Redirect the current tab to the homepage
+            setTimeout(() => {
+                window.location.href = 'homepage.html';
+            }, 1500); // Give the new tab a moment to open
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -169,14 +198,13 @@
                         setTimeout(() => {
                             win95Screen.classList.add('hidden');
                             bsodScreen.classList.remove('hidden');
-                            speak("Don't worry, it's a joke. Sorry if this scared you.");
                         }, 700);
                     }
                 }, 420);
             }
 
             bsodContinueBtn.addEventListener('click', () => {
-                window.location.href = 'homepage.html';
+                openGoogleTranslateAndRedirect();
             });
 
             startLoading();
