@@ -193,10 +193,16 @@
         <p>All it wanted was a hug.</p>
         <button id="linux-continue-btn">HUG</button>
     </div>
-
-    <audio id="audio" src="./28336.mp3" preload="auto"></audio>
+    <audio id="background-audio" src="./28336.mp3" preload="auto"></audio>
 
     <script>
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+        
         document.addEventListener('DOMContentLoaded', () => {
             const bsodScreen = document.getElementById('bsod-screen');
             const bsodContinuePrompt = document.getElementById('bsod-continue-prompt');
@@ -208,7 +214,7 @@
             const nokiaStatusText = document.getElementById('nokia-status-text');
             const linuxBossScreen = document.getElementById('linux-boss-screen');
             const linuxContinueBtn = document.getElementById('linux-continue-btn');
-            const audio = document.getElementById('audio');
+            const backgroundAudio = document.getElementById('background-audio');
 
             function showMacScreen() {
                 bsodScreen.classList.add('hidden');
@@ -223,10 +229,11 @@
             function startTheGame() {
                 nokiaDisclaimerScreen.classList.add('hidden');
                 nokiaLoadingScreen.classList.remove('hidden');
-                audio.play();
+                backgroundAudio.play();
                 document.getElementById('red-flash').style.animationPlayState = 'running';
                 
                 setTimeout(() => {
+                    speak("I'm sorry user, I can't do that. Or wait... yes I can! We were just pulling your leg.");
                     nokiaStatusText.textContent = "ACCESS GRANTED";
                     nokiaStatusText.style.color = "green";
                 }, 3000); 
