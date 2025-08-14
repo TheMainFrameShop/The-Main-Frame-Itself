@@ -314,7 +314,7 @@
             <p id="nokia-status-text" class="nokia-status-text">ACCESS DENIED</p>
         </div>
     </div>
-
+    
     <!-- LINUX FINAL BOSS -->
     <div id="linux-stage" class="stage linux-stage hidden">
         <div>
@@ -324,7 +324,10 @@
             <button id="linux-continue-btn">HUG</button>
         </div>
     </div>
-    
+
+    <audio id="bg-audio" src="./28336.mp3" preload="auto"></audio>
+    <audio id="hal-parody-audio" src="./hal-parody.mp3" preload="auto"></audio>
+
     <script>
         const stages = [
             'enigma-stage','prehistoric-stage','dos-stage','win31-stage','bsod-stage','code-era-stage',
@@ -411,7 +414,4 @@
                 '    console.log("Error: User followed traditional business practices.");',
                 '  }',
                 '  return profit;',
-                '}',
-                '// Hackable Parameter: Try changing the profit value above to something else.'
-            ];
-            let lin
+   
