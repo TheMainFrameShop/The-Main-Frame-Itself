@@ -174,8 +174,8 @@
 
     <!-- Stage 3: The Nokia disclaimer screen -->
     <div id="nokia-disclaimer-screen" class="hidden nokia-screen-container">
-        <h2><span style="font-size: 24px;">!</span> SEIZURE WARNING</h2>
-        <p style="font-size: 12px;">This site contains flashing lights and animations. By clicking "Continue," you acknowledge this warning and proceed at your own risk.</p>
+        <h2 style="font-family: 'NokiaFont', monospace;"><span style="font-size: 24px;">!</span> SEIZURE WARNING</h2>
+        <p style="font-size: 12px; font-family: 'NokiaFont', monospace;">This site contains flashing lights and animations. By clicking "Continue," you acknowledge this warning and proceed at your own risk.</p>
         <div class="nokia-screen-buttons">
             <button id="nokia-disclaimer-continue-btn">CONTINUE</button>
             <button id="nokia-disclaimer-exit-btn" onclick="window.location.href='https://www.google.com';">EXIT</button>
@@ -206,10 +206,12 @@
     <audio id="hal-parody-audio" src="./hal-parody.mp3" preload="auto"></audio>
 
     <script>
-        function speak(text) {
+        function speak(text, delay) {
             if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                window.speechSynthesis.speak(utterance);
+                setTimeout(() => {
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    window.speechSynthesis.speak(utterance);
+                }, delay);
             }
         }
         
@@ -226,7 +228,6 @@
             const linuxBossScreen = document.getElementById('linux-boss-screen');
             const linuxContinueBtn = document.getElementById('linux-continue-btn');
             const audio = document.getElementById('audio');
-            const halParodyAudio = document.getElementById('hal-parody-audio');
 
             function showMacScreen() {
                 bsodScreen.classList.add('hidden');
@@ -257,16 +258,21 @@
                 audio.play();
                 document.getElementById('red-flash').style.animationPlayState = 'running';
                 
+                // Text-to-speech timed to the music
+                speak("I'm sorry user,", 1200);
+                speak("I can't do that.", 2500);
+                speak("Or wait... yes I can!", 4000);
+                speak("We were just pulling your leg.", 5500);
+
                 setTimeout(() => {
-                    speak("I'm sorry user, I can't do that. Or wait... yes I can! We were just pulling your leg.");
                     nokiaStatusText.textContent = "ACCESS GRANTED";
                     nokiaStatusText.style.color = "green";
-                }, 3000); 
+                }, 6000); 
 
                 setTimeout(() => {
                     nokiaLoadingScreen.classList.add('hidden');
                     showLinuxBossScreen();
-                }, 7000);
+                }, 9000);
             }
 
             function showLinuxBossScreen() {
