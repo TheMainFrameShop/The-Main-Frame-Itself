@@ -57,7 +57,7 @@
             cursor: pointer;
         }
 
-        /* MAC PARODY STYLES (now includes fruit cycling) */
+        /* MAC PARODY STYLES (now includes icon cycling) */
         .mac-container {
             width: 80%; max-width: 400px;
             padding: 20px;
@@ -130,7 +130,7 @@
             50% { opacity: 1; }
         }
         
-        /* LINUX STYLES (now cycles GIFs) */
+        /* LINUX STYLES (with Giphy GIFs) */
         .linux-container {
             width: 80%; max-width: 400px;
             padding: 20px;
@@ -159,7 +159,7 @@
     </div>
 
     <div id="mac-screen" class="hidden mac-container">
-        <img id="mac-logo" src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Macintosh_icon.svg" alt="Macintosh Logo" class="mac-logo">
+        <img id="mac-logo" src="https://svgrepo.com/show/367375/apple-logo.svg" alt="Macintosh Logo" class="mac-logo">
         <div class="mac-header">Welcome to The Main Frame</div>
         <p style="font-size: 12px;">Gemini Subroutines Loading...</p>
         <button id="mac-continue-btn">Continue</button>
@@ -207,34 +207,29 @@
             const audio = document.getElementById('audio');
 
             // --- Game Logic ---
-            // The fruit images for the Mac parody
             const fruitImages = [
-                'https://upload.wikimedia.org/wikipedia/commons/9/91/Orange_icon.svg',
-                'https://upload.wikimedia.org/wikipedia/commons/8/87/Lemon_icon.svg',
-                'https://upload.wikimedia.org/wikipedia/commons/8/82/Grape_icon.svg',
-                'https://upload.wikimedia.org/wikipedia/commons/a/a2/Banana_icon.svg',
-                'https://upload.wikimedia.org/wikipedia/commons/f/ff/Strawberry_icon.svg',
+                'https://svgrepo.com/show/517604/orange.svg',
+                'https://svgrepo.com/show/435133/strawberry-fruit.svg',
+                'https://svgrepo.com/show/517606/grapes.svg',
+                'https://svgrepo.com/show/517607/banana.svg',
             ];
             let fruitIndex = 0;
             const macLogo = document.getElementById('mac-logo');
             let fruitInterval;
 
-            // The Linux penguin GIFs for the final boss
             const penguinGIFs = [
-                'https://i.imgur.com/uR2B32M.gif',
-                'https://i.imgur.com/vHq0L5W.gif',
-                'https://i.imgur.com/pYxQ86c.gif',
+                'https://media.giphy.com/media/l4pTcO52u34I2o8RG/giphy.gif',
+                'https://media.giphy.com/media/l4pT2p1b21z53U9bO/giphy.gif',
+                'https://media.giphy.com/media/3o6wrk0J3Qc0bY5y8/giphy.gif',
             ];
             let penguinIndex = 0;
             const linuxLogo = document.getElementById('linux-logo');
             let penguinInterval;
 
-            // Step 1: Start the game from the BSOD screen
             function showMacScreen() {
                 bsodScreen.classList.add('hidden');
                 macScreen.classList.remove('hidden');
 
-                // Cycle through the fruit logos
                 macLogo.src = fruitImages[0];
                 fruitInterval = setInterval(() => {
                     fruitIndex = (fruitIndex + 1) % fruitImages.length;
@@ -242,14 +237,12 @@
                 }, 500);
             }
             
-            // Step 2: Continue from the Mac screen to the Nokia disclaimer
             function showNokiaDisclaimer() {
-                clearInterval(fruitInterval); // Stop the fruit cycle
+                clearInterval(fruitInterval);
                 macScreen.classList.add('hidden');
                 nokiaDisclaimerScreen.classList.remove('hidden');
             }
 
-            // Step 3: Continue from the Nokia disclaimer to the final loading screen
             function startTheGame() {
                 nokiaDisclaimerScreen.classList.add('hidden');
                 nokiaLoadingScreen.classList.remove('hidden');
@@ -262,25 +255,21 @@
                 }, 3000); 
             }
 
-            // Step 4: Show the Linux boss screen
             function showLinuxBossScreen() {
                 linuxBossScreen.classList.remove('hidden');
                 
-                // Cycle through the penguin GIFs
                 linuxLogo.src = penguinGIFs[0];
                 penguinInterval = setInterval(() => {
                     penguinIndex = (penguinIndex + 1) % penguinGIFs.length;
                     linuxLogo.src = penguinGIFs[penguinIndex];
-                }, 1000); // Cycle every second
+                }, 1000); 
             }
 
-            // Step 5: Final step to the homepage
             function hugThePenguin() {
-                clearInterval(penguinInterval); // Stop the GIF cycle
+                clearInterval(penguinInterval);
                 window.location.href = 'homepage.html';
             }
 
-            // Add all the event listeners for the puzzle
             document.getElementById('bsod-screen').addEventListener('click', showMacScreen);
             document.addEventListener('keydown', showMacScreen);
             window.addEventListener('gamepadconnected', showMacScreen);
