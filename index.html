@@ -159,7 +159,9 @@
     </div>
 
     <div id="mac-screen" class="hidden mac-container">
-        <img id="mac-logo" src="./1755174544360-ezgif.com-video-to-gif-converter.gif" alt="Macintosh Parody Logo" class="mac-logo">
+        <video id="mac-video" class="mac-logo" autoplay loop muted playsinline>
+            <source src="./1755174544360.mp4" type="video/mp4">
+        </video>
         <div class="mac-header">Welcome to The Main Frame</div>
         <p style="font-size: 12px;">Gemini Subroutines Loading...</p>
         <button id="mac-continue-btn">Continue</button>
@@ -198,6 +200,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const bsodScreen = document.getElementById('bsod-screen');
             const macScreen = document.getElementById('mac-screen');
+            const macVideo = document.getElementById('mac-video');
             const macContinueBtn = document.getElementById('mac-continue-btn');
             const nokiaDisclaimerScreen = document.getElementById('nokia-disclaimer-screen');
             const nokiaDisclaimerContinueBtn = document.getElementById('nokia-disclaimer-continue-btn');
