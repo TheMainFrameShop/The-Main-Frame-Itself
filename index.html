@@ -147,7 +147,6 @@
     </style>
 </head>
 <body>
-
     <!-- ENIGMA STAGE -->
     <div id="enigma-stage" class="stage enigma-stage active">
         <div class="enigma-output">
@@ -331,11 +330,9 @@
 
     <script>
         const stages = [
-            'enigma-stage', 'prehistoric-stage', 'dos-stage', 'win31-stage',
-            'bsod-stage', 'code-era-stage', 'winxp-stage', 'fox-stage',
-            'sus-history-stage', 'mac-stage', 'arcade-stage', 'rave-era-stage',
-            'glitch-stage', 'nokia-warning-stage', 'nokia-parody-stage',
-            'linux-stage'
+            'enigma-stage','prehistoric-stage','dos-stage','win31-stage','bsod-stage','code-era-stage',
+            'winxp-stage','fox-stage','sus-history-stage','mac-stage','arcade-stage','rave-era-stage',
+            'glitch-stage','nokia-warning-stage','nokia-parody-stage','linux-stage'
         ];
         let currentStageIndex = 0;
         
@@ -350,7 +347,9 @@
 
         function showStage(index) {
             const allStages = document.querySelectorAll('.stage');
-            allStages.forEach(stage => stage.classList.remove('active'));
+            allStages.forEach(stage => {
+                stage.classList.remove('active');
+            });
             document.getElementById(stages[index]).classList.add('active');
             runStageLogic(stages[index]);
         }
@@ -414,4 +413,4 @@
                 '    profit = 0;',
                 '    console.log("Error: User followed traditional business practices.");',
                 '  }',
-          
+               
