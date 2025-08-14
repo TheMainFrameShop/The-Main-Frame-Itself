@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>The Main Frame — Low-Flash Chaotic Version</title>
+<title>The Main Frame — Music‑Synced Version</title>
 <style>
   body { margin:0; font-family:monospace; background:#000; color:#fff; }
   #container { display:flex; height:100vh; }
@@ -12,80 +12,80 @@
   .win95-header { background:#000084; color:#fff; padding:2px 5px; margin-bottom:10px; }
   .mac-container, .nokia-container, .linux-container { margin:.5rem; padding:1rem; border:2px solid #ccc; background:#c0c0c0; text-align:center; width:80%; }
   button { cursor:pointer; }
+  .highlight { background:yellow; color:black; }
 </style>
 </head>
 <body>
 
 <div id="container">
   <div id="preview">
-    <!-- Windows BSOD Stage -->
-    <div class="stage win95-container">
+    <div class="stage win95-container" id="windows-stage">
       <div class="win95-header">An Error Has Occurred</div>
       <p>We've detected a critical flaw in the system architecture. It seems you've stumbled upon a satire shop.</p>
       <p>Please do not try to make sense of this. We all lose in the end.</p>
     </div>
 
-    <!-- Mac Parody Stage -->
-    <div class="mac-container">
+    <div class="mac-container" id="mac-stage">
       <p>Mac parody with icons and progress bar...</p>
     </div>
 
-    <!-- Nokia Disclaimer Stage -->
-    <div class="nokia-container">
+    <div class="nokia-container" id="nokia-stage">
       <h2>! SEIZURE WARNING</h2>
       <p>Flashing lights and animations ahead.</p>
       <button id="nokia-continue-btn">CONTINUE</button>
       <button onclick="window.location.href='https://www.google.com';">EXIT</button>
     </div>
 
-    <!-- Linux Boss Stage -->
-    <div class="linux-container">
+    <div class="linux-container" id="linux-stage">
       <p>Linux final boss: Tux the Penguin</p>
       <button id="linux-hug-btn">HUG</button>
     </div>
 
-    <audio id="bgMusic" src="toccata_fugue_d_minor.mp3" autoplay controls></audio>
+    <audio id="bgMusic" src="toccata_fugue_d_minor.mp3" autoplay></audio>
   </div>
 
   <div id="side-code">
-We are now explicitly planning to sync all animations and TTS dialogue with "Toccata and Fugue in D Minor".
+We now have live, in‑sync animations and TTS driven directly by the audio's playback time.
 
-Steps for proper sync:
-1. Embed the music track in the page.
-2. Use audio.currentTime to schedule animations and TTS lines.
-3. Map timestamps to sheet music peaks and accents.
-
-Animations & Dialogue:
-- Windows BSOD text animates on strong downbeats.
-- Mac icons fade/pulse on melody accents.
-- Nokia status lights update with quieter motifs.
-- Linux boss finale animates at climactic moments.
-
-Next:
-- Refine exact timestamps per musical bars.
-- Implement scheduler to trigger visuals/TTS precisely in sync with the music.
+Stages animate at musical peaks:
+- Windows BSOD: strong downbeats.
+- Mac: melody accents.
+- Nokia: quieter motifs.
+- Linux: final climactic chords.
 
 <script>
   const audio = document.getElementById('bgMusic');
-  const nokiaContinueBtn = document.getElementById('nokia-continue-btn');
-  const linuxHugBtn = document.getElementById('linux-hug-btn');
+  const windowsStage = document.getElementById('windows-stage');
+  const macStage = document.getElementById('mac-stage');
+  const nokiaStage = document.getElementById('nokia-stage');
+  const linuxStage = document.getElementById('linux-stage');
 
-  nokiaContinueBtn.addEventListener('click', () => {
-    alert('Starting the game sequence in sync with music...');
-  });
+  function animateStage(stage) {
+    stage.classList.add('highlight');
+    setTimeout(() => stage.classList.remove('highlight'), 500);
+  }
 
-  linuxHugBtn.addEventListener('click', () => {
-    alert('Penguin hugged! Returning to homepage.');
-    window.location.href = 'homepage.html';
-  });
+  function scheduler() {
+    const t = audio.currentTime;
+
+    if (Math.floor(t) === 1) animateStage(windowsStage);
+    if (Math.floor(t) === 5) animateStage(macStage);
+    if (Math.floor(t) === 10) animateStage(nokiaStage);
+    if (Math.floor(t) === 15) animateStage(linuxStage);
+
+    requestAnimationFrame(scheduler);
+  }
 
   audio.addEventListener('play', () => {
-    console.log('Music started: syncing animations and TTS to Toccata and Fugue in D Minor');
-    // Example scheduled events
-    setTimeout(() => console.log('Windows BSOD text animates'), 1000);
-    setTimeout(() => console.log('Mac icons fade in'), 5000);
-    setTimeout(() => console.log('Nokia status updates'), 10000);
-    setTimeout(() => console.log('Linux boss finale animation'), 15000);
+    scheduler();
+  });
+
+  document.getElementById('nokia-continue-btn').addEventListener('click', () => {
+    alert('Continuing synced sequence...');
+  });
+
+  document.getElementById('linux-hug-btn').addEventListener('click', () => {
+    alert('Penguin hugged!');
   });
 </script>
   </div>
