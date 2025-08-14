@@ -199,6 +199,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const bsodScreen = document.getElementById('bsod-screen');
+            const bsodContinuePrompt = document.getElementById('bsod-continue-prompt');
             const macScreen = document.getElementById('mac-screen');
             const macContinueBtn = document.getElementById('mac-continue-btn');
             const nokiaDisclaimerScreen = document.getElementById('nokia-disclaimer-screen');
@@ -223,3 +224,38 @@
                 nokiaDisclaimerScreen.classList.add('hidden');
                 nokiaLoadingScreen.classList.remove('hidden');
                 audio.play();
+                document.getElementById('red-flash').style.animationPlayState = 'running';
+                
+                setTimeout(() => {
+                    nokiaStatusText.textContent = "ACCESS GRANTED";
+                    nokiaStatusText.style.color = "green";
+                }, 3000); 
+
+                setTimeout(() => {
+                    nokiaLoadingScreen.classList.add('hidden');
+                    showLinuxBossScreen();
+                }, 7000);
+            }
+
+            function showLinuxBossScreen() {
+                linuxBossScreen.classList.remove('hidden');
+            }
+
+            function hugThePenguin() {
+                window.location.href = 'homepage.html';
+            }
+
+            // Click or touch the specific text to continue
+            bsodContinuePrompt.addEventListener('click', showMacScreen);
+            bsodContinuePrompt.addEventListener('touchstart', showMacScreen);
+
+            document.addEventListener('keydown', showMacScreen);
+            window.addEventListener('gamepadconnected', showMacScreen);
+            
+            macContinueBtn.addEventListener('click', showNokiaDisclaimer);
+            nokiaDisclaimerContinueBtn.addEventListener('click', startTheGame);
+            linuxContinueBtn.addEventListener('click', hugThePenguin);
+        });
+    </script>
+</body>
+</html>
