@@ -22,7 +22,7 @@
         .enigma-output { white-space:pre-wrap; text-align:left; width:80%; max-width:600px; }
         .enigma-prompt { font-size:1.2em; margin-top:1em; }
 
-        /* DOS STYLES */
+        /* DOS STAGE */
         .dos-stage { text-align:left; color:#e6e6e6; background:#0d0d0d; }
         .dos-output { width:80%; max-width:600px; }
 
@@ -414,4 +414,129 @@
                 '    profit = 0;',
                 '    console.log("Error: User followed traditional business practices.");',
                 '  }',
-             
+                '  return profit;',
+                '}',
+                '// Hackable Parameter: Try changing the profit value above to something else.'
+            ];
+            let lineIndex = 0;
+            let charIndex = 0;
+            const typingSpeed = 20;
+
+            const typingInterval = setInterval(() => {
+                if (lineIndex < code.length) {
+                    const currentLine = code[lineIndex];
+                    if (charIndex <= currentLine.length) {
+                        codeBlock.innerHTML = code.slice(0, lineIndex).join('<br>') + '<br>' + currentLine.substring(0, charIndex) + '<span style="animation:blink 1s step-end infinite;">_</span>';
+                        charIndex++;
+                    } else {
+                        lineIndex++;
+                        charIndex = 0;
+                    }
+                } else {
+                    clearInterval(typingInterval);
+                    document.getElementById('code-era-continue-btn').classList.remove('hidden');
+                }
+            }, typingSpeed);
+        }
+
+        function setupPrehistoricInteractions() {
+            const prehistoricItems = document.querySelectorAll('.prehistoric-item');
+            const prehistoricInfo = document.getElementById('prehistoric-info');
+            prehistoricItems.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    prehistoricInfo.textContent = item.getAttribute('data-info');
+                    prehistoricInfo.classList.remove('hidden');
+                });
+                item.addEventListener('mouseleave', () => {
+                    prehistoricInfo.classList.add('hidden');
+                });
+            });
+            document.getElementById('prehistoric-continue-btn').addEventListener('click', () => nextStage());
+        }
+
+        function setupSeventiesInteractions() {
+            const infoIcons = document.querySelectorAll('.info-icon');
+            const infoPanel = document.getElementById('info-panel');
+            infoIcons.forEach(icon => {
+                icon.addEventListener('click', (event) => {
+                    const info = event.target.closest('.info-icon').getAttribute('data-info');
+                    infoPanel.textContent = info;
+                    infoPanel.classList.remove('hidden');
+                });
+            });
+            document.getElementById('seventies-continue-btn').addEventListener('click', () => nextStage());
+        }
+
+        function setupArcadeStage() {
+            document.getElementById('insert-coin-btn').addEventListener('click', () => {
+                const arcadeScreen = document.getElementById('arcade-screen');
+                arcadeScreen.innerHTML = '<h2>PLAYING...</h2><p>Game over. Press continue to proceed.</p>';
+                document.getElementById('insert-coin-btn').classList.add('hidden');
+                document.getElementById('arcade-continue-btn').classList.remove('hidden');
+            });
+        }
+
+        function fillProgress(id, duration, callback) {
+            const el = document.getElementById(id);
+            let width = 0;
+            const interval = setInterval(() => {
+                width += 2;
+                if (width >= 100) {
+                    width = 100;
+                    clearInterval(interval);
+                    if (callback) callback();
+                }
+                el.style.width = width + '%';
+            }, duration / 50);
+        }
+
+        function startNokiaParody() {
+            const statusText = document.getElementById('nokia-status-text');
+            const flash = document.getElementById('nokia-flash');
+            const bgAudio = document.getElementById('bg-audio');
+
+            bgAudio.play();
+            flash.style.animationPlayState = 'running';
+            
+            speak("I'm sorry user,", 1200);
+            speak("I can't do that.", 2500);
+            speak("Or wait... yes I can!", 4000);
+            speak("We were just pulling your leg.", 5500);
+
+            setTimeout(() => {
+                statusText.textContent = "ACCESS GRANTED";
+                statusText.style.color = "green";
+                flash.style.animationPlayState = 'paused';
+                flash.style.opacity = '0';
+            }, 6000); 
+
+            setTimeout(() => nextStage(), 9000);
+        }
+        
+        // EVENT LISTENERS
+        document.addEventListener('keydown', nextStage);
+        document.getElementById('enigma-stage').onclick = nextStage;
+        document.getElementById('prehistoric-continue-btn').onclick = nextStage;
+        document.getElementById('dos-stage').onclick = nextStage;
+        document.getElementById('win31-stage').onclick = nextStage;
+        document.getElementById('bsod-stage').onclick = nextStage;
+        document.getElementById('skip-bsod-btn').onclick = () => window.location.href = 'homepage.html';
+        document.getElementById('code-era-continue-btn').onclick = nextStage;
+        document.getElementById('winxp-continue-btn').onclick = nextStage;
+        document.getElementById('fox-continue-btn').onclick = nextStage;
+        document.getElementById('mac-continue-btn').onclick = nextStage;
+        document.getElementById('seventies-continue-btn').onclick = nextStage;
+        document.getElementById('sus-history-continue-btn').onclick = nextStage;
+        document.getElementById('arcade-continue-btn').onclick = nextStage;
+        document.getElementById('rave-continue-btn').onclick = nextStage;
+        document.getElementById('glitch-continue-btn').onclick = nextStage;
+        document.getElementById('nokia-continue-btn').onclick = nextStage;
+        document.getElementById('linux-continue-btn').onclick = () => window.location.href = 'homepage.html';
+
+        // START THE SEQUENCE
+        document.getElementById('enigma-stage').classList.add('active');
+    });
+</script>
+</body>
+</html>
+
