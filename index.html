@@ -165,7 +165,10 @@
             <source src="./1755174544360.mp4" type="video/mp4">
         </video>
         <div class="mac-header">Welcome to The Main Frame</div>
-        <p style="font-size: 12px;">Initiating sarcasm subroutine...</p>
+        <p id="mac-sarcasm" style="font-size: 12px;">Initiating sarcasm subroutine...</p>
+        <div style="border: 1px solid #000; height: 16px; background-color: #fff; margin-top: 10px;">
+            <div id="mac-progress-bar" style="height: 100%; width: 0%; background-color: #000084;"></div>
+        </div>
         <button id="mac-continue-btn">Continue</button>
     </div>
 
@@ -215,6 +218,7 @@
             const bsodContinuePrompt = document.getElementById('bsod-continue-prompt');
             const macScreen = document.getElementById('mac-screen');
             const macContinueBtn = document.getElementById('mac-continue-btn');
+            const macProgressBar = document.getElementById('mac-progress-bar');
             const nokiaDisclaimerScreen = document.getElementById('nokia-disclaimer-screen');
             const nokiaDisclaimerContinueBtn = document.getElementById('nokia-disclaimer-continue-btn');
             const nokiaLoadingScreen = document.getElementById('nokia-loading-screen');
@@ -227,6 +231,19 @@
             function showMacScreen() {
                 bsodScreen.classList.add('hidden');
                 macScreen.classList.remove('hidden');
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += Math.floor(Math.random() * 11) + 3;
+                    if (progress > 100) progress = 100;
+                    macProgressBar.style.width = `${progress}%`;
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                           macContinueBtn.classList.remove('hidden');
+                        }, 700);
+                    }
+                }, 420);
             }
             
             function showNokiaDisclaimer() {
