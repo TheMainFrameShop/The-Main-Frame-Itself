@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Main Frame - Loading</title>
+    <title>The Time Travel Marketplace - Loading</title>
     <style>
         /* CORE STYLES */
         body {
@@ -20,6 +20,21 @@
         }
         .hidden {
             display: none;
+        }
+
+        /* Screen containers that will fade in and out */
+        .screen-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            text-align: center;
         }
 
         /* ENIGMA STYLES */
@@ -114,6 +129,47 @@
             margin: 0 10px;
         }
 
+        /* WIN XP STYLES */
+        .winxp-container {
+            width: 100%;
+            height: 100vh;
+            background-color: #004d80;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+        }
+        .winxp-logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+        .winxp-text {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .winxp-progress-bar {
+            width: 300px;
+            height: 15px;
+            background-color: #4b4b4b;
+            border: 1px solid #000;
+            position: relative;
+        }
+        .winxp-progress-fill {
+            height: 100%;
+            background-color: #00bfff;
+        }
+        .winxp-continue-btn {
+            background-color: #004d80;
+            color: #fff;
+            border: 2px solid #fff;
+            padding: 10px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
         /* MAC PARODY STYLES */
         .mac-container {
             width: 80%; max-width: 400px;
@@ -205,86 +261,114 @@
 </head>
 <body>
     <!-- Enigma Stage -->
-    <div id="enigma-screen" class="enigma-container">
-        <p>***</p>
-        <p>DECODING MESSAGE...</p>
-        <p>ENCRYPTING DATA...</p>
-        <p>MESSAGE RECEIVED: "THE MAIN FRAME"</p>
-        <p class="enigma-prompt">Press any key to continue...</p>
+    <div id="enigma-screen" class="screen-container">
+        <div class="enigma-container">
+            <p>***</p>
+            <p>DECODING MESSAGE...</p>
+            <p>ENCRYPTING DATA...</p>
+            <p>MESSAGE RECEIVED: "THE TIME TRAVEL MARKETPLACE"</p>
+            <p class="enigma-prompt">Press any key to continue...</p>
+        </div>
     </div>
 
     <!-- DOS Stage -->
-    <div id="dos-screen" class="hidden dos-container">
-        <p>C:\></p>
-        <p>C:\>LOADING MAIN.EXE</p>
-        <p>C:\>LOADED. PRESS ANY KEY</p>
+    <div id="dos-screen" class="hidden screen-container">
+        <div class="dos-container">
+            <p>C:\></p>
+            <p>C:\>LOADING TIMETRAVEL.EXE</p>
+            <p>C:\>LOADED. PRESS ANY KEY</p>
+        </div>
     </div>
 
     <!-- WIN 3.1 Stage -->
-    <div id="win31-screen" class="hidden win31-container">
-        <div style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">Windows 3.1</div>
-        <p>Starting The Main Frame...</p>
-        <div style="border: 1px solid #000; height: 16px; background-color: #fff; margin-top: 10px;">
-            <div id="win31-progress-bar" style="height: 100%; width: 0%; background-color: #000084;"></div>
+    <div id="win31-screen" class="hidden screen-container">
+        <div class="win31-container">
+            <div style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">Windows 3.1</div>
+            <p>Starting The Time Travel Marketplace...</p>
+            <div style="border: 1px solid #000; height: 16px; background-color: #fff; margin-top: 10px;">
+                <div id="win31-progress-bar" style="height: 100%; width: 0%; background-color: #000084;"></div>
+            </div>
         </div>
     </div>
     
-    <!-- Stage 1: The Windows BSOD screen -->
-    <div id="bsod-screen" class="hidden win95-container">
-        <div class="win95-header">
-            <div>An Error Has Occurred</div>
+    <!-- Windows 95 BSOD Stage -->
+    <div id="bsod-screen" class="hidden screen-container">
+        <div class="win95-container">
+            <div class="win95-header">
+                <div>An Error Has Occurred</div>
+            </div>
+            <div class="loading-content" style="padding: 20px 10px; background-color: #c0c0c0; color: #000; font-size: 12px;">
+                <p>We've detected a critical flaw in the system architecture. It seems you've stumbled upon a satire shop, a place where capitalism goes to die a slow, ironic death.</p>
+                <p class="bsod-text">Please do not try to make sense of this. We all lose in the end.</p>
+                <div id="bsod-continue-prompt" class="bsod-continue-prompt">Press any key to continue_</div>
+                <div class="bsod-buttons">
+                    <button id="skip-btn">SKIP</button>
+                </div>
+            </div>
         </div>
-        <div class="loading-content" style="padding: 20px 10px; background-color: #c0c0c0; color: #000; font-size: 12px;">
-            <p>We've detected a critical flaw in the system architecture. It seems you've stumbled upon a satire shop, a place where capitalism goes to die a slow, ironic death.</p>
-            <p class="bsod-text">Please do not try to make sense of this. We all lose in the end.</p>
-            <div id="bsod-continue-prompt" class="bsod-continue-prompt">Press any key to continue_</div>
-            <div class="bsod-buttons">
-                <button id="skip-btn">SKIP</button>
+    </div>
+    
+    <!-- Windows XP Parody Stage -->
+    <div id="winxp-screen" class="hidden screen-container">
+        <div class="winxp-container">
+            <img class="winxp-logo" src="https://upload.wikimedia.org/wikipedia/commons/0/00/Windows_XP_logo_2001.svg" alt="Windows XP Logo">
+            <p class="winxp-text">Windows XP</p>
+            <div class="winxp-progress-bar">
+                <div id="winxp-progress-fill" class="winxp-progress-fill"></div>
+            </div>
+            <button id="winxp-continue-btn" class="winxp-continue-btn hidden">Continue</button>
+        </div>
+    </div>
+
+    <!-- Mac Parody Stage -->
+    <div id="mac-screen" class="hidden screen-container">
+        <div class="mac-container">
+            <video id="mac-video" class="mac-logo" autoplay loop muted playsinline>
+                <source src="./1755174544360.mp4" type="video/mp4">
+            </video>
+            <div class="mac-header">Welcome to The Time Travel Marketplace</div>
+            <p id="mac-sarcasm" style="font-size: 12px;">Initiating sarcasm subroutine...</p>
+            <div style="border: 1px solid #000; height: 16px; background-color: #fff; margin-top: 10px;">
+                <div id="mac-progress-bar" style="height: 100%; width: 0%; background-color: #000084;"></div>
+            </div>
+            <button id="mac-continue-btn" class="hidden">Continue</button>
+        </div>
+    </div>
+
+    <!-- Nokia Disclaimer Stage -->
+    <div id="nokia-disclaimer-screen" class="hidden screen-container">
+        <div class="nokia-screen-container">
+            <h2 style="font-family: 'NokiaFont', monospace;"><span style="font-size: 24px;">!</span> SEIZURE WARNING</h2>
+            <p style="font-size: 12px; font-family: 'NokiaFont', monospace;">This site contains flashing lights and animations. By clicking "Continue," you acknowledge this warning and proceed at your own risk.</p>
+            <div class="nokia-screen-buttons">
+                <button id="nokia-disclaimer-continue-btn">CONTINUE</button>
+                <button id="nokia-disclaimer-exit-btn" onclick="window.location.href='https://www.google.com';">EXIT</button>
             </div>
         </div>
     </div>
 
-    <!-- Stage 2: The Mac parody screen with cycling icons -->
-    <div id="mac-screen" class="hidden mac-container">
-        <video id="mac-video" class="mac-logo" autoplay loop muted playsinline>
-            <source src="./1755174544360.mp4" type="video/mp4">
-        </video>
-        <div class="mac-header">Welcome to The Main Frame</div>
-        <p id="mac-sarcasm" style="font-size: 12px;">Initiating sarcasm subroutine...</p>
-        <div style="border: 1px solid #000; height: 16px; background-color: #fff; margin-top: 10px;">
-            <div id="mac-progress-bar" style="height: 100%; width: 0%; background-color: #000084;"></div>
+    <!-- Nokia Loading Stage -->
+    <div id="nokia-loading-screen" class="hidden screen-container">
+        <div class="nokia-screen-container">
+            <div class="red-flash" id="red-flash"></div>
+            <svg class="nokia-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 0 L40 50 L60 50 Z" transform="rotate(180 50 50)"/>
+                <path d="M50 100 L40 50 L60 50 Z" transform="rotate(180 50 50)"/>
+                <path d="M0 50 L50 40 L50 60 Z" transform="rotate(180 50 50)"/>
+                <path d="M100 50 L50 40 L50 60 Z" transform="rotate(180 50 50)"/>
+            </svg>
+            <div id="nokia-status-text" class="loading-text" style="font-family: 'NokiaFont', monospace;">ACCESS DENIED</div>
         </div>
-        <button id="mac-continue-btn">Continue</button>
-    </div>
-
-    <!-- Stage 3: The Nokia disclaimer screen -->
-    <div id="nokia-disclaimer-screen" class="hidden nokia-screen-container">
-        <h2 style="font-family: 'NokiaFont', monospace;"><span style="font-size: 24px;">!</span> SEIZURE WARNING</h2>
-        <p style="font-size: 12px; font-family: 'NokiaFont', monospace;">This site contains flashing lights and animations. By clicking "Continue," you acknowledge this warning and proceed at your own risk.</p>
-        <div class="nokia-screen-buttons">
-            <button id="nokia-disclaimer-continue-btn">CONTINUE</button>
-            <button id="nokia-disclaimer-exit-btn" onclick="window.location.href='https://www.google.com';">EXIT</button>
-        </div>
-    </div>
-
-    <!-- Stage 4: The final Nokia parody screen -->
-    <div id="nokia-loading-screen" class="hidden nokia-screen-container">
-        <div class="red-flash" id="red-flash"></div>
-        <svg class="nokia-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <path d="M50 0 L40 50 L60 50 Z" transform="rotate(180 50 50)"/>
-            <path d="M50 100 L40 50 L60 50 Z" transform="rotate(180 50 50)"/>
-            <path d="M0 50 L50 40 L50 60 Z" transform="rotate(180 50 50)"/>
-            <path d="M100 50 L50 40 L50 60 Z" transform="rotate(180 50 50)"/>
-        </svg>
-        <div id="nokia-status-text" class="loading-text" style="font-family: 'NokiaFont', monospace;">ACCESS DENIED</div>
     </div>
     
-    <!-- Stage 5: The Linux final boss -->
-    <div id="linux-boss-screen" class="hidden linux-container">
-        <img id="linux-logo" src="./linux-hug-penguin.png" alt="Tux the Penguin" class="linux-logo">
-        <p>You have defeated the final boss.</p>
-        <p>All it wanted was a hug.</p>
-        <button id="linux-continue-btn">HUG</button>
+    <!-- Linux Final Boss Stage -->
+    <div id="linux-boss-screen" class="hidden screen-container">
+        <div class="linux-container">
+            <img id="linux-logo" src="./linux-hug-penguin.png" alt="Tux the Penguin" class="linux-logo">
+            <p>You have defeated the final boss.</p>
+            <p>All it wanted was a hug.</p>
+            <button id="linux-continue-btn">HUG</button>
+        </div>
     </div>
 
     <audio id="audio" src="./28336.mp3" preload="auto"></audio>
@@ -306,6 +390,8 @@
             const win31Screen = document.getElementById('win31-screen');
             const bsodScreen = document.getElementById('bsod-screen');
             const bsodContinuePrompt = document.getElementById('bsod-continue-prompt');
+            const winxpScreen = document.getElementById('winxp-screen');
+            const winxpContinueBtn = document.getElementById('winxp-continue-btn');
             const macScreen = document.getElementById('mac-screen');
             const macContinueBtn = document.getElementById('mac-continue-btn');
             const macProgressBar = document.getElementById('mac-progress-bar');
@@ -319,19 +405,36 @@
             const halParodyAudio = document.getElementById('hal-parody-audio');
             const skipBtn = document.getElementById('skip-btn');
 
-            // --- Game Flow ---
-            function showScreen(screen) {
-                const allScreens = [enigmaScreen, dosScreen, win31Screen, bsodScreen, macScreen, nokiaDisclaimerScreen, nokiaLoadingScreen, linuxBossScreen];
-                allScreens.forEach(s => s.classList.add('hidden'));
-                screen.classList.remove('hidden');
+            const screens = [
+                'enigma-screen', 'dos-screen', 'win31-screen', 'bsod-screen',
+                'winxp-screen', 'mac-screen', 'nokia-disclaimer-screen',
+                'nokia-loading-screen', 'linux-boss-screen'
+            ];
+            let currentScreenIndex = 0;
+
+            function transitionToNextScreen() {
+                const currentScreen = document.getElementById(screens[currentScreenIndex]);
+                currentScreen.style.opacity = '0';
+                currentScreen.style.zIndex = '0';
+                
+                setTimeout(() => {
+                    currentScreen.classList.add('hidden');
+                    currentScreenIndex++;
+                    if (currentScreenIndex < screens.length) {
+                        const nextScreen = document.getElementById(screens[currentScreenIndex]);
+                        nextScreen.classList.remove('hidden');
+                        nextScreen.style.opacity = '1';
+                        nextScreen.style.zIndex = '1';
+                    }
+                }, 1000); // Wait for fade-out transition to complete
             }
 
             // Enigma -> DOS
-            enigmaScreen.addEventListener('click', () => showScreen(dosScreen));
-            enigmaScreen.addEventListener('touchstart', () => showScreen(dosScreen));
+            enigmaScreen.addEventListener('click', transitionToNextScreen);
+            enigmaScreen.addEventListener('touchstart', transitionToNextScreen);
             document.addEventListener('keydown', (event) => {
                 if (!enigmaScreen.classList.contains('hidden')) {
-                    showScreen(dosScreen);
+                    transitionToNextScreen();
                 }
             });
 
@@ -345,7 +448,7 @@
             });
 
             function startWin31() {
-                showScreen(win31Screen);
+                transitionToNextScreen();
                 let progress = 0;
                 const win31ProgressBar = document.getElementById('win31-progress-bar');
                 const interval = setInterval(() => {
@@ -356,7 +459,7 @@
                     if (progress >= 100) {
                         clearInterval(interval);
                         setTimeout(() => {
-                           showScreen(bsodScreen);
+                           transitionToNextScreen();
                         }, 700);
                     }
                 }, 100);
@@ -365,57 +468,13 @@
             // WIN 3.1 -> BSOD
             // This is handled by the progress bar above
 
-            // BSOD -> Mac
-            bsodContinuePrompt.addEventListener('click', showMacScreen);
-            bsodContinuePrompt.addEventListener('touchstart', showMacScreen);
+            // BSOD -> WinXP
+            bsodContinuePrompt.addEventListener('click', () => showWinXP());
+            bsodContinuePrompt.addEventListener('touchstart', () => showWinXP());
             
-            // Skip button
-            skipBtn.addEventListener('click', () => {
-                window.location.href = 'homepage.html';
-            });
-            
-            // Mac -> Nokia Disclaimer
-            macContinueBtn.addEventListener('click', showNokiaDisclaimer);
-            
-            // Nokia Disclaimer -> Nokia Loading Screen
-            nokiaDisclaimerContinueBtn.addEventListener('click', startTheGame);
-            
-            function startTheGame() {
-                nokiaDisclaimerScreen.classList.add('hidden');
-                nokiaLoadingScreen.classList.remove('hidden');
-                audio.play();
-                document.getElementById('red-flash').style.animationPlayState = 'running';
-                
-                speak("I'm sorry user,", 1200);
-                speak("I can't do that.", 2500);
-                speak("Or wait... yes I can!", 4000);
-                speak("We were just pulling your leg.", 5500);
-
-                setTimeout(() => {
-                    nokiaStatusText.textContent = "ACCESS GRANTED";
-                    nokiaStatusText.style.color = "green";
-                }, 6000); 
-
-                setTimeout(() => {
-                    nokiaLoadingScreen.classList.add('hidden');
-                    showLinuxBossScreen();
-                }, 9000);
-            }
-            
-            // Linux -> Homepage
-            function showLinuxBossScreen() {
-                linuxBossScreen.classList.remove('hidden');
-            }
-
-            function hugThePenguin() {
-                window.location.href = 'homepage.html';
-            }
-
-            linuxContinueBtn.addEventListener('click', hugThePenguin);
-
-            // Start the sequence with the first screen
-            showScreen(enigmaScreen);
-        });
-    </script>
-</body>
-</html>
+            function showWinXP() {
+                transitionToNextScreen();
+                let progress = 0;
+                const winxpProgressBar = document.getElementById('winxp-progress-fill');
+                const interval = setInterval(() => {
+                    progress += Math.floor(Math.random(
