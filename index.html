@@ -1,201 +1,421 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>The Time Travel Marketplace – Ultimate Prototype</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: black;
-      color: #0f0;
-      font-family: 'Courier New', monospace;
-      overflow: hidden;
-    }
-    #boot-screen, #shutdown-screen {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      font-size: 1.2rem;
-    }
-    .sequence-line {
-      margin: 2px 0;
-    }
-    .highlight {
-      color: yellow;
-      font-weight: bold;
-    }
-    button {
-      padding: 0.5rem 1rem;
-      font-family: monospace;
-      background: #111;
-      color: #0f0;
-      border: 1px solid #0f0;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #0f0;
-      color: #111;
-    }
-    input {
-      padding: 0.5rem;
-      margin-top: 10px;
-      background: #111;
-      color: #0f0;
-      border: 1px solid #0f0;
-    }
-    #travel-mode {
-      position: absolute;
-      bottom: 10px;
-      display: flex;
-      gap: 10px;
-    }
-    .media-embed {
-      margin-top: 10px;
-      border: 1px solid #0f0;
-      width: 640px;
-      height: 360px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Main Frame - Loading</title>
+    <style>
+        /* CORE STYLES */
+        body {
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: monospace;
+            text-align: center;
+        }
+        .hidden {
+            display: none;
+        }
+
+        /* ENIGMA STYLES */
+        .enigma-container {
+            width: 80%; max-width: 600px;
+            padding: 20px;
+            background-color: #000;
+            color: #0f0;
+            border: 2px solid #0f0;
+            text-align: left;
+            font-family: 'Courier New', Courier, monospace;
+            overflow: auto;
+            white-space: pre-wrap;
+        }
+        .enigma-prompt {
+            font-size: 14px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* DOS STYLES */
+        .dos-container {
+            width: 80%; max-width: 600px;
+            padding: 20px;
+            background-color: #000;
+            color: #fff;
+            text-align: left;
+            font-family: 'Courier New', Courier, monospace;
+            overflow: auto;
+            white-space: pre-wrap;
+        }
+
+        /* WIN 3.1 STYLES */
+        .win31-container {
+            width: 80%; max-width: 600px;
+            padding: 20px;
+            border: 2px solid #fff;
+            background-color: #c0c0c0;
+            text-align: center;
+            box-shadow: 6px 6px 0px 1px rgba(0,0,0,0.5);
+            font-family: 'Arial', sans-serif;
+            color: #000;
+        }
+
+        /* WIN95 BSOD STYLES */
+        @font-face {
+            font-family: 'Pixelated';
+            src: url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap') format('woff');
+        }
+        .win95-container {
+            width: 80%; max-width: 600px;
+            padding: 20px;
+            border: 2px solid #ccc;
+            box-shadow: 5px 5px 0 #000;
+            background-color: #808080;
+            text-align: left;
+        }
+        .win95-header {
+            background-color: #000084;
+            color: #fff;
+            padding: 2px 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Pixelated', monospace;
+        }
+        .bsod-text {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .bsod-continue-prompt {
+            margin-top: 40px;
+            font-size: 14px;
+            color: #000084;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+        }
+        .bsod-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .bsod-buttons button {
+            background-color: #c0c0c0;
+            border: 2px outset #fff;
+            padding: 5px 15px;
+            font-size: 12px;
+            cursor: pointer;
+            color: #000;
+            margin: 0 10px;
+        }
+
+        /* MAC PARODY STYLES */
+        .mac-container {
+            width: 80%; max-width: 400px;
+            padding: 20px;
+            border: 1px solid #000;
+            background-color: #c0c0c0;
+            text-align: center;
+            box-shadow: 6px 6px 0px 1px rgba(0,0,0,0.5);
+            font-family: 'Chicago', sans-serif;
+            color: #000;
+        }
+        .mac-logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .mac-header {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        /* NOKIA DISCLAIMER/PARODY STYLES */
+        @font-face {
+            font-family: 'NokiaFont';
+            src: url('https://fonts.cdnfonts.com/s/17391/pixelated.woff') format('woff');
+        }
+        .nokia-screen-container {
+            padding: 20px;
+            max-width: 300px;
+            background-color: #0d121c;
+            border: 4px solid #fff;
+            box-shadow: 0 0 20px #fff;
+            color: #fff;
+            font-family: 'NokiaFont', monospace;
+        }
+        .nokia-screen-buttons button {
+            background-color: #0d121c;
+            color: #fff;
+            padding: 10px 15px;
+            border: 2px solid #fff;
+            cursor: pointer;
+            margin: 10px;
+            font-family: 'NokiaFont', monospace;
+            font-size: 16px;
+        }
+        .nokia-logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+            fill: #fff;
+        }
+        .loading-text {
+            font-size: 18px;
+        }
+        .red-flash {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 0, 0, 0.3);
+            animation: flash 0.5s infinite;
+            opacity: 0;
+        }
+        @keyframes fade-in {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @keyframes flash {
+            50% { opacity: 1; }
+        }
+        
+        /* LINUX STYLES */
+        .linux-container {
+            width: 80%; max-width: 400px;
+            padding: 20px;
+            text-align: center;
+            font-family: 'Pixelated', monospace;
+            background-color: #000;
+            color: #fff;
+        }
+        .linux-logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
+    <!-- Enigma Stage -->
+    <div id="enigma-screen" class="enigma-container">
+        <p>***</p>
+        <p>DECODING MESSAGE...</p>
+        <p>ENCRYPTING DATA...</p>
+        <p>MESSAGE RECEIVED: "THE MAIN FRAME"</p>
+        <p class="enigma-prompt">Press any key to continue...</p>
+    </div>
 
-<div id="boot-screen">
-  <div id="sequence"></div>
-  <div id="user-signup">
-    <label>Enter your name to join the timeline experience:</label>
-    <input type="text" id="userName" placeholder="Anon" />
-    <button onclick="signUp()">Join</button>
-  </div>
-  <div id="travel-mode">
-    <button onclick="setMode('wormhole')">Wormhole</button>
-    <button onclick="setMode('chrono')">Chrono-Jump</button>
-    <button onclick="setMode('teleport')">Teleport</button>
-    <button onclick="setMode('parody')">Parody</button>
-  </div>
-</div>
+    <!-- DOS Stage -->
+    <div id="dos-screen" class="hidden dos-container">
+        <p>C:\></p>
+        <p>C:\>LOADING MAIN.EXE</p>
+        <p>C:\>LOADED. PRESS ANY KEY</p>
+    </div>
 
-<div id="shutdown-screen" style="display:none;">
-  <div>Shutting down sequence...</div>
-  <div id="next-scene" style="margin-top:20px;"></div>
-</div>
+    <!-- WIN 3.1 Stage -->
+    <div id="win31-screen" class="hidden win31-container">
+        <div style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">Windows 3.1</div>
+        <p>Starting The Main Frame...</p>
+        <div style="border: 1px solid #000; height: 16px; background-color: #fff; margin-top: 10px;">
+            <div id="win31-progress-bar" style="height: 100%; width: 0%; background-color: #000084;"></div>
+        </div>
+    </div>
+    
+    <!-- Stage 1: The Windows BSOD screen -->
+    <div id="bsod-screen" class="hidden win95-container">
+        <div class="win95-header">
+            <div>An Error Has Occurred</div>
+        </div>
+        <div class="loading-content" style="padding: 20px 10px; background-color: #c0c0c0; color: #000; font-size: 12px;">
+            <p>We've detected a critical flaw in the system architecture. It seems you've stumbled upon a satire shop, a place where capitalism goes to die a slow, ironic death.</p>
+            <p class="bsod-text">Please do not try to make sense of this. We all lose in the end.</p>
+            <div id="bsod-continue-prompt" class="bsod-continue-prompt">Press any key to continue_</div>
+            <div class="bsod-buttons">
+                <button id="skip-btn">SKIP</button>
+            </div>
+        </div>
+    </div>
 
-<script>
-const timeline = [
-  { year: '13.8B BC', event: 'Big Bang – Universe begins', media: null, parody: false },
-  { year: '4.5B BC', event: 'Earth forms – Oh that said BANG!', media: null, parody: true },
-  { year: '230M BC', event: 'Dinosaurs roam the Earth', media: 'https://www.youtube.com/watch?v=suZE-dzuS_M', parody: false },
-  { year: '66M BC', event: 'Asteroid hits – Dinosaurs extinct', media: null, parody: false },
-  { year: '2.5M BC', event: 'Early humans emerge', media: null, parody: false },
-  { year: '44 BC', event: 'Julius Caesar assassinated', media: null, parody: false },
-  { year: '1605', event: 'Gunpowder Plot – Guy Fawkes scene', media: 'https://www.youtube.com/watch?v=myJ6OFgBk6I', parody: true },
-  { year: '1969', event: 'First moon landing', media: null, parody: false },
-  { year: '1980', event: 'We Didn\'t Start the Fire', media: 'https://www.youtube.com/watch?v=eFTLKWw542g', parody: true },
-  { year: '1990s', event: 'Rave culture explodes', media: null, parody: false },
-  { year: '1991', event: 'HTML invention – peek at the code', media: null, parody: false },
-  { year: '2020', event: 'Modern era – inclusion of Anon', media: null, parody: false }
-];
+    <!-- Stage 2: The Mac parody screen with cycling icons -->
+    <div id="mac-screen" class="hidden mac-container">
+        <video id="mac-video" class="mac-logo" autoplay loop muted playsinline>
+            <source src="./1755174544360.mp4" type="video/mp4">
+        </video>
+        <div class="mac-header">Welcome to The Main Frame</div>
+        <p id="mac-sarcasm" style="font-size: 12px;">Initiating sarcasm subroutine...</p>
+        <div style="border: 1px solid #000; height: 16px; background-color: #fff; margin-top: 10px;">
+            <div id="mac-progress-bar" style="height: 100%; width: 0%; background-color: #000084;"></div>
+        </div>
+        <button id="mac-continue-btn">Continue</button>
+    </div>
 
-let sequenceIndex = 0;
-let travelMode = 'wormhole';
-let user = 'Anon';
+    <!-- Stage 3: The Nokia disclaimer screen -->
+    <div id="nokia-disclaimer-screen" class="hidden nokia-screen-container">
+        <h2 style="font-family: 'NokiaFont', monospace;"><span style="font-size: 24px;">!</span> SEIZURE WARNING</h2>
+        <p style="font-size: 12px; font-family: 'NokiaFont', monospace;">This site contains flashing lights and animations. By clicking "Continue," you acknowledge this warning and proceed at your own risk.</p>
+        <div class="nokia-screen-buttons">
+            <button id="nokia-disclaimer-continue-btn">CONTINUE</button>
+            <button id="nokia-disclaimer-exit-btn" onclick="window.location.href='https://www.google.com';">EXIT</button>
+        </div>
+    </div>
 
-function setMode(mode) {
-  travelMode = mode;
-  addLine(`Travel mode set to: ${mode.toUpperCase()}`);
-}
+    <!-- Stage 4: The final Nokia parody screen -->
+    <div id="nokia-loading-screen" class="hidden nokia-screen-container">
+        <div class="red-flash" id="red-flash"></div>
+        <svg class="nokia-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 0 L40 50 L60 50 Z" transform="rotate(180 50 50)"/>
+            <path d="M50 100 L40 50 L60 50 Z" transform="rotate(180 50 50)"/>
+            <path d="M0 50 L50 40 L50 60 Z" transform="rotate(180 50 50)"/>
+            <path d="M100 50 L50 40 L50 60 Z" transform="rotate(180 50 50)"/>
+        </svg>
+        <div id="nokia-status-text" class="loading-text" style="font-family: 'NokiaFont', monospace;">ACCESS DENIED</div>
+    </div>
+    
+    <!-- Stage 5: The Linux final boss -->
+    <div id="linux-boss-screen" class="hidden linux-container">
+        <img id="linux-logo" src="./linux-hug-penguin.png" alt="Tux the Penguin" class="linux-logo">
+        <p>You have defeated the final boss.</p>
+        <p>All it wanted was a hug.</p>
+        <button id="linux-continue-btn">HUG</button>
+    </div>
 
-function addLine(text) {
-  const sequenceDiv = document.getElementById('sequence');
-  const line = document.createElement('div');
-  line.className = 'sequence-line';
-  line.textContent = text;
-  sequenceDiv.appendChild(line);
-  sequenceDiv.scrollTop = sequenceDiv.scrollHeight;
-}
+    <audio id="audio" src="./28336.mp3" preload="auto"></audio>
+    <audio id="hal-parody-audio" src="./hal-parody.mp3" preload="auto"></audio>
 
-function displayMedia(media) {
-  if (!media) return;
-  const sequenceDiv = document.getElementById('sequence');
-  const embed = document.createElement('div');
-  embed.className = 'media-embed';
-  embed.innerHTML = `<iframe width="640" height="360" src="${media}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-  sequenceDiv.appendChild(embed);
-  sequenceDiv.scrollTop = sequenceDiv.scrollHeight;
-}
+    <script>
+        function speak(text, delay) {
+            if ('speechSynthesis' in window) {
+                setTimeout(() => {
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    window.speechSynthesis.speak(utterance);
+                }, delay);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const enigmaScreen = document.getElementById('enigma-screen');
+            const dosScreen = document.getElementById('dos-screen');
+            const win31Screen = document.getElementById('win31-screen');
+            const bsodScreen = document.getElementById('bsod-screen');
+            const bsodContinuePrompt = document.getElementById('bsod-continue-prompt');
+            const macScreen = document.getElementById('mac-screen');
+            const macContinueBtn = document.getElementById('mac-continue-btn');
+            const macProgressBar = document.getElementById('mac-progress-bar');
+            const nokiaDisclaimerScreen = document.getElementById('nokia-disclaimer-screen');
+            const nokiaDisclaimerContinueBtn = document.getElementById('nokia-disclaimer-continue-btn');
+            const nokiaLoadingScreen = document.getElementById('nokia-loading-screen');
+            const nokiaStatusText = document.getElementById('nokia-status-text');
+            const linuxBossScreen = document.getElementById('linux-boss-screen');
+            const linuxContinueBtn = document.getElementById('linux-continue-btn');
+            const audio = document.getElementById('audio');
+            const halParodyAudio = document.getElementById('hal-parody-audio');
+            const skipBtn = document.getElementById('skip-btn');
 
-function startSequence() {
-  if (sequenceIndex >= timeline.length) {
-    startShutdown();
-    return;
-  }
+            // --- Game Flow ---
+            function showScreen(screen) {
+                const allScreens = [enigmaScreen, dosScreen, win31Screen, bsodScreen, macScreen, nokiaDisclaimerScreen, nokiaLoadingScreen, linuxBossScreen];
+                allScreens.forEach(s => s.classList.add('hidden'));
+                screen.classList.remove('hidden');
+            }
 
-  const item = timeline[sequenceIndex];
-  let text = `${item.year}: ${item.event}`;
-  if (item.parody) text += ' [Parody Event]';
-  if (item.media) text += ` [Media available]`;
+            // Enigma -> DOS
+            enigmaScreen.addEventListener('click', () => showScreen(dosScreen));
+            enigmaScreen.addEventListener('touchstart', () => showScreen(dosScreen));
+            document.addEventListener('keydown', (event) => {
+                if (!enigmaScreen.classList.contains('hidden')) {
+                    showScreen(dosScreen);
+                }
+            });
 
-  // Include user's name in sequence
-  text += ` [${user}]`;
+            // DOS -> WIN 3.1
+            dosScreen.addEventListener('click', () => startWin31());
+            dosScreen.addEventListener('touchstart', () => startWin31());
+            document.addEventListener('keydown', (event) => {
+                if (!dosScreen.classList.contains('hidden')) {
+                    startWin31();
+                }
+            });
 
-  addLine(text);
-  displayMedia(item.media);
+            function startWin31() {
+                showScreen(win31Screen);
+                let progress = 0;
+                const win31ProgressBar = document.getElementById('win31-progress-bar');
+                const interval = setInterval(() => {
+                    progress += Math.floor(Math.random() * 11) + 3;
+                    if (progress > 100) progress = 100;
+                    win31ProgressBar.style.width = `${progress}%`;
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                           showScreen(bsodScreen);
+                        }, 700);
+                    }
+                }, 100);
+            }
 
-  let delay = 2000;
-  if (travelMode === 'wormhole') delay = 1500;
-  if (travelMode === 'chrono') delay = 1000;
-  if (travelMode === 'teleport') delay = 1200;
-  if (travelMode === 'parody') delay = 800;
+            // WIN 3.1 -> BSOD
+            // This is handled by the progress bar above
 
-  sequenceIndex++;
-  setTimeout(startSequence, delay);
-}
+            // BSOD -> Mac
+            bsodContinuePrompt.addEventListener('click', showMacScreen);
+            bsodContinuePrompt.addEventListener('touchstart', showMacScreen);
+            
+            // Skip button
+            skipBtn.addEventListener('click', () => {
+                window.location.href = 'homepage.html';
+            });
+            
+            // Mac -> Nokia Disclaimer
+            macContinueBtn.addEventListener('click', showNokiaDisclaimer);
+            
+            // Nokia Disclaimer -> Nokia Loading Screen
+            nokiaDisclaimerContinueBtn.addEventListener('click', startTheGame);
+            
+            function startTheGame() {
+                nokiaDisclaimerScreen.classList.add('hidden');
+                nokiaLoadingScreen.classList.remove('hidden');
+                audio.play();
+                document.getElementById('red-flash').style.animationPlayState = 'running';
+                
+                speak("I'm sorry user,", 1200);
+                speak("I can't do that.", 2500);
+                speak("Or wait... yes I can!", 4000);
+                speak("We were just pulling your leg.", 5500);
 
-function signUp() {
-  const input = document.getElementById('userName').value;
-  if (input.trim()) user = input.trim();
-  document.getElementById('user-signup').style.display = 'none';
-  startSequence();
-}
+                setTimeout(() => {
+                    nokiaStatusText.textContent = "ACCESS GRANTED";
+                    nokiaStatusText.style.color = "green";
+                }, 6000); 
 
-function startShutdown() {
-  document.getElementById('boot-screen').style.display = 'none';
-  const shutdownDiv = document.getElementById('shutdown-screen');
-  shutdownDiv.style.display = 'flex';
+                setTimeout(() => {
+                    nokiaLoadingScreen.classList.add('hidden');
+                    showLinuxBossScreen();
+                }, 9000);
+            }
+            
+            // Linux -> Homepage
+            function showLinuxBossScreen() {
+                linuxBossScreen.classList.remove('hidden');
+            }
 
-  let shutdownSteps = [
-    'Saving timeline state...',
-    'Locking historical events...',
-    'Compressing media assets...',
-    'Preparing next scene...',
-    'Shutdown complete. Credits: Alice – Creator, Anon – Witness, Parody Easter Eggs – Everywhere'
-  ];
-  let idx = 0;
+            function hugThePenguin() {
+                window.location.href = 'homepage.html';
+            }
 
-  function nextStep() {
-    if (idx >= shutdownSteps.length) {
-      document.getElementById('next-scene').textContent = '>>> Next Scene Ready <<<';
-      return;
-    }
-    let stepLine = document.createElement('div');
-    stepLine.textContent = shutdownSteps[idx];
-    shutdownDiv.appendChild(stepLine);
-    idx++;
-    setTimeout(nextStep, 1000);
-  }
-  nextStep();
-}
+            linuxContinueBtn.addEventListener('click', hugThePenguin);
 
-// Exit dialog
-window.onbeforeunload = function(e) {
-  e.preventDefault();
-  e.returnValue = 'Are you sure you want to leave? The timeline will rewind rapidly!';
-};
-</script>
+            // Start the sequence with the first screen
+            showScreen(enigmaScreen);
+        });
+    </script>
 </body>
 </html>
