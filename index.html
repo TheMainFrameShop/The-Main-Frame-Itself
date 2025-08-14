@@ -30,7 +30,7 @@
         .win31-stage { color:#000; background:#c0c0c0; }
         .win31-title { font-family:Arial, sans-serif; font-size:2em; font-weight:bold; }
         .win31-progress-bar { width:300px; height:15px; background:#fff; border:1px solid #000; margin-top:1em; }
-        .win31-progress-fill { height:100%; width:0%; background:#000084; transition: width 0.5s ease-out; }
+        .win31-progress-fill { height:100%; width:0%; background:#000084; transition: width 0.5s ease-in-out; }
 
         /* BSOD PARODY */
         .bsod-stage { color:#000084; background:#808080; font-weight:bold; }
@@ -100,12 +100,55 @@
         .linux-logo { width:100px; height:auto; }
         .linux-hug-btn { background:#000084; color:#fff; }
 
-        .hidden { display: none; }
+        /* PREHISTORIC STAGE */
+        .prehistoric-stage {
+            background: linear-gradient(to top, #654321, #c2b280);
+            color: #000;
+            font-family: 'Courier Prime', monospace;
+            position: relative;
+            height: 100%;
+            text-align: center;
+        }
+
+        .prehistoric-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2em;
+            margin-top: 2em;
+        }
+
+        .prehistoric-item {
+            width: 100px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .prehistoric-item:hover {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .prehistoric-info {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            background-color: rgba(255,255,255,0.9);
+            color: #000;
+            padding: 1em;
+            border-radius: 8px;
+        }
+
+        .prehistoric-info.hidden {
+            display: none;
+        }
+
     </style>
 </head>
 <body>
 
-    <!-- ENIGMA STAGE -->
+    <!-- STAGES OF THE TIMELINE -->
     <div id="enigma-stage" class="stage enigma-stage active">
         <div class="enigma-output">
             <p>***</p>
@@ -115,24 +158,19 @@
             <p class="prompt-text">Press any key to continue...</p>
         </div>
     </div>
-
-    <!-- PREHISTORIC STAGE -->
+    
     <div id="prehistoric-stage" class="stage prehistoric-stage hidden">
         <div class="era-title">Nature’s Inventions: Early Man & Evolution</div>
         <p class="prompt-text">Hover over the elements to see how evolution and early tools shaped life...</p>
-
         <div class="prehistoric-container">
             <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Stone_hand_axe_of_Mousterian_period.svg" alt="Stone Tool" class="prehistoric-item" data-info="Stone tools were first used around 2.5 million years ago by early hominins.">
             <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Flame_icon.svg" alt="Controlled Fire" class="prehistoric-item" data-info="Controlled use of fire appeared roughly 1 million years ago, providing warmth and protection.">
             <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wheel_icon.svg" alt="Wheel" class="prehistoric-item" data-info="The wheel was invented much later, around 3500 BCE, revolutionizing transport.">
         </div>
-
         <div class="prehistoric-info hidden" id="prehistoric-info"></div>
-
         <button id="prehistoric-continue-btn">Continue</button>
     </div>
 
-    <!-- DOS STAGE -->
     <div id="dos-stage" class="stage dos-stage hidden">
         <div class="dos-output">
             <p>C:\></p>
@@ -141,7 +179,6 @@
         </div>
     </div>
 
-    <!-- WIN 3.1 STAGE -->
     <div id="win31-stage" class="stage win31-stage hidden">
         <div>
             <p class="win31-title">Windows 3.1</p>
@@ -151,16 +188,14 @@
             </div>
         </div>
     </div>
-
-    <!-- BSOD PARODY -->
+    
     <div id="bsod-stage" class="stage bsod-stage hidden">
         <div>
             <p style="font-size:1.5em;">An Error Has Occurred: You've reached a satire shop where capitalism dies.</p>
             <button id="skip-bsod-btn">SKIP</button>
         </div>
     </div>
-
-    <!-- CODE ERA STAGE -->
+    
     <div id="code-era-stage" class="stage code-era-stage hidden">
         <div class="era-title">The Dawn of Code</div>
         <p class="prompt-text">
@@ -173,7 +208,6 @@
         <button id="code-era-continue-btn" class="hidden">Continue</button>
     </div>
 
-    <!-- WIN XP STAGE -->
     <div id="winxp-stage" class="stage winxp-stage hidden">
         <div>
             <img class="winxp-logo" src="https://upload.wikimedia.org/wikipedia/commons/0/00/Windows_XP_logo_2001.svg" alt="Windows XP Logo">
@@ -185,14 +219,12 @@
         </div>
     </div>
 
-    <!-- 20TH CENTURY / FOX PARODY -->
     <div id="fox-stage" class="stage fox-stage hidden">
         <p class="fox-text">20TH CENTURY FICTION</p>
         <p>A history compiled by the Time Travel Marketplace</p>
         <button id="fox-continue-btn">Continue</button>
     </div>
     
-    <!-- Sus History Stage -->
     <div id="sus-history-stage" class="stage sus-history-stage hidden">
         <div class="sus-history-disclaimer">
             <p><strong>Disclaimer:</strong> This section contains history and content that may be inaccurate, satirical, or offensive. The views expressed here are not the views of the creator.</p>
@@ -203,7 +235,6 @@
         <button id="sus-history-continue-btn">Continue</button>
     </div>
 
-    <!-- MAC STAGE -->
     <div id="mac-stage" class="stage mac-stage hidden">
         <div>
             <video id="mac-video" class="mac-video" autoplay loop muted playsinline>
@@ -218,7 +249,6 @@
         </div>
     </div>
 
-    <!-- 80s ARCADE STAGE -->
     <div id="arcade-stage" class="stage arcade-stage hidden">
         <div class="arcade-screen">
             <div class="player-icon">🕹️</div>
@@ -228,7 +258,6 @@
         <button id="insert-coin-btn">INSERT COIN</button>
     </div>
 
-    <!-- RAVE / MUSIC ERA -->
     <div id="rave-era-stage" class="stage rave-stage hidden">
         <div>
             <p class="era-title rave-text">The Rave & Electronic Music Era</p>
@@ -241,14 +270,12 @@
         </div>
     </div>
     
-    <!-- GLITCH STAGE -->
     <div id="glitch-stage" class="stage glitch-stage hidden">
         <p class="glitch-text">2 1 S T - C E N T U R Y</p>
         <p>TRUTH . DATA . CORRUPTED</p>
         <button id="glitch-continue-btn">Continue</button>
     </div>
 
-    <!-- NOKIA WARNING/LOADING -->
     <div id="nokia-warning-stage" class="stage nokia-stage hidden">
         <div>
             <h2 style="font-family:'NokiaFont', monospace;">! SEIZURE WARNING</h2>
@@ -257,7 +284,6 @@
         </div>
     </div>
 
-    <!-- NOKIA PARODY -->
     <div id="nokia-parody-stage" class="stage nokia-stage hidden">
         <div>
             <div class="nokia-flash" id="nokia-flash"></div>
@@ -271,7 +297,6 @@
         </div>
     </div>
     
-    <!-- LINUX FINAL BOSS -->
     <div id="linux-stage" class="stage linux-stage hidden">
         <div>
             <img id="linux-logo" src="./linux-hug-penguin.png" width="150" alt="Tux">
@@ -387,20 +412,4 @@
                 } else {
                     lineIndex++;
                     charIndex = 0;
-                }
-            } else {
-                clearInterval(typingInterval);
-                document.getElementById('code-era-continue-btn').classList.remove('hidden');
-            }
-        }, typingSpeed);
-    }
-
-    function setupPrehistoricInteractions() {
-        const prehistoricItems = document.querySelectorAll('.prehistoric-item');
-        const prehistoricInfo = document.getElementById('prehistoric-info');
-        prehistoricItems.forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                prehistoricInfo.textContent = item.getAttribute('data-info');
-                prehistoricInfo.classList.remove('hidden');
-            });
-            ite
+                
