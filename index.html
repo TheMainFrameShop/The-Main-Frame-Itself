@@ -385,26 +385,6 @@
         }
         
         document.addEventListener('DOMContentLoaded', () => {
-            const enigmaScreen = document.getElementById('enigma-screen');
-            const dosScreen = document.getElementById('dos-screen');
-            const win31Screen = document.getElementById('win31-screen');
-            const bsodScreen = document.getElementById('bsod-screen');
-            const bsodContinuePrompt = document.getElementById('bsod-continue-prompt');
-            const winxpScreen = document.getElementById('winxp-screen');
-            const winxpContinueBtn = document.getElementById('winxp-continue-btn');
-            const macScreen = document.getElementById('mac-screen');
-            const macContinueBtn = document.getElementById('mac-continue-btn');
-            const macProgressBar = document.getElementById('mac-progress-bar');
-            const nokiaDisclaimerScreen = document.getElementById('nokia-disclaimer-screen');
-            const nokiaDisclaimerContinueBtn = document.getElementById('nokia-disclaimer-continue-btn');
-            const nokiaLoadingScreen = document.getElementById('nokia-loading-screen');
-            const nokiaStatusText = document.getElementById('nokia-status-text');
-            const linuxBossScreen = document.getElementById('linux-boss-screen');
-            const linuxContinueBtn = document.getElementById('linux-continue-btn');
-            const audio = document.getElementById('audio');
-            const halParodyAudio = document.getElementById('hal-parody-audio');
-            const skipBtn = document.getElementById('skip-btn');
-
             const screens = [
                 'enigma-screen', 'dos-screen', 'win31-screen', 'bsod-screen',
                 'winxp-screen', 'mac-screen', 'nokia-disclaimer-screen',
@@ -425,30 +405,26 @@
                         nextScreen.classList.remove('hidden');
                         nextScreen.style.opacity = '1';
                         nextScreen.style.zIndex = '1';
+                        // Trigger specific actions for the new screen
+                        if (nextScreen.id === 'win31-screen') {
+                            startWin31();
+                        } else if (nextScreen.id === 'winxp-screen') {
+                            startWinXP();
+                        } else if (nextScreen.id === 'mac-screen') {
+                            // Video starts playing automatically due to 'autoplay'
+                            // macContinueBtn.classList.remove('hidden');
+                        } else if (nextScreen.id === 'nokia-disclaimer-screen') {
+                            // Wait for user interaction
+                        } else if (nextScreen.id === 'nokia-loading-screen') {
+                            startTheGame();
+                        } else if (nextScreen.id === 'linux-boss-screen') {
+                            // Wait for user interaction
+                        }
                     }
                 }, 1000); // Wait for fade-out transition to complete
             }
 
-            // Enigma -> DOS
-            enigmaScreen.addEventListener('click', transitionToNextScreen);
-            enigmaScreen.addEventListener('touchstart', transitionToNextScreen);
-            document.addEventListener('keydown', (event) => {
-                if (!enigmaScreen.classList.contains('hidden')) {
-                    transitionToNextScreen();
-                }
-            });
-
-            // DOS -> WIN 3.1
-            dosScreen.addEventListener('click', () => startWin31());
-            dosScreen.addEventListener('touchstart', () => startWin31());
-            document.addEventListener('keydown', (event) => {
-                if (!dosScreen.classList.contains('hidden')) {
-                    startWin31();
-                }
-            });
-
             function startWin31() {
-                transitionToNextScreen();
                 let progress = 0;
                 const win31ProgressBar = document.getElementById('win31-progress-bar');
                 const interval = setInterval(() => {
@@ -465,17 +441,10 @@
                 }, 100);
             }
 
-            // WIN 3.1 -> BSOD
-            // This is handled by the progress bar above
-
-            // BSOD -> WinXP
-            bsodContinuePrompt.addEventListener('click', () => showWinXP());
-            bsodContinuePrompt.addEventListener('touchstart', () => showWinXP());
-            
-            function showWinXP() {
-                transitionToNextScreen();
+            function startWinXP() {
                 let progress = 0;
                 const winxpProgressBar = document.getElementById('winxp-progress-fill');
+                const winxpContinueBtn = document.getElementById('winxp-continue-btn');
                 const interval = setInterval(() => {
                     progress += Math.floor(Math.random() * 11) + 3;
                     if (progress > 100) progress = 100;
@@ -489,17 +458,13 @@
                     }
                 }, 100);
             }
-            
-            winxpContinueBtn.addEventListener('click', () => transitionToNextScreen());
 
-            // Mac -> Nokia Disclaimer
-            macContinueBtn.addEventListener('click', () => transitionToNextScreen());
-            
-            // Nokia Disclaimer -> Nokia Loading Screen
-            nokiaDisclaimerContinueBtn.addEventListener('click', startTheGame);
-            
             function startTheGame() {
-                transitionToNextScreen();
+                const nokiaLoadingScreen = document.getElementById('nokia-loading-screen');
+                const nokiaStatusText = document.getElementById('nokia-status-text');
+                const audio = document.getElementById('audio');
+                const halParodyAudio = document.getElementById('hal-parody-audio');
+
                 audio.play();
                 document.getElementById('red-flash').style.animationPlayState = 'running';
                 
@@ -518,10 +483,42 @@
                 }, 9000);
             }
             
-            // Linux -> Homepage
-            function hugThePenguin() {
-                window.location.href = 'homepage.html';
-            }
+            // Event listeners
+            const bsodContinuePrompt = document.getElementById('bsod-continue-prompt');
+            const skipBtn = document.getElementById('skip-btn');
+            const winxpContinueBtn = document.getElementById('winxp-continue-btn');
+            const macContinueBtn = document.getElementById('mac-continue-btn');
+            const nokiaDisclaimerContinueBtn = document.getElementById('nokia-disclaimer-continue-btn');
+            const linuxContinueBtn = document.getElementById('linux-continue-btn');
+            const enigmaScreen = document.getElementById('enigma-screen');
+            const dosScreen = document.getElementById('dos-screen');
+            const win31Screen = document.getElementById('win31-screen');
 
-            linuxContinueBtn.addEventListener('click', hugThePenguin);
+            // Enigma screen events
+            enigmaScreen.addEventListener('click', transitionToNextScreen);
+            enigmaScreen.addEventListener('touchstart', transitionToNextScreen);
+            document.addEventListener('keydown', (event) => {
+                if (!enigmaScreen.classList.contains('hidden')) {
+                    transitionToNextScreen();
+                }
+            });
+
+            // DOS screen events
+            dosScreen.addEventListener('click', startWin31);
+            dosScreen.addEventListener('touchstart', startWin31);
+            document.addEventListener('keydown', (event) => {
+                if (!dosScreen.classList.contains('hidden')) {
+                    startWin31();
+                }
+            });
+
+            // BSOD screen events
+            bsodContinuePrompt.addEventListener('click', startWinXP);
+            bsodContinuePrompt.addEventListener('touchstart', startWinXP);
             
+            skipBtn.addEventListener('click', () => {
+                window.location.href = 'homepage.html';
+            });
+            
+            // Windows XP events
+            winxpContinueBtn.addEventListener('click', transitionTo
