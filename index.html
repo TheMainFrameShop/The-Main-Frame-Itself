@@ -163,7 +163,7 @@
             <source src="./1755174544360.mp4" type="video/mp4">
         </video>
         <div class="mac-header">Welcome to The Main Frame</div>
-        <p style="font-size: 12px;">Gemini Subroutines Loading...</p>
+        <p style="font-size: 12px;">Initiating sarcasm subroutine...</p>
         <button id="mac-continue-btn">Continue</button>
     </div>
 
@@ -184,7 +184,7 @@
             <path d="M0 50 L50 40 L50 60 Z" transform="rotate(180 50 50)"/>
             <path d="M100 50 L50 40 L50 60 Z" transform="rotate(180 50 50)"/>
         </svg>
-        <div class="loading-text">The Main Frame</div>
+        <div id="nokia-status-text" class="loading-text">ACCESS DENIED</div>
     </div>
     
     <div id="linux-boss-screen" class="hidden linux-container">
@@ -200,11 +200,11 @@
         document.addEventListener('DOMContentLoaded', () => {
             const bsodScreen = document.getElementById('bsod-screen');
             const macScreen = document.getElementById('mac-screen');
-            const macVideo = document.getElementById('mac-video');
             const macContinueBtn = document.getElementById('mac-continue-btn');
             const nokiaDisclaimerScreen = document.getElementById('nokia-disclaimer-screen');
             const nokiaDisclaimerContinueBtn = document.getElementById('nokia-disclaimer-continue-btn');
             const nokiaLoadingScreen = document.getElementById('nokia-loading-screen');
+            const nokiaStatusText = document.getElementById('nokia-status-text');
             const linuxBossScreen = document.getElementById('linux-boss-screen');
             const linuxContinueBtn = document.getElementById('linux-continue-btn');
             const audio = document.getElementById('audio');
@@ -225,10 +225,16 @@
                 audio.play();
                 document.getElementById('red-flash').style.animationPlayState = 'running';
                 
+                // Set a timer for the "Access Granted" message
+                setTimeout(() => {
+                    nokiaStatusText.textContent = "ACCESS GRANTED";
+                    nokiaStatusText.style.color = "green";
+                }, 2000); // 2-second delay for the pause
+
                 setTimeout(() => {
                     nokiaLoadingScreen.classList.add('hidden');
                     showLinuxBossScreen();
-                }, 3000); 
+                }, 5000); // 5-second total delay for the sequence
             }
 
             function showLinuxBossScreen() {
