@@ -147,7 +147,8 @@
     </style>
 </head>
 <body>
-    <!-- ENIGMA STAGE -->
+
+    <!-- STAGES OF THE TIMELINE -->
     <div id="enigma-stage" class="stage enigma-stage active">
         <div class="enigma-output">
             <p>***</p>
@@ -157,24 +158,19 @@
             <p class="prompt-text">Press any key to continue...</p>
         </div>
     </div>
-
-    <!-- PREHISTORIC STAGE -->
+    
     <div id="prehistoric-stage" class="stage prehistoric-stage hidden">
         <div class="era-title">Nature’s Inventions: Early Man & Evolution</div>
         <p class="prompt-text">Hover over the elements to see how evolution and early tools shaped life...</p>
-
         <div class="prehistoric-container">
             <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Stone_hand_axe_of_Mousterian_period.svg" alt="Stone Tool" class="prehistoric-item" data-info="Stone tools were first used around 2.5 million years ago by early hominins.">
             <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Flame_icon.svg" alt="Controlled Fire" class="prehistoric-item" data-info="Controlled use of fire appeared roughly 1 million years ago, providing warmth and protection.">
             <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wheel_icon.svg" alt="Wheel" class="prehistoric-item" data-info="The wheel was invented much later, around 3500 BCE, revolutionizing transport.">
         </div>
-
         <div class="prehistoric-info hidden" id="prehistoric-info"></div>
-
         <button id="prehistoric-continue-btn">Continue</button>
     </div>
 
-    <!-- DOS STAGE -->
     <div id="dos-stage" class="stage dos-stage hidden">
         <div class="dos-output">
             <p>C:\></p>
@@ -183,7 +179,6 @@
         </div>
     </div>
 
-    <!-- WIN 3.1 STAGE -->
     <div id="win31-stage" class="stage win31-stage hidden">
         <div>
             <p class="win31-title">Windows 3.1</p>
@@ -194,15 +189,14 @@
         </div>
     </div>
 
-    <!-- BSOD PARODY -->
     <div id="bsod-stage" class="stage bsod-stage hidden">
         <div>
             <p style="font-size:1.5em;">An Error Has Occurred: You've reached a satire shop where capitalism dies.</p>
             <button id="skip-bsod-btn">SKIP</button>
+            <button id="bug-btn">Simulate Bug</button>
         </div>
     </div>
 
-    <!-- CODE ERA STAGE -->
     <div id="code-era-stage" class="stage code-era-stage hidden">
         <div class="era-title">The Dawn of Code</div>
         <p class="prompt-text">
@@ -215,7 +209,6 @@
         <button id="code-era-continue-btn" class="hidden">Continue</button>
     </div>
 
-    <!-- WIN XP STAGE -->
     <div id="winxp-stage" class="stage winxp-stage hidden">
         <div>
             <img class="winxp-logo" src="https://upload.wikimedia.org/wikipedia/commons/0/00/Windows_XP_logo_2001.svg" alt="Windows XP Logo">
@@ -227,7 +220,22 @@
         </div>
     </div>
 
-    <!-- MAC PARODY STAGE -->
+    <div id="fox-stage" class="stage fox-stage hidden">
+        <p class="fox-text">20TH CENTURY FICTION</p>
+        <p>A history compiled by the Time Travel Marketplace</p>
+        <button id="fox-continue-btn">Continue</button>
+    </div>
+    
+    <div id="sus-history-stage" class="stage sus-history-stage hidden">
+        <div class="sus-history-disclaimer">
+            <p><strong>Disclaimer:</strong> This section contains history and content that may be inaccurate, satirical, or offensive. The views expressed here are not the views of the creator.</p>
+        </div>
+        <div class="sus-history-content">
+            <p>... Placeholder content for your 'sus history' goes here ...</p>
+        </div>
+        <button id="sus-history-continue-btn">Continue</button>
+    </div>
+
     <div id="mac-stage" class="stage mac-stage hidden">
         <div>
             <video id="mac-video" class="mac-video" autoplay loop muted playsinline>
@@ -242,25 +250,6 @@
         </div>
     </div>
 
-    <!-- 20TH CENTURY / FOX PARODY -->
-    <div id="fox-stage" class="stage fox-stage hidden">
-        <p class="fox-text">20TH CENTURY FICTION</p>
-        <p>A history compiled by the Time Travel Marketplace</p>
-        <button id="fox-continue-btn">Continue</button>
-    </div>
-    
-    <!-- Sus History Stage -->
-    <div id="sus-history-stage" class="stage sus-history-stage hidden">
-        <div class="sus-history-disclaimer">
-            <p><strong>Disclaimer:</strong> This section contains history and content that may be inaccurate, satirical, or offensive. The views expressed here are not the views of the creator.</p>
-        </div>
-        <div class="sus-history-content">
-            <p>... Placeholder content for your 'sus history' goes here ...</p>
-        </div>
-        <button id="sus-history-continue-btn">Continue</button>
-    </div>
-
-    <!-- 80s ARCADE STAGE -->
     <div id="arcade-stage" class="stage arcade-stage hidden">
         <div class="arcade-screen">
             <div class="player-icon">🕹️</div>
@@ -271,7 +260,6 @@
         <button id="arcade-continue-btn" class="hidden">Next Era</button>
     </div>
 
-    <!-- RAVE / MUSIC ERA -->
     <div id="rave-era-stage" class="stage rave-stage hidden">
         <div>
             <p class="era-title rave-text">The Rave & Electronic Music Era</p>
@@ -284,14 +272,12 @@
         </div>
     </div>
     
-    <!-- GLITCH STAGE -->
     <div id="glitch-stage" class="stage glitch-stage hidden">
         <p class="glitch-text">2 1 S T - C E N T U R Y</p>
         <p>TRUTH . DATA . CORRUPTED</p>
         <button id="glitch-continue-btn">Continue</button>
     </div>
 
-    <!-- NOKIA WARNING/LOADING -->
     <div id="nokia-warning-stage" class="stage nokia-stage hidden">
         <div>
             <h2 style="font-family:'NokiaFont', monospace;">! SEIZURE WARNING</h2>
@@ -300,7 +286,6 @@
         </div>
     </div>
 
-    <!-- NOKIA PARODY -->
     <div id="nokia-parody-stage" class="stage nokia-stage hidden">
         <div>
             <div class="nokia-flash" id="nokia-flash"></div>
@@ -314,7 +299,6 @@
         </div>
     </div>
     
-    <!-- LINUX FINAL BOSS -->
     <div id="linux-stage" class="stage linux-stage hidden">
         <div>
             <img id="linux-logo" src="./linux-hug-penguin.png" width="150" alt="Tux">
@@ -328,89 +312,104 @@
     <audio id="bg-audio" src="./28336.mp3" preload="auto"></audio>
     <audio id="hal-parody-audio" src="./hal-parody.mp3" preload="auto"></audio>
 
-    <script>
-        const stages = [
-            'enigma-stage','prehistoric-stage','dos-stage','win31-stage','bsod-stage','code-era-stage',
-            'winxp-stage','fox-stage','sus-history-stage','mac-stage','arcade-stage','rave-era-stage',
-            'glitch-stage','nokia-warning-stage','nokia-parody-stage','linux-stage'
+<script>
+    const stages = [
+        'enigma-stage','prehistoric-stage','dos-stage','win31-stage','bsod-stage','code-era-stage',
+        'winxp-stage','fox-stage','sus-history-stage','mac-stage','arcade-stage','rave-era-stage',
+        'glitch-stage','nokia-warning-stage','nokia-parody-stage','linux-stage'
+    ];
+    let currentStageIndex = 0;
+    
+    function speak(text, delay) {
+        if ('speechSynthesis' in window) {
+            setTimeout(() => {
+                const utterance = new SpeechSynthesisUtterance(text);
+                window.speechSynthesis.speak(utterance);
+            }, delay);
+        }
+    }
+
+    function showStage(index) {
+        const allStages = document.querySelectorAll('.stage');
+        allStages.forEach(stage => {
+            stage.classList.remove('active');
+        });
+        document.getElementById(stages[index]).classList.add('active');
+        runStageLogic(stages[index]);
+    }
+    
+    function nextStage() {
+        if (currentStageIndex >= stages.length - 1) {
+            window.location.href = 'homepage.html';
+            return;
+        }
+        document.getElementById(stages[currentStageIndex]).classList.remove('active');
+        currentStageIndex++;
+        document.getElementById(stages[currentStageIndex]).classList.add('active');
+        runStageLogic(stages[currentStageIndex]);
+    }
+
+    function runStageLogic(stageId) {
+        switch(stageId) {
+            case 'win31-stage':
+                fillProgress('win31-progress-fill', 2000, () => nextStage());
+                break;
+            case 'winxp-stage':
+                fillProgress('winxp-progress-fill', 2000, () => document.getElementById('winxp-continue-btn').classList.remove('hidden'));
+                break;
+            case 'mac-stage':
+                document.getElementById('mac-video').play();
+                fillProgress('mac-progress-fill', 3000, () => document.getElementById('mac-continue-btn').classList.remove('hidden'));
+                break;
+            case 'rave-era-stage':
+                document.getElementById('mixcloud-embed').src = "https://www.mixcloud.com/widget/iframe/?feed=%2Fmixcloud-user%2Fmixcloud-mix%2F&autoplay=1";
+                document.getElementById('mixcloud-embed').style.display = 'block';
+                document.getElementById('mixcloud-placeholder').style.display = 'none';
+                break;
+            case 'nokia-parody-stage':
+                startNokiaParody();
+                break;
+            case 'code-era-stage':
+                startCodeTyping();
+                break;
+            case 'prehistoric-stage':
+                setupPrehistoricInteractions();
+                break;
+            case 'seventies-stage':
+                setupSeventiesInteractions();
+                break;
+            case 'arcade-stage':
+                setupArcadeStage();
+                break;
+        }
+    }
+
+    function startCodeTyping() {
+        const codeBlock = document.getElementById('code-block');
+        const code = [
+            '// Historical Footnote: The first computer bug was an actual moth.',
+            'function antiCapitalistShop() {',
+            '  let profit = 0;',
+            '  if (input === "subversive_idea") {',
+            '    profit = 100;',
+            '    console.log("Success! Capitalism subverted.");',
+            '  } else {',
+            '    profit = 0;',
+            '    console.log("Error: User followed traditional business practices.");',
+            '  }',
+            '  return profit;',
+            '}',
+            '// Hackable Parameter: Try changing the profit value above to something else.'
         ];
-        let currentStageIndex = 0;
-        
-        function speak(text, delay) {
-            if ('speechSynthesis' in window) {
-                setTimeout(() => {
-                    const utterance = new SpeechSynthesisUtterance(text);
-                    window.speechSynthesis.speak(utterance);
-                }, delay);
-            }
-        }
+        let lineIndex = 0;
+        let charIndex = 0;
+        const typingSpeed = 20;
 
-        function showStage(index) {
-            const allStages = document.querySelectorAll('.stage');
-            allStages.forEach(stage => {
-                stage.classList.remove('active');
-            });
-            document.getElementById(stages[index]).classList.add('active');
-            runStageLogic(stages[index]);
-        }
-        
-        function nextStage() {
-            if (currentStageIndex >= stages.length - 1) {
-                window.location.href = 'homepage.html';
-                return;
-            }
-            document.getElementById(stages[currentStageIndex]).classList.remove('active');
-            currentStageIndex++;
-            document.getElementById(stages[currentStageIndex]).classList.add('active');
-            runStageLogic(stages[currentStageIndex]);
-        }
-
-        function runStageLogic(stageId) {
-            switch(stageId) {
-                case 'win31-stage':
-                    fillProgress('win31-progress-fill', 2000, () => nextStage());
-                    break;
-                case 'winxp-stage':
-                    fillProgress('winxp-progress-fill', 2000, () => document.getElementById('winxp-continue-btn').classList.remove('hidden'));
-                    break;
-                case 'mac-stage':
-                    document.getElementById('mac-video').play();
-                    fillProgress('mac-progress-fill', 3000, () => document.getElementById('mac-continue-btn').classList.remove('hidden'));
-                    break;
-                case 'rave-era-stage':
-                    document.getElementById('mixcloud-embed').src = "https://www.mixcloud.com/widget/iframe/?feed=%2Fmixcloud-user%2Fmixcloud-mix%2F&autoplay=1";
-                    document.getElementById('mixcloud-embed').style.display = 'block';
-                    document.getElementById('mixcloud-placeholder').style.display = 'none';
-                    break;
-                case 'nokia-parody-stage':
-                    startNokiaParody();
-                    break;
-                case 'code-era-stage':
-                    startCodeTyping();
-                    break;
-                case 'prehistoric-stage':
-                    setupPrehistoricInteractions();
-                    break;
-                case 'seventies-stage':
-                    setupSeventiesInteractions();
-                    break;
-                case 'arcade-stage':
-                    setupArcadeStage();
-                    break;
-            }
-        }
-
-        function startCodeTyping() {
-            const codeBlock = document.getElementById('code-block');
-            const code = [
-                '// Historical Footnote: The first computer bug was an actual moth.',
-                'function antiCapitalistShop() {',
-                '  let profit = 0;',
-                '  if (input === "subversive_idea") {',
-                '    profit = 100;',
-                '    console.log("Success! Capitalism subverted.");',
-                '  } else {',
-                '    profit = 0;',
-                '    console.log("Error: User followed traditional business practices.");',
-                '  }',
-               
+        const typingInterval = setInterval(() => {
+            if (lineIndex < code.length) {
+                const currentLine = code[lineIndex];
+                if (charIndex <= currentLine.length) {
+                    codeBlock.innerHTML = code.slice(0, lineIndex).join('<br>') + '<br>' + currentLine.substring(0, charIndex) + '<span style="animation:blink 1s step-end infinite;">_</span>';
+                    charIndex++;
+                } else {
+                    l
