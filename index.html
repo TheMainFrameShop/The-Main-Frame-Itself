@@ -4,46 +4,50 @@
 <meta charset="UTF-8">
 <title>The Main Frame — Low-Flash Chaotic Version</title>
 <style>
-  body { margin:0; display:flex; height:100vh; font-family:monospace; background:#000; color:#fff; }
-  iframe { flex:1; border:1px solid #333; }
+  body { margin:0; font-family:monospace; background:#000; color:#fff; }
+  #container { display:flex; height:100vh; }
+  #preview { flex:1; overflow:auto; background:#000; padding:1rem; display:flex; flex-direction:column; align-items:center; }
   #side-code { flex:1; padding:1rem; background:#111; color:#0f0; overflow:auto; font-size:0.85rem; white-space:pre-wrap; }
-  .stage { padding:1rem; border:1px solid #555; margin:.5rem; width:90%; text-align:center; background:#111; }
-  audio { display:block; margin-top:1rem; }
+  .stage { padding:1rem; border:2px solid #ccc; margin:.5rem; width:80%; background:#808080; text-align:left; font-family:monospace; }
+  .win95-header { background:#000084; color:#fff; padding:2px 5px; margin-bottom:10px; }
+  .mac-container, .nokia-container, .linux-container { margin:.5rem; padding:1rem; border:2px solid #ccc; background:#c0c0c0; text-align:center; width:80%; }
+  button { cursor:pointer; }
 </style>
 </head>
 <body>
 
-<iframe srcdoc='<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>The Main Frame — Preview</title>
-<style>
-  body{margin:0; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; background:#000; color:#fff; font-family:monospace; padding-top:1rem;}
-  .stage{padding:1rem; border:1px solid #555; margin:.5rem; width:80%; text-align:center; background:#111;}
-  audio{display:block; margin-top:1rem;}
-</style>
-</head>
-<body>
-  <div class="stage">Windows BSOD Stage</div>
-  <div class="stage">Mac Parody Stage with icons</div>
-  <div class="stage">Nokia Disclaimer & Loading Stage</div>
-  <div class="stage">Linux Boss Finale</div>
-  <audio id="bgMusic" src="toccata_fugue_d_minor.mp3" autoplay controls></audio>
-  <script>
-    const audio = document.getElementById('bgMusic');
-    audio.addEventListener('play', () => {
-      console.log('Music started: syncing animations and TTS to Toccata and Fugue in D Minor');
-      setTimeout(() => console.log('Windows BSOD text animates'), 1000);
-      setTimeout(() => console.log('Mac icons fade in'), 5000);
-      setTimeout(() => console.log('Nokia status updates'), 10000);
-      setTimeout(() => console.log('Linux boss finale animation'), 15000);
-    });
-  </script>
-</body>
-</html>'></iframe>
+<div id="container">
+  <div id="preview">
+    <!-- Windows BSOD Stage -->
+    <div class="stage win95-container">
+      <div class="win95-header">An Error Has Occurred</div>
+      <p>We've detected a critical flaw in the system architecture. It seems you've stumbled upon a satire shop.</p>
+      <p>Please do not try to make sense of this. We all lose in the end.</p>
+    </div>
 
-<div id="side-code">
+    <!-- Mac Parody Stage -->
+    <div class="mac-container">
+      <p>Mac parody with icons and progress bar...</p>
+    </div>
+
+    <!-- Nokia Disclaimer Stage -->
+    <div class="nokia-container">
+      <h2>! SEIZURE WARNING</h2>
+      <p>Flashing lights and animations ahead.</p>
+      <button id="nokia-continue-btn">CONTINUE</button>
+      <button onclick="window.location.href='https://www.google.com';">EXIT</button>
+    </div>
+
+    <!-- Linux Boss Stage -->
+    <div class="linux-container">
+      <p>Linux final boss: Tux the Penguin</p>
+      <button id="linux-hug-btn">HUG</button>
+    </div>
+
+    <audio id="bgMusic" src="toccata_fugue_d_minor.mp3" autoplay controls></audio>
+  </div>
+
+  <div id="side-code">
 We are now explicitly planning to sync all animations and TTS dialogue with "Toccata and Fugue in D Minor".
 
 Steps for proper sync:
@@ -60,6 +64,31 @@ Animations & Dialogue:
 Next:
 - Refine exact timestamps per musical bars.
 - Implement scheduler to trigger visuals/TTS precisely in sync with the music.
+
+<script>
+  const audio = document.getElementById('bgMusic');
+  const nokiaContinueBtn = document.getElementById('nokia-continue-btn');
+  const linuxHugBtn = document.getElementById('linux-hug-btn');
+
+  nokiaContinueBtn.addEventListener('click', () => {
+    alert('Starting the game sequence in sync with music...');
+  });
+
+  linuxHugBtn.addEventListener('click', () => {
+    alert('Penguin hugged! Returning to homepage.');
+    window.location.href = 'homepage.html';
+  });
+
+  audio.addEventListener('play', () => {
+    console.log('Music started: syncing animations and TTS to Toccata and Fugue in D Minor');
+    // Example scheduled events
+    setTimeout(() => console.log('Windows BSOD text animates'), 1000);
+    setTimeout(() => console.log('Mac icons fade in'), 5000);
+    setTimeout(() => console.log('Nokia status updates'), 10000);
+    setTimeout(() => console.log('Linux boss finale animation'), 15000);
+  });
+</script>
+  </div>
 </div>
 
 </body>
