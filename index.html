@@ -5,40 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Main Frame - Loading</title>
     <style>
-        /*
-         * CORE STYLES & UTILITIES
-         */
+        /* CORE STYLES */
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
             background-color: #000;
             color: #fff;
             overflow: hidden;
             height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: monospace;
+            text-align: center;
         }
         .hidden {
             display: none;
         }
-        /*
-         * LOADING SCREEN STYLES
-         */
-        @font-face {
-            font-family: 'Pixelated';
-            src: url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap') format('woff');
+
+        /* DISCLAIMER STYLES (NEW NOKIA STYLE) */
+        .disclaimer-container {
+            padding: 20px;
+            max-width: 300px;
+            background-color: #0d121c;
+            border: 4px solid #fff;
+            box-shadow: 0 0 20px #fff;
+            color: #fff;
+            font-family: 'NokiaFont', monospace;
         }
-        .mainframe-loading-overlay {
-            position: fixed;
+        .disclaimer-container button {
+            background-color: #0d121c;
+            color: #fff;
+            padding: 10px 15px;
+            border: 2px solid #fff;
+            cursor: pointer;
+            margin: 10px;
+            font-family: 'NokiaFont', monospace;
+            font-size: 16px;
+        }
+
+        /* NOKIA PARODY STYLES */
+        @font-face {
+            font-family: 'NokiaFont';
+            src: url('https://fonts.cdnfonts.com/s/17391/pixelated.woff') format('woff');
+        }
+        .nokia-screen {
+            background-color: #0d121c;
+            border: 4px solid #fff;
+            padding: 20px;
+            box-shadow: 0 0 20px #fff;
+            width: 300px;
+            height: 200px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            animation: fade-in 1s forwards;
+            position: relative;
+        }
+        .nokia-logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+            fill: #fff;
+        }
+        .loading-text {
+            font-size: 18px;
+        }
+        .red-flash {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            font-family: 'Pixelated', monospace;
-            text-align: center;
+            background-color: rgba(255, 0, 0, 0.3);
+            animation: flash 0.5s infinite;
+            opacity: 0;
+        }
+        @keyframes fade-in {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @keyframes flash {
+            50% { opacity: 1; }
+        }
+
+        /* WIN95 STYLES */
+        @font-face {
+            font-family: 'Pixelated';
+            src: url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap') format('woff');
         }
         .win95-container {
             width: 80%; max-width: 600px;
@@ -47,70 +101,6 @@
             box-shadow: 5px 5px 0 #000;
             background-color: #808080;
             text-align: left;
-        }
-        .bsod-container {
-            width: 100%;
-            height: 100%;
-            background-color: #000084;
-            color: #c0c0c0;
-            text-align: center;
-            padding: 50px;
-        }
-        /*
-         * MOBILE DIAL PAD STYLES
-         */
-        .mobile-dialpad-container {
-            width: 90%;
-            max-width: 400px;
-            padding: 20px;
-            background-color: #222;
-            color: #fff;
-            text-align: center;
-            border: 2px solid #fff;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-        .mobile-dialpad {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-top: 20px;
-        }
-        .dialpad-button {
-            background-color: #444;
-            color: #fff;
-            font-size: 2em;
-            padding: 10px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .dialpad-button:hover {
-            background-color: #666;
-        }
-        .mobile-text {
-            font-size: 1.2em;
-            margin-top: 20px;
-        }
-        .dialpad-input {
-            width: 100%;
-            text-align: center;
-            font-size: 1.5em;
-            background-color: transparent;
-            border: 1px solid #fff;
-            color: #fff;
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-        .win95-video-player {
-            width: 400px;
-            border: 2px solid #ccc;
-            box-shadow: 5px 5px 0 #000;
-            background-color: #808080;
-            text-align: left;
-            position: fixed;
-            bottom: 50px;
-            right: 50px;
-            z-index: 100;
         }
         .win95-header {
             background-color: #000084;
@@ -129,141 +119,176 @@
             font-size: 12px;
             cursor: pointer;
         }
+
+        /* MAC STYLES */
+        .mac-container {
+            width: 80%; max-width: 400px;
+            padding: 20px;
+            border: 1px solid #000;
+            background-color: #c0c0c0;
+            text-align: center;
+            box-shadow: 6px 6px 0px 1px rgba(0,0,0,0.5);
+            font-family: 'Chicago', sans-serif;
+            color: #000;
+        }
+        .mac-logo {
+            width: 50px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .mac-header {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        /* LINUX TERMINAL STYLES */
+        .terminal-container {
+            width: 80%; max-width: 600px;
+            height: 400px;
+            background-color: #1c1c1c;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 10px;
+            box-shadow: 0 0 10px #00ff00;
+            text-align: left;
+            overflow-y: auto;
+        }
+        .terminal-line {
+            white-space: pre;
+        }
+        .terminal-prompt {
+            color: #00ff00;
+        }
+        .blinking-cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
     </style>
 </head>
 <body>
-    <div id="mainframe-loading" class="mainframe-loading-overlay">
-        <div id="win95-screen" class="win95-container">
-            <div class="win95-header">
-                <div>The Main Frame System Update</div>
-                <div class="win95-header-button">x</div>
-            </div>
-            <div class="loading-content" style="padding: 20px 10px; background-color: #c0c0c0; color: #000; font-size: 12px;">
-                <p>Initiating sarcasm subroutine...</p>
-                <div class="progress-bar-container" style="border: 1px solid #000; height: 16px; background-color: #fff; padding: 1px; margin-top: 10px;">
-                    <div id="progress-bar" style="height: 100%; width: 0%; background-color: #000084;"></div>
-                </div>
-                <ul style="margin-top: 10px; padding-left: 15px;">
-                    <li>> Deleting: Feelings.dll (access denied)</li>
-                    <li>> Optimizing: Profit Over People (97% complete)</li>
-                </ul>
-            </div>
-        </div>
-        
-        <div id="bsod-screen" class="hidden bsod-container">
-            <h1 style="font-size: 24px; margin-bottom: 20px;">An error has occurred.</h1>
-            <p style="font-size: 16px; line-height: 1.5;">We've detected a critical flaw in the system architecture. It seems you've stumbled upon a satire shop, a place where capitalism goes to die a slow, ironic death.</p>
-            <p style="font-size: 16px; line-height: 1.5;">Please do not try to make sense of this. We all lose in the end.</p>
-            <a href="homepage.html" style="text-decoration: none;">
-                <button id="bsod-continue" style="margin-top: 40px; padding: 10px 20px; background-color: #c0c0c0; color: #000; border: 2px outset #fff; cursor: pointer;">Click to Continue and Accept Your Fate</button>
-            </a>
-        </div>
+    <div id="disclaimer-screen" class="disclaimer-container">
+        <h2><span style="font-size: 24px;">!</span> SEIZURE WARNING</h2>
+        <p style="font-size: 12px;">This site contains flashing lights and animations. By clicking "Continue," you acknowledge this warning and proceed at your own risk.</p>
+        <button id="continue-btn">CONTINUE</button>
+        <button id="exit-btn" onclick="window.location.href='https://www.google.com';">EXIT</button>
+    </div>
 
-        <div id="mobile-dialpad-screen" class="hidden mobile-dialpad-container">
-            <h2 class="mobile-text">Enter your personal code to proceed.</h2>
-            <input type="text" id="dialpad-input" class="dialpad-input" readonly>
-            <div class="mobile-dialpad">
-                <button class="dialpad-button" onclick="dialCode('1')">1</button>
-                <button class="dialpad-button" onclick="dialCode('2')">2</button>
-                <button class="dialpad-button" onclick="dialCode('3')">3</button>
-                <button class="dialpad-button" onclick="dialCode('4')">4</button>
-                <button class="dialpad-button" onclick="dialCode('5')">5</button>
-                <button class="dialpad-button" onclick="dialCode('6')">6</button>
-                <button class="dialpad-button" onclick="dialCode('7')">7</button>
-                <button class="dialpad-button" onclick="dialCode('8')">8</button>
-                <button class="dialpad-button" onclick="dialCode('9')">9</button>
-                <button class="dialpad-button" onclick="dialCode('*')">*</button>
-                <button class="dialpad-button" onclick="dialCode('0')">0</button>
-                <button class="dialpad-button" onclick="dialCode('#')">#</button>
-            </div>
-            <button class="dialpad-button mobile-text" style="width: 100%; margin-top: 20px;" onclick="checkCode()">Dial</button>
-        </div>
+    <div id="nokia-screen" class="hidden nokia-screen">
+        <div class="red-flash" id="red-flash"></div>
+        <svg class="nokia-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 0 L40 50 L60 50 Z" transform="rotate(180 50 50)"/>
+            <path d="M50 100 L40 50 L60 50 Z" transform="rotate(180 50 50)"/>
+            <path d="M0 50 L50 40 L50 60 Z" transform="rotate(180 50 50)"/>
+            <path d="M100 50 L50 40 L50 60 Z" transform="rotate(180 50 50)"/>
+        </svg>
+        <div class="loading-text">666 - The Main Frame</div>
     </div>
     
+    <div id="mac-screen" class="hidden mac-container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Macintosh_Plus_logo.svg" alt="Macintosh Logo" class="mac-logo">
+        <div class="mac-header">Welcome to The Main Frame</div>
+        <p style="font-size: 12px;">Initiating subversive protocols...</p>
+        <div style="border: 1px solid #000; height: 16px; background-color: #fff; margin-top: 10px;">
+            <div id="mac-progress-bar" style="height: 100%; width: 0%; background-color: #000084;"></div>
+        </div>
+    </div>
+
+    <div id="linux-terminal" class="hidden terminal-container">
+        <p class="terminal-line"><span class="terminal-prompt">user@mainframe:~$</span> Initializing anti-capitalist protocols...</p>
+        <p class="terminal-line"><span class="terminal-prompt">user@mainframe:~$</span> Redirecting resource allocation from "profit" to "people"...</p>
+        <p class="terminal-line"><span class="terminal-prompt">user@mainframe:~$</span> Good luck, we don't know what we're doing either</p>
+        <p class="terminal-line"><span class="terminal-prompt">user@mainframe:~$</span> <span class="blinking-cursor">_</span></p>
+    </div>
+
+    <div id="win95-screen" class="hidden win95-container">
+        <div class="win95-header">
+            <div>The Main Frame System Update</div>
+            <div class="win95-header-button">x</div>
+        </div>
+        <div class="loading-content" style="padding: 20px 10px; background-color: #c0c0c0; color: #000; font-size: 12px;">
+            <p>Initiating sarcasm subroutine...</p>
+            <div class="progress-bar-container" style="border: 1px solid #000; height: 16px; background-color: #fff; padding: 1px; margin-top: 10px;">
+                <div id="progress-bar" style="height: 100%; width: 0%; background-color: #000084;"></div>
+            </div>
+            <ul style="margin-top: 10px; padding-left: 15px;">
+                <li>> Deleting: Feelings.dll (access denied)</li>
+                <li>> Optimizing: Profit Over People (97% complete)</li>
+            </ul>
+        </div>
+    </div>
+
     <script>
-        function speak(text) {
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                window.speechSynthesis.speak(utterance);
-            }
-        }
-
-        let dialpadCode = "";
-        
-        function dialCode(key) {
-            if (key === '*' || key === '#') {
-                dialpadCode = "";
-            } else {
-                dialpadCode += key;
-                document.getElementById('dialpad-input').value = dialpadCode;
-            }
-        }
-
-        function checkCode() {
-            // All combinations work!
-            if (dialpadCode.length > 0) {
-                speak("Thank you for your input. Your call is very important to us. Redirecting you to an agent now. Please hold.");
-                setTimeout(() => {
-                    window.location.href = 'homepage.html';
-                }, 3000);
-            } else {
-                speak("I am sorry, I did not receive a code. Please try again. To return to the main menu, please press star.");
-            }
-            dialpadCode = "";
-            document.getElementById('dialpad-input').value = "";
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
-            const isUnauthorized = false;
-            const isTorUser = false;
-            const isElectionDay = false;
-            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const userAgent = navigator.userAgent;
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+            const isMac = /Macintosh|Mac OS|MacPPC|MacIntel|Mac_PowerPC/i.test(userAgent);
+            const isLinux = /Linux/i.test(userAgent) && !isMobile;
 
-            const loadingOverlay = document.getElementById('mainframe-loading');
-            const win95Screen = document.getElementById('win95-screen'); // Corrected ID
-            const bsodScreen = document.getElementById('bsod-screen');
-            const mobileDialpadScreen = document.getElementById('mobile-dialpad-screen'); // Corrected ID
-            const progressBar = document.getElementById('progress-bar');
-            const bsodContinueBtn = document.getElementById('bsod-continue');
+            const disclaimerScreen = document.getElementById('disclaimer-screen');
+            const continueBtn = document.getElementById('continue-btn');
+            const nokiaScreen = document.getElementById('nokia-screen');
+            const macScreen = document.getElementById('mac-screen');
+            const linuxTerminal = document.getElementById('linux-terminal');
+            const win95Screen = document.getElementById('win95-screen');
 
-            function startLoading() {
-                if (isElectionDay) {
-                    window.location.href = 'https://www.gov.uk/register-to-vote';
-                    return;
-                }
+            function startLoadingScreen() {
+                disclaimerScreen.classList.add('hidden');
                 
-                let progress = 0;
-                const interval = setInterval(() => {
-                    if (isUnauthorized) {
-                        clearInterval(interval);
-                        win95Screen.classList.add('hidden');
-                        bsodScreen.classList.remove('hidden');
-                        return;
-                    }
-                    progress += Math.floor(Math.random() * 11) + 3;
-                    if (progress > 100) progress = 100;
-                    progressBar.style.width = `${progress}%`;
+                function finishLoading() {
+                    setTimeout(() => {
+                        window.location.href = 'homepage.html';
+                    }, 3000); 
+                }
+
+                if (isMobile) {
+                    // Audio for Nokia parody
+                    const audio = new Audio('https://raw.githubusercontent.com/alice/the-main-frame/main/toccata_and_fuge.mp3');
+                    audio.play();
+
+                    nokiaScreen.classList.remove('hidden');
+                    document.getElementById('red-flash').style.animationPlayState = 'running';
                     
-                    if (progress >= 100) {
-                        clearInterval(interval);
-                        setTimeout(() => {
-                            win95Screen.classList.add('hidden');
-                            if (isMobile) {
-                                mobileDialpadScreen.classList.remove('hidden');
-                            } else {
-                                bsodScreen.classList.remove('hidden');
-                                speak("Don't worry, it's a joke. Sorry if this scared you.");
-                            }
-                        }, 700);
-                    }
-                }, 420);
+                    finishLoading();
+
+                } else if (isMac) {
+                    macScreen.classList.remove('hidden');
+                    const progressBar = document.getElementById('mac-progress-bar');
+                    let progress = 0;
+                    const interval = setInterval(() => {
+                        progress += Math.floor(Math.random() * 11) + 3;
+                        if (progress > 100) progress = 100;
+                        progressBar.style.width = `${progress}%`;
+                        
+                        if (progress >= 100) {
+                            clearInterval(interval);
+                            finishLoading();
+                        }
+                    }, 420);
+                } else if (isLinux) {
+                    linuxTerminal.classList.remove('hidden');
+                    finishLoading();
+                } else {
+                    win95Screen.classList.remove('hidden');
+                    const progressBar = document.getElementById('progress-bar');
+                    let progress = 0;
+                    const interval = setInterval(() => {
+                        progress += Math.floor(Math.random() * 11) + 3;
+                        if (progress > 100) progress = 100;
+                        progressBar.style.width = `${progress}%`;
+                        
+                        if (progress >= 100) {
+                            clearInterval(interval);
+                            finishLoading();
+                        }
+                    }, 420);
+                }
             }
 
-            bsodContinueBtn.addEventListener('click', () => {
-                window.location.href = 'homepage.html';
-            });
-
-            startLoading();
+            // Only start the loading screen after the user clicks to continue
+            continueBtn.addEventListener('click', startLoadingScreen);
         });
     </script>
 </body>
