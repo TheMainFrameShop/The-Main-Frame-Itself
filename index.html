@@ -22,12 +22,47 @@
             display: none;
         }
 
-        /* DISCLAIMER STYLES (NOKIA STYLE) */
+        /* WIN95 BSOD STYLES - This is the first screen of the puzzle */
+        @font-face {
+            font-family: 'Pixelated';
+            src: url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap') format('woff');
+        }
+        .win95-container {
+            width: 80%; max-width: 600px;
+            padding: 20px;
+            border: 2px solid #ccc;
+            box-shadow: 5px 5px 0 #000;
+            background-color: #808080;
+            text-align: left;
+        }
+        .win95-header {
+            background-color: #000084;
+            color: #fff;
+            padding: 2px 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Pixelated', monospace;
+        }
+        .bsod-text {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .bsod-continue-prompt {
+            margin-top: 40px;
+            font-size: 14px;
+            color: #000084;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        /* NOKIA DISCLAIMER/PARODY STYLES - This is the second screen of the puzzle, and also serves as the seizure warning */
         @font-face {
             font-family: 'NokiaFont';
             src: url('https://fonts.cdnfonts.com/s/17391/pixelated.woff') format('woff');
         }
-        .disclaimer-container {
+        .nokia-screen-container {
             padding: 20px;
             max-width: 300px;
             background-color: #0d121c;
@@ -35,8 +70,16 @@
             box-shadow: 0 0 20px #fff;
             color: #fff;
             font-family: 'NokiaFont', monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            animation: fade-in 1s forwards;
+            position: relative;
         }
-        .disclaimer-container button {
+        .nokia-screen-buttons button {
             background-color: #0d121c;
             color: #fff;
             padding: 10px 15px;
@@ -45,22 +88,6 @@
             margin: 10px;
             font-family: 'NokiaFont', monospace;
             font-size: 16px;
-        }
-
-        /* NOKIA PARODY STYLES */
-        .nokia-screen {
-            background-color: #0d121c;
-            border: 4px solid #fff;
-            padding: 20px;
-            box-shadow: 0 0 20px #fff;
-            width: 300px;
-            height: 200px;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            animation: fade-in 1s forwards;
-            position: relative;
         }
         .nokia-logo {
             width: 100px;
@@ -91,14 +118,27 @@
     </style>
 </head>
 <body>
-    <div id="disclaimer-screen" class="disclaimer-container">
-        <h2><span style="font-size: 24px;">!</span> SEIZURE WARNING</h2>
-        <p style="font-size: 12px;">This site contains flashing lights and animations. By clicking "Continue," you acknowledge this warning and proceed at your own risk.</p>
-        <button id="continue-btn">CONTINUE</button>
-        <button id="exit-btn" onclick="window.location.href='https://www.google.com';">EXIT</button>
+    <div id="bsod-screen" class="win95-container">
+        <div class="win95-header">
+            <div>An Error Has Occurred</div>
+        </div>
+        <div class="loading-content" style="padding: 20px 10px; background-color: #c0c0c0; color: #000; font-size: 12px;">
+            <p>We've detected a critical flaw in the system architecture. It seems you've stumbled upon a satire shop, a place where capitalism goes to die a slow, ironic death.</p>
+            <p class="bsod-text">Please do not try to make sense of this. We all lose in the end.</p>
+            <div id="bsod-continue-prompt" class="bsod-continue-prompt">Press any key to continue_</div>
+        </div>
     </div>
 
-    <div id="nokia-screen" class="hidden nokia-screen">
+    <div id="nokia-disclaimer-screen" class="hidden nokia-screen-container">
+        <h2><span style="font-size: 24px;">!</span> SEIZURE WARNING</h2>
+        <p style="font-size: 12px;">This site contains flashing lights and animations. By clicking "Continue," you acknowledge this warning and proceed at your own risk.</p>
+        <div class="nokia-screen-buttons">
+            <button id="continue-btn">CONTINUE</button>
+            <button id="exit-btn" onclick="window.location.href='https://www.google.com';">EXIT</button>
+        </div>
+    </div>
+
+    <div id="nokia-loading-screen" class="hidden nokia-screen-container">
         <div class="red-flash" id="red-flash"></div>
         <svg class="nokia-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <path d="M50 0 L40 50 L60 50 Z" transform="rotate(180 50 50)"/>
@@ -113,27 +153,35 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const disclaimerScreen = document.getElementById('disclaimer-screen');
+            const bsodScreen = document.getElementById('bsod-screen');
+            const nokiaDisclaimerScreen = document.getElementById('nokia-disclaimer-screen');
+            const nokiaLoadingScreen = document.getElementById('nokia-loading-screen');
             const continueBtn = document.getElementById('continue-btn');
-            const nokiaScreen = document.getElementById('nokia-screen');
             const audio = document.getElementById('audio');
 
-            function startLoadingScreen() {
-                disclaimerScreen.classList.add('hidden');
-                
-                function finishLoading() {
-                    setTimeout(() => {
-                        window.location.href = 'homepage.html';
-                    }, 3000); 
-                }
-
-                nokiaScreen.classList.remove('hidden');
-                audio.play();
-                document.getElementById('red-flash').style.animationPlayState = 'running';
-                finishLoading();
+            function showNokiaDisclaimer() {
+                bsodScreen.classList.add('hidden');
+                nokiaDisclaimerScreen.classList.remove('hidden');
             }
 
-            continueBtn.addEventListener('click', startLoadingScreen);
+            function startTheGame() {
+                nokiaDisclaimerScreen.classList.add('hidden');
+                nokiaLoadingScreen.classList.remove('hidden');
+                audio.play();
+                document.getElementById('red-flash').style.animationPlayState = 'running';
+                
+                setTimeout(() => {
+                    window.location.href = 'homepage.html';
+                }, 3000); 
+            }
+
+            // The first step: show the BSOD screen. Click or press any key to move to the next screen.
+            document.getElementById('bsod-screen').addEventListener('click', showNokiaDisclaimer);
+            document.addEventListener('keydown', showNokiaDisclaimer);
+            window.addEventListener('gamepadconnected', showNokiaDisclaimer);
+
+            // The second step: after the disclaimer, click the "Continue" button to start the final loading screen.
+            continueBtn.addEventListener('click', startTheGame);
         });
     </script>
 </body>
