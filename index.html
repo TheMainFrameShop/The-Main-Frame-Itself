@@ -1,12 +1,27 @@
-<div style="display:flex; gap:1rem; height:100vh;">
-  <iframe srcdoc='<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>The Main Frame — Low-Flash</title>
+<title>The Main Frame — Low-Flash Chaotic Version</title>
 <style>
-  body{margin:0; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#000; color:#fff; font-family:monospace;}
-  .stage{padding:1rem; border:1px solid #555; margin:.5rem; width:80%; text-align:center;}
+  body { margin:0; display:flex; height:100vh; font-family:monospace; background:#000; color:#fff; }
+  iframe { flex:1; border:1px solid #333; }
+  #side-code { flex:1; padding:1rem; background:#111; color:#0f0; overflow:auto; font-size:0.85rem; white-space:pre-wrap; }
+  .stage { padding:1rem; border:1px solid #555; margin:.5rem; width:90%; text-align:center; background:#111; }
+  audio { display:block; margin-top:1rem; }
+</style>
+</head>
+<body>
+
+<iframe srcdoc='<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Main Frame — Preview</title>
+<style>
+  body{margin:0; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; background:#000; color:#fff; font-family:monospace; padding-top:1rem;}
+  .stage{padding:1rem; border:1px solid #555; margin:.5rem; width:80%; text-align:center; background:#111;}
+  audio{display:block; margin-top:1rem;}
 </style>
 </head>
 <body>
@@ -14,12 +29,11 @@
   <div class="stage">Mac Parody Stage with icons</div>
   <div class="stage">Nokia Disclaimer & Loading Stage</div>
   <div class="stage">Linux Boss Finale</div>
-  <audio id="bgMusic" src="toccata_fugue_d_minor.mp3" autoplay></audio>
+  <audio id="bgMusic" src="toccata_fugue_d_minor.mp3" autoplay controls></audio>
   <script>
     const audio = document.getElementById('bgMusic');
     audio.addEventListener('play', () => {
       console.log('Music started: syncing animations and TTS to Toccata and Fugue in D Minor');
-      // Example: schedule TTS and stage highlights at specific timestamps
       setTimeout(() => console.log('Windows BSOD text animates'), 1000);
       setTimeout(() => console.log('Mac icons fade in'), 5000);
       setTimeout(() => console.log('Nokia status updates'), 10000);
@@ -27,10 +41,9 @@
     });
   </script>
 </body>
-</html>' style="flex:1; border:none;"></iframe>
-  <div style="flex:1; padding:1rem; background:#111; color:#0f0; overflow:auto; font-family:monospace; font-size:0.85rem;">
-    <!-- Code / Notes on the side -->
-    <pre>
+</html>'></iframe>
+
+<div id="side-code">
 We are now explicitly planning to sync all animations and TTS dialogue with "Toccata and Fugue in D Minor".
 
 Steps for proper sync:
@@ -47,6 +60,7 @@ Animations & Dialogue:
 Next:
 - Refine exact timestamps per musical bars.
 - Implement scheduler to trigger visuals/TTS precisely in sync with the music.
-    </pre>
-  </div>
 </div>
+
+</body>
+</html>
