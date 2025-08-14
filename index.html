@@ -1,76 +1,52 @@
-<!DOCTYPE html>
+<div style="display:flex; gap:1rem; height:100vh;">
+  <iframe srcdoc='<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Main Frame - Loading</title>
+<title>The Main Frame — Low-Flash</title>
 <style>
-/* CORE STYLES */
-body {
-    margin: 0;
-    background-color: #000;
-    color: #fff;
-    overflow: hidden;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: monospace;
-    text-align: center;
-}
-.hidden { display: none; }
+  body{margin:0; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#000; color:#fff; font-family:monospace;}
+  .stage{padding:1rem; border:1px solid #555; margin:.5rem; width:80%; text-align:center;}
+</style>
+</head>
+<body>
+  <div class="stage">Windows BSOD Stage</div>
+  <div class="stage">Mac Parody Stage with icons</div>
+  <div class="stage">Nokia Disclaimer & Loading Stage</div>
+  <div class="stage">Linux Boss Finale</div>
+  <audio id="bgMusic" src="toccata_fugue_d_minor.mp3" autoplay></audio>
+  <script>
+    const audio = document.getElementById('bgMusic');
+    audio.addEventListener('play', () => {
+      console.log('Music started: syncing animations and TTS to Toccata and Fugue in D Minor');
+      // Example: schedule TTS and stage highlights at specific timestamps
+      setTimeout(() => console.log('Windows BSOD text animates'), 1000);
+      setTimeout(() => console.log('Mac icons fade in'), 5000);
+      setTimeout(() => console.log('Nokia status updates'), 10000);
+      setTimeout(() => console.log('Linux boss finale animation'), 15000);
+    });
+  </script>
+</body>
+</html>' style="flex:1; border:none;"></iframe>
+  <div style="flex:1; padding:1rem; background:#111; color:#0f0; overflow:auto; font-family:monospace; font-size:0.85rem;">
+    <!-- Code / Notes on the side -->
+    <pre>
+We are now explicitly planning to sync all animations and TTS dialogue with "Toccata and Fugue in D Minor".
 
-/* WIN95 BSOD STYLES */
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-.win95-container {
-    width: 80%; max-width: 600px;
-    padding: 20px;
-    border: 2px solid #ccc;
-    box-shadow: 5px 5px 0 #000;
-    background-color: #808080;
-    text-align: left;
-}
-.win95-header {
-    background-color: #000084;
-    color: #fff;
-    padding: 2px 5px;
-    font-family: 'Press Start 2P', monospace;
-}
-.bsod-text { font-size: 16px; line-height: 1.5; }
-.bsod-continue-prompt {
-    margin-top: 40px;
-    font-size: 14px;
-    color: #000084;
-    font-weight: bold;
-    text-align: center;
-    cursor: pointer;
-}
+Steps for proper sync:
+1. Embed the music track in the page.
+2. Use audio.currentTime to schedule animations and TTS lines.
+3. Map timestamps to sheet music peaks and accents.
 
-/* MAC PARODY STYLES */
-.mac-container {
-    width: 80%; max-width: 400px;
-    padding: 20px;
-    border: 1px solid #000;
-    background-color: #c0c0c0;
-    text-align: center;
-    box-shadow: 6px 6px 0px 1px rgba(0,0,0,0.5);
-    font-family: 'Arial', sans-serif;
-    color: #000;
-}
-.mac-logo {
-    width: 100px; height: auto; margin-bottom: 10px;
-}
-.mac-header { font-weight: bold; font-size: 14px; margin-bottom: 10px; }
+Animations & Dialogue:
+- Windows BSOD text animates on strong downbeats.
+- Mac icons fade/pulse on melody accents.
+- Nokia status lights update with quieter motifs.
+- Linux boss finale animates at climactic moments.
 
-/* NOKIA DISCLAIMER/PARODY STYLES */
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-.nokia-screen-container {
-    padding: 20px;
-    max-width: 300px;
-    background-color: #0d121c;
-    border: 4px solid #fff;
-    box-shadow: 0 0 20px #fff;
-    color: #fff;
-    font-family: 'Press Start 2P', monospace;
-}
-.nokia-screen-
+Next:
+- Refine exact timestamps per musical bars.
+- Implement scheduler to trigger visuals/TTS precisely in sync with the music.
+    </pre>
+  </div>
+</div>
