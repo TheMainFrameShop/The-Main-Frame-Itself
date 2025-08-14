@@ -57,7 +57,7 @@
             cursor: pointer;
         }
 
-        /* MAC PARODY STYLES */
+        /* MAC PARODY STYLES (now includes fruit cycling) */
         .mac-container {
             width: 80%; max-width: 400px;
             padding: 20px;
@@ -130,7 +130,7 @@
             50% { opacity: 1; }
         }
         
-        /* LINUX STYLES */
+        /* LINUX STYLES (now cycles GIFs) */
         .linux-container {
             width: 80%; max-width: 400px;
             padding: 20px;
@@ -165,7 +165,7 @@
         <button id="mac-continue-btn">Continue</button>
     </div>
 
-    <div id="nokia-disclaimer-screen" class="hidden nokia-screen-container loading-container">
+    <div id="nokia-disclaimer-screen" class="hidden nokia-screen-container">
         <h2><span style="font-size: 24px;">!</span> SEIZURE WARNING</h2>
         <p style="font-size: 12px;">This site contains flashing lights and animations. By clicking "Continue," you acknowledge this warning and proceed at your own risk.</p>
         <div class="nokia-screen-buttons">
@@ -174,7 +174,7 @@
         </div>
     </div>
 
-    <div id="nokia-loading-screen" class="hidden nokia-screen-container loading-container">
+    <div id="nokia-loading-screen" class="hidden nokia-screen-container">
         <div class="red-flash" id="red-flash"></div>
         <svg class="nokia-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <path d="M50 0 L40 50 L60 50 Z" transform="rotate(180 50 50)"/>
@@ -186,9 +186,10 @@
     </div>
     
     <div id="linux-boss-screen" class="hidden linux-container">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux_with_hands_outstretched_and_a_smile_on_its_face.svg" alt="Tux the Penguin" class="linux-logo">
+        <img id="linux-logo" src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Tux_with_a_small_beak_and_a_big_smile.svg" alt="Tux the Penguin" class="linux-logo">
         <p>You have defeated the final boss.</p>
         <p>All it wanted was a hug.</p>
+        <button id="linux-continue-btn">HUG</button>
     </div>
 
     <audio id="audio" src="./28336.mp3" preload="auto"></audio>
@@ -197,39 +198,59 @@
         document.addEventListener('DOMContentLoaded', () => {
             const bsodScreen = document.getElementById('bsod-screen');
             const macScreen = document.getElementById('mac-screen');
+            const macContinueBtn = document.getElementById('mac-continue-btn');
             const nokiaDisclaimerScreen = document.getElementById('nokia-disclaimer-screen');
+            const nokiaDisclaimerContinueBtn = document.getElementById('nokia-disclaimer-continue-btn');
             const nokiaLoadingScreen = document.getElementById('nokia-loading-screen');
             const linuxBossScreen = document.getElementById('linux-boss-screen');
+            const linuxContinueBtn = document.getElementById('linux-continue-btn');
             const audio = document.getElementById('audio');
 
             // --- Game Logic ---
+            // The fruit images for the Mac parody
             const fruitImages = [
-                'https://upload.wikimedia.org/wikipedia/commons/e/e0/Macintosh_icon.svg',
                 'https://upload.wikimedia.org/wikipedia/commons/9/91/Orange_icon.svg',
                 'https://upload.wikimedia.org/wikipedia/commons/8/87/Lemon_icon.svg',
                 'https://upload.wikimedia.org/wikipedia/commons/8/82/Grape_icon.svg',
                 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Banana_icon.svg',
+                'https://upload.wikimedia.org/wikipedia/commons/f/ff/Strawberry_icon.svg',
+                // Note: The Apple logo is intentionally excluded
             ];
             let fruitIndex = 0;
             const macLogo = document.getElementById('mac-logo');
             let fruitInterval;
 
+            // The Linux penguin GIFs for the final boss
+            const penguinGIFs = [
+                'https://upload.wikimedia.org/wikipedia/commons/d/d3/Tux_with_a_smile_on_its_face.gif',
+                'https://upload.wikimedia.org/wikipedia/commons/b/b5/Tux_with_a_wave.gif',
+                'https://upload.wikimedia.org/wikipedia/commons/e/e0/Tux_with_a_party_hat.gif',
+            ];
+            let penguinIndex = 0;
+            const linuxLogo = document.getElementById('linux-logo');
+            let penguinInterval;
+
+            // Step 1: Start the game from the BSOD screen
             function showMacScreen() {
                 bsodScreen.classList.add('hidden');
                 macScreen.classList.remove('hidden');
 
+                // Cycle through the fruit logos
+                macLogo.src = fruitImages[0];
                 fruitInterval = setInterval(() => {
-                    macLogo.src = fruitImages[fruitIndex];
                     fruitIndex = (fruitIndex + 1) % fruitImages.length;
+                    macLogo.src = fruitImages[fruitIndex];
                 }, 500);
             }
             
+            // Step 2: Continue from the Mac screen to the Nokia disclaimer
             function showNokiaDisclaimer() {
-                clearInterval(fruitInterval);
+                clearInterval(fruitInterval); // Stop the fruit cycle
                 macScreen.classList.add('hidden');
                 nokiaDisclaimerScreen.classList.remove('hidden');
             }
 
+            // Step 3: Continue from the Nokia disclaimer to the final loading screen
             function startTheGame() {
                 nokiaDisclaimerScreen.classList.add('hidden');
                 nokiaLoadingScreen.classList.remove('hidden');
@@ -238,23 +259,36 @@
                 
                 setTimeout(() => {
                     nokiaLoadingScreen.classList.add('hidden');
-                    linuxBossScreen.classList.remove('hidden');
+                    showLinuxBossScreen();
                 }, 3000); 
-
-                setTimeout(() => {
-                    window.location.href = 'homepage.html';
-                }, 6000); // 3 seconds on Nokia screen + 3 seconds on Linux screen
             }
 
+            // Step 4: Show the Linux boss screen
+            function showLinuxBossScreen() {
+                linuxBossScreen.classList.remove('hidden');
+                
+                // Cycle through the penguin GIFs
+                linuxLogo.src = penguinGIFs[0];
+                penguinInterval = setInterval(() => {
+                    penguinIndex = (penguinIndex + 1) % penguinGIFs.length;
+                    linuxLogo.src = penguinGIFs[penguinIndex];
+                }, 1000); // Cycle every second
+            }
+
+            // Step 5: Final step to the homepage
+            function hugThePenguin() {
+                clearInterval(penguinInterval); // Stop the GIF cycle
+                window.location.href = 'homepage.html';
+            }
+
+            // Add all the event listeners for the puzzle
             document.getElementById('bsod-screen').addEventListener('click', showMacScreen);
             document.addEventListener('keydown', showMacScreen);
             window.addEventListener('gamepadconnected', showMacScreen);
-
-            document.getElementById('mac-continue-btn').addEventListener('click', showNokiaDisclaimer);
-            document.getElementById('nokia-disclaimer-continue-btn').addEventListener('click', startTheGame);
-            document.getElementById('nokia-disclaimer-exit-btn').addEventListener('click', () => {
-                window.location.href = 'https://www.google.com';
-            });
+            
+            macContinueBtn.addEventListener('click', showNokiaDisclaimer);
+            nokiaDisclaimerContinueBtn.addEventListener('click', startTheGame);
+            linuxContinueBtn.addEventListener('click', hugThePenguin);
         });
     </script>
 </body>
