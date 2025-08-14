@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +22,7 @@
             display: none;
         }
 
-        /* DISCLAIMER STYLES (NEW NOKIA STYLE) */
+        /* DISCLAIMER STYLES (NOKIA STYLE) */
         @font-face {
             font-family: 'NokiaFont';
             src: url('https://fonts.cdnfonts.com/s/17391/pixelated.woff') format('woff');
@@ -89,37 +88,6 @@
         @keyframes flash {
             50% { opacity: 1; }
         }
-
-        /* WIN95 STYLES */
-        @font-face {
-            font-family: 'Pixelated';
-            src: url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap') format('woff');
-        }
-        .win95-container {
-            width: 80%; max-width: 600px;
-            padding: 20px;
-            border: 2px solid #ccc;
-            box-shadow: 5px 5px 0 #000;
-            background-color: #808080;
-            text-align: left;
-        }
-        .win95-header {
-            background-color: #000084;
-            color: #fff;
-            padding: 2px 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: 'Pixelated', monospace;
-        }
-        .win95-header-button {
-            background-color: #c0c0c0;
-            border: 2px outset #fff;
-            padding: 0 4px;
-            line-height: 1;
-            font-size: 12px;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
@@ -141,33 +109,13 @@
         <div class="loading-text">The Main Frame</div>
     </div>
     
-    <div id="win95-screen" class="hidden win95-container">
-        <div class="win95-header">
-            <div>The Main Frame System Update</div>
-            <div class="win95-header-button">x</div>
-        </div>
-        <div class="loading-content" style="padding: 20px 10px; background-color: #c0c0c0; color: #000; font-size: 12px;">
-            <p>Initiating sarcasm subroutine...</p>
-            <div class="progress-bar-container" style="border: 1px solid #000; height: 16px; background-color: #fff; padding: 1px; margin-top: 10px;">
-                <div id="progress-bar" style="height: 100%; width: 0%; background-color: #000084;"></div>
-            </div>
-            <ul style="margin-top: 10px; padding-left: 15px;">
-                <li>> Deleting: Feelings.dll (access denied)</li>
-                <li>> Optimizing: Profit Over People (97% complete)</li>
-            </ul>
-        </div>
-    </div>
-    
     <audio id="audio" src="./28336.mp3" preload="auto"></audio>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const isMobile = window.innerWidth < 768;
-            
             const disclaimerScreen = document.getElementById('disclaimer-screen');
             const continueBtn = document.getElementById('continue-btn');
             const nokiaScreen = document.getElementById('nokia-screen');
-            const win95Screen = document.getElementById('win95-screen');
             const audio = document.getElementById('audio');
 
             function startLoadingScreen() {
@@ -179,26 +127,10 @@
                     }, 3000); 
                 }
 
-                if (isMobile) {
-                    audio.play();
-                    nokiaScreen.classList.remove('hidden');
-                    document.getElementById('red-flash').style.animationPlayState = 'running';
-                    finishLoading();
-                } else {
-                    win95Screen.classList.remove('hidden');
-                    const progressBar = document.getElementById('progress-bar');
-                    let progress = 0;
-                    const interval = setInterval(() => {
-                        progress += Math.floor(Math.random() * 11) + 3;
-                        if (progress > 100) progress = 100;
-                        progressBar.style.width = `${progress}%`;
-                        
-                        if (progress >= 100) {
-                            clearInterval(interval);
-                            finishLoading();
-                        }
-                    }, 420);
-                }
+                nokiaScreen.classList.remove('hidden');
+                audio.play();
+                document.getElementById('red-flash').style.animationPlayState = 'running';
+                finishLoading();
             }
 
             continueBtn.addEventListener('click', startLoadingScreen);
