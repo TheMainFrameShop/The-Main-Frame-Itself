@@ -161,8 +161,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const userAgent = navigator.userAgent;
-            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+            const isMobile = window.innerWidth < 768;
             
             const disclaimerScreen = document.getElementById('disclaimer-screen');
             const continueBtn = document.getElementById('continue-btn');
