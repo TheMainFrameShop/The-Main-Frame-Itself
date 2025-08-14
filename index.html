@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -224,35 +223,3 @@
                 nokiaDisclaimerScreen.classList.add('hidden');
                 nokiaLoadingScreen.classList.remove('hidden');
                 audio.play();
-                document.getElementById('red-flash').style.animationPlayState = 'running';
-                
-                setTimeout(() => {
-                    nokiaStatusText.textContent = "ACCESS GRANTED";
-                    nokiaStatusText.style.color = "green";
-                }, 3000); 
-
-                setTimeout(() => {
-                    nokiaLoadingScreen.classList.add('hidden');
-                    showLinuxBossScreen();
-                }, 7000);
-            }
-
-            function showLinuxBossScreen() {
-                linuxBossScreen.classList.remove('hidden');
-            }
-
-            function hugThePenguin() {
-                window.location.href = 'homepage.html';
-            }
-
-            document.getElementById('bsod-screen').addEventListener('click', showMacScreen);
-            document.addEventListener('keydown', showMacScreen);
-            window.addEventListener('gamepadconnected', showMacScreen);
-            
-            macContinueBtn.addEventListener('click', showNokiaDisclaimer);
-            nokiaDisclaimerContinueBtn.addEventListener('click', startTheGame);
-            linuxContinueBtn.addEventListener('click', hugThePenguin);
-        });
-    </script>
-</body>
-</html>
