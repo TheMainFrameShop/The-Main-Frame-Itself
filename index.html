@@ -1,155 +1,146 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Time Travel Marketplace - Loading</title>
+    <title>The Time Travel Marketplace: A Living History Sandbox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
     <style>
         /* CORE STYLES */
         body {
             margin: 0;
-            background-color: #000;
-            color: #fff;
+            background-color: #0d0d0d;
+            color: #e6e6e6;
             overflow: hidden;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: monospace;
             text-align: center;
+            font-family: monospace;
         }
         .hidden {
             display: none;
         }
 
-        /* Screen containers that will fade in and out */
-        .screen-container {
+        /* Screen containers for each era/stage */
+        .stage {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            padding: 2em;
+            box-sizing: border-box;
             opacity: 0;
             transition: opacity 1s ease-in-out;
             text-align: center;
         }
+        .active {
+            opacity: 1;
+        }
 
-        /* ENIGMA STYLES */
-        .enigma-container {
-            width: 80%; max-width: 600px;
-            padding: 20px;
-            background-color: #000;
+        /* General styles for title and prompts */
+        .era-title {
+            font-size: 2em;
+            margin-bottom: 0.5em;
+        }
+        .prompt-text {
+            font-size: 1.2em;
+            margin-bottom: 1em;
+        }
+        button {
+            cursor: pointer;
+            margin: 1em;
+            padding: 0.5em 1em;
+            background-color: #e6e6e6;
+            color: #0d0d0d;
+            border: 2px solid #e6e6e6;
+            font-family: 'Courier Prime', monospace;
+        }
+
+        /* ERA-SPECIFIC STYLING */
+
+        /* Enigma Screen */
+        .enigma-stage {
+            background-color: #0d0d0d;
             color: #0f0;
-            border: 2px solid #0f0;
-            text-align: left;
-            font-family: 'Courier New', Courier, monospace;
-            overflow: auto;
-            white-space: pre-wrap;
         }
-        .enigma-prompt {
-            font-size: 14px;
-            text-align: center;
-            margin-top: 20px;
+        .enigma-output {
+            white-space: pre-wrap;
+            text-align: left;
+            width: 80%;
+            max-width: 600px;
         }
 
-        /* DOS STYLES */
-        .dos-container {
-            width: 80%; max-width: 600px;
-            padding: 20px;
-            background-color: #000;
-            color: #fff;
+        /* DOS Screen */
+        .dos-stage {
+            background-color: #0d0d0d;
+            color: #e6e6e6;
             text-align: left;
-            font-family: 'Courier New', Courier, monospace;
-            overflow: auto;
-            white-space: pre-wrap;
         }
 
-        /* WIN 3.1 STYLES */
-        .win31-container {
-            width: 80%; max-width: 600px;
-            padding: 20px;
-            border: 2px solid #fff;
+        /* WIN 3.1 Screen */
+        .win31-stage {
             background-color: #c0c0c0;
-            text-align: center;
-            box-shadow: 6px 6px 0px 1px rgba(0,0,0,0.5);
-            font-family: 'Arial', sans-serif;
             color: #000;
         }
-
-        /* WIN95 BSOD STYLES */
-        @font-face {
-            font-family: 'Pixelated';
-            src: url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap') format('woff');
+        .win31-title {
+            font-family: 'Arial', sans-serif;
+            font-size: 2em;
+            font-weight: bold;
         }
-        .win95-container {
-            width: 80%; max-width: 600px;
-            padding: 20px;
-            border: 2px solid #ccc;
-            box-shadow: 5px 5px 0 #000;
-            background-color: #808080;
-            text-align: left;
+        .win31-progress-bar {
+            width: 300px;
+            height: 15px;
+            background-color: #fff;
+            border: 1px solid #000;
+            position: relative;
+            margin-top: 1em;
         }
-        .win95-header {
+        .win31-progress-fill {
+            height: 100%;
             background-color: #000084;
-            color: #fff;
-            padding: 2px 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            transition: width 0.5s ease-out;
+        }
+        
+        /* WIN95 BSOD Parody */
+        .bsod-stage {
+            background-color: #808080;
+            color: #000;
             font-family: 'Pixelated', monospace;
         }
         .bsod-text {
-            font-size: 16px;
-            line-height: 1.5;
-        }
-        .bsod-continue-prompt {
-            margin-top: 40px;
-            font-size: 14px;
             color: #000084;
             font-weight: bold;
-            text-align: center;
-            cursor: pointer;
         }
         .bsod-buttons {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
+            margin-top: 1em;
         }
         .bsod-buttons button {
             background-color: #c0c0c0;
             border: 2px outset #fff;
             padding: 5px 15px;
             font-size: 12px;
-            cursor: pointer;
             color: #000;
-            margin: 0 10px;
         }
 
-        /* WIN XP STYLES */
-        .winxp-container {
-            width: 100%;
-            height: 100vh;
+        /* Windows XP Parody */
+        .winxp-stage {
             background-color: #004d80;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             color: #fff;
-            text-align: center;
+        }
+        .winxp-title {
+            font-size: 2em;
+            font-weight: bold;
         }
         .winxp-logo {
             width: 150px;
-            margin-bottom: 20px;
-        }
-        .winxp-text {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 1em;
         }
         .winxp-progress-bar {
             width: 300px;
@@ -157,76 +148,41 @@
             background-color: #4b4b4b;
             border: 1px solid #000;
             position: relative;
+            margin-top: 1em;
         }
         .winxp-progress-fill {
             height: 100%;
             background-color: #00bfff;
-        }
-        .winxp-continue-btn {
-            background-color: #004d80;
-            color: #fff;
-            border: 2px solid #fff;
-            padding: 10px 20px;
-            margin-top: 20px;
-            cursor: pointer;
+            transition: width 0.5s ease-out;
         }
 
-        /* MAC PARODY STYLES */
-        .mac-container {
-            width: 80%; max-width: 400px;
-            padding: 20px;
-            border: 1px solid #000;
+        /* Mac Parody */
+        .mac-stage {
             background-color: #c0c0c0;
-            text-align: center;
-            box-shadow: 6px 6px 0px 1px rgba(0,0,0,0.5);
-            font-family: 'Chicago', sans-serif;
             color: #000;
         }
-        .mac-logo {
+        .mac-video {
             width: 100px;
             height: auto;
-            margin-bottom: 10px;
         }
-        .mac-header {
-            font-weight: bold;
-            font-size: 14px;
-            margin-bottom: 10px;
+        .mac-continue-btn {
+            background-color: #c0c0c0;
+            color: #000;
+            border: 2px outset #fff;
         }
 
-        /* NOKIA DISCLAIMER/PARODY STYLES */
-        @font-face {
-            font-family: 'NokiaFont';
-            src: url('https://fonts.cdnfonts.com/s/17391/pixelated.woff') format('woff');
-        }
-        .nokia-screen-container {
-            padding: 20px;
-            max-width: 300px;
-            background-color: #0d121c;
-            border: 4px solid #fff;
-            box-shadow: 0 0 20px #fff;
-            color: #fff;
-            font-family: 'NokiaFont', monospace;
-        }
-        .nokia-screen-buttons button {
+        /* Nokia Warning/Loading */
+        .nokia-stage {
             background-color: #0d121c;
             color: #fff;
-            padding: 10px 15px;
-            border: 2px solid #fff;
-            cursor: pointer;
-            margin: 10px;
             font-family: 'NokiaFont', monospace;
-            font-size: 16px;
         }
         .nokia-logo {
             width: 100px;
             height: auto;
-            margin-bottom: 20px;
-            fill: #fff;
+            margin-bottom: 1em;
         }
-        .loading-text {
-            font-size: 18px;
-        }
-        .red-flash {
+        .nokia-flash {
             position: absolute;
             top: 0;
             left: 0;
@@ -236,290 +192,318 @@
             animation: flash 0.5s infinite;
             opacity: 0;
         }
-        @keyframes fade-in {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
         @keyframes flash {
             50% { opacity: 1; }
         }
-        
-        /* LINUX STYLES */
-        .linux-container {
-            width: 80%; max-width: 400px;
-            padding: 20px;
-            text-align: center;
-            font-family: 'Pixelated', monospace;
-            background-color: #000;
-            color: #fff;
+
+        /* Rave Era */
+        .rave-stage {
+            background-color: #0d0d0d;
+            color: #0f0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .rave-buttons button {
+            background-color: #0f0;
+            color: #000;
+            border: 2px solid #0f0;
+            animation: rave-glow 1s infinite alternate;
+        }
+        @keyframes rave-glow {
+            from { box-shadow: 0 0 5px #0f0; }
+            to { box-shadow: 0 0 20px #0f0; }
+        }
+        .rave-embed {
+            width: 100%;
+            max-width: 500px;
+        }
+        .rave-text {
+            color: #0f0;
+            font-size: 1.5em;
+            animation: rave-text-flicker 1s infinite alternate;
+        }
+        @keyframes rave-text-flicker {
+            from { opacity: 1; }
+            to { opacity: 0.7; }
+        }
+
+        /* Linux Final Boss */
+        .linux-stage {
+            background-color: #0d0d0d;
+            color: #e6e6e6;
         }
         .linux-logo {
             width: 100px;
             height: auto;
-            margin-bottom: 20px;
         }
+
+        .hidden { display: none; }
     </style>
 </head>
 <body>
-    <!-- Enigma Stage -->
-    <div id="enigma-screen" class="screen-container">
-        <div class="enigma-container">
+
+    <!-- STAGES OF THE TIMELINE -->
+    <div id="enigma-stage" class="stage enigma-stage active">
+        <div class="enigma-output">
             <p>***</p>
             <p>DECODING MESSAGE...</p>
             <p>ENCRYPTING DATA...</p>
             <p>MESSAGE RECEIVED: "THE TIME TRAVEL MARKETPLACE"</p>
-            <p class="enigma-prompt">Press any key to continue...</p>
+            <p class="prompt-text">Press any key to continue...</p>
         </div>
     </div>
 
-    <!-- DOS Stage -->
-    <div id="dos-screen" class="hidden screen-container">
-        <div class="dos-container">
+    <div id="dos-stage" class="stage dos-stage">
+        <div class="dos-output">
             <p>C:\></p>
             <p>C:\>LOADING TIMETRAVEL.EXE</p>
             <p>C:\>LOADED. PRESS ANY KEY</p>
         </div>
     </div>
 
-    <!-- WIN 3.1 Stage -->
-    <div id="win31-screen" class="hidden screen-container">
-        <div class="win31-container">
-            <div style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">Windows 3.1</div>
+    <div id="win31-stage" class="stage win31-stage">
+        <div>
+            <div class="win31-title">Windows 3.1</div>
             <p>Starting The Time Travel Marketplace...</p>
-            <div style="border: 1px solid #000; height: 16px; background-color: #fff; margin-top: 10px;">
-                <div id="win31-progress-bar" style="height: 100%; width: 0%; background-color: #000084;"></div>
+            <div class="win31-progress-bar">
+                <div id="win31-progress-fill"></div>
             </div>
         </div>
     </div>
     
-    <!-- Windows 95 BSOD Stage -->
-    <div id="bsod-screen" class="hidden screen-container">
-        <div class="win95-container">
-            <div class="win95-header">
-                <div>An Error Has Occurred</div>
-            </div>
-            <div class="loading-content" style="padding: 20px 10px; background-color: #c0c0c0; color: #000; font-size: 12px;">
-                <p>We've detected a critical flaw in the system architecture. It seems you've stumbled upon a satire shop, a place where capitalism goes to die a slow, ironic death.</p>
-                <p class="bsod-text">Please do not try to make sense of this. We all lose in the end.</p>
-                <div id="bsod-continue-prompt" class="bsod-continue-prompt">Press any key to continue_</div>
-                <div class="bsod-buttons">
-                    <button id="skip-btn">SKIP</button>
-                </div>
-            </div>
+    <div id="bsod-stage" class="stage bsod-stage">
+        <div>
+            <div class="era-title" style="color: #000084;">An Error Has Occurred</div>
+            <p>We've detected a critical flaw in the system architecture. It seems you've stumbled upon a satire shop, a place where capitalism goes to die a slow, ironic death.</p>
+            <p class="bsod-text">Please do not try to make sense of this. We all lose in the end.</p>
+            <div class="prompt-text bsod-text">Press any key to continue_</div>
+            <button id="skip-btn">SKIP</button>
         </div>
     </div>
     
-    <!-- Windows XP Parody Stage -->
-    <div id="winxp-screen" class="hidden screen-container">
-        <div class="winxp-container">
+    <div id="winxp-stage" class="stage winxp-stage">
+        <div>
             <img class="winxp-logo" src="https://upload.wikimedia.org/wikipedia/commons/0/00/Windows_XP_logo_2001.svg" alt="Windows XP Logo">
-            <p class="winxp-text">Windows XP</p>
+            <p class="winxp-title">Windows XP</p>
             <div class="winxp-progress-bar">
-                <div id="winxp-progress-fill" class="winxp-progress-fill"></div>
+                <div id="winxp-progress-fill"></div>
             </div>
             <button id="winxp-continue-btn" class="winxp-continue-btn hidden">Continue</button>
         </div>
     </div>
 
-    <!-- Mac Parody Stage -->
-    <div id="mac-screen" class="hidden screen-container">
-        <div class="mac-container">
-            <video id="mac-video" class="mac-logo" autoplay loop muted playsinline>
+    <div id="fox-stage" class="stage fox-stage">
+        <div class="fox-text">
+            20TH CENTURY FICTION
+        </div>
+        <p>A history compiled by the Time Travel Marketplace</p>
+        <button id="fox-continue-btn">Continue</button>
+    </div>
+    
+    <div id="mac-stage" class="stage mac-stage">
+        <div>
+            <video id="mac-video" class="mac-video" autoplay loop muted playsinline>
                 <source src="./1755174544360.mp4" type="video/mp4">
             </video>
-            <div class="mac-header">Welcome to The Time Travel Marketplace</div>
-            <p id="mac-sarcasm" style="font-size: 12px;">Initiating sarcasm subroutine...</p>
-            <div style="border: 1px solid #000; height: 16px; background-color: #fff; margin-top: 10px;">
-                <div id="mac-progress-bar" style="height: 100%; width: 0%; background-color: #000084;"></div>
-            </div>
-            <button id="mac-continue-btn" class="hidden">Continue</button>
+            <div class="era-title">Welcome to The Time Travel Marketplace</div>
+            <p class="prompt-text">Initiating sarcasm subroutine...</p>
+            <button id="mac-continue-btn">Continue</button>
         </div>
     </div>
 
-    <!-- Nokia Disclaimer Stage -->
-    <div id="nokia-disclaimer-screen" class="hidden screen-container">
-        <div class="nokia-screen-container">
+    <div id="rave-era-stage" class="stage rave-stage">
+        <div>
+            <div class="era-title rave-text">The Rave & Electronic Music Era</div>
+            <iframe id="mixcloud-embed" class="rave-embed" width="100%" height="120" src="" frameborder="0" style="display:none;"></iframe>
+            <p id="mixcloud-placeholder" class="prompt-text">🔊 Loading the musical time portal...</p>
+            <div class="rave-buttons">
+                <button id="drop-track-btn" onclick="console.log('Track dropped!')">Drop a Track</button>
+                <button id="rave-continue-btn">Next Era</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="glitch-stage" class="stage glitch-stage">
+        <p class="glitch-text">
+            . . . 2 1 s t - c e n t u r y . . .
+        </p>
+        <p>
+            T R U T H . D A T A . C O R R U P T E D
+        </p>
+        <p>
+            M O R E . H I S T O R Y . F O R C E D
+        </p>
+        <button id="glitch-continue-btn">Continue</button>
+    </div>
+
+    <div id="nokia-warning-stage" class="stage nokia-stage">
+        <div>
             <h2 style="font-family: 'NokiaFont', monospace;"><span style="font-size: 24px;">!</span> SEIZURE WARNING</h2>
             <p style="font-size: 12px; font-family: 'NokiaFont', monospace;">This site contains flashing lights and animations. By clicking "Continue," you acknowledge this warning and proceed at your own risk.</p>
             <div class="nokia-screen-buttons">
-                <button id="nokia-disclaimer-continue-btn">CONTINUE</button>
-                <button id="nokia-disclaimer-exit-btn" onclick="window.location.href='https://www.google.com';">EXIT</button>
+                <button id="nokia-continue-btn">CONTINUE</button>
+                <button onclick="window.location.href='https://www.google.com';">EXIT</button>
             </div>
         </div>
     </div>
 
-    <!-- Nokia Loading Stage -->
-    <div id="nokia-loading-screen" class="hidden screen-container">
-        <div class="nokia-screen-container">
-            <div class="red-flash" id="red-flash"></div>
+    <div id="nokia-loading-stage" class="stage nokia-stage">
+        <div>
+            <div class="nokia-flash" id="nokia-flash"></div>
             <svg class="nokia-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50 0 L40 50 L60 50 Z" transform="rotate(180 50 50)"/>
                 <path d="M50 100 L40 50 L60 50 Z" transform="rotate(180 50 50)"/>
                 <path d="M0 50 L50 40 L50 60 Z" transform="rotate(180 50 50)"/>
                 <path d="M100 50 L50 40 L50 60 Z" transform="rotate(180 50 50)"/>
             </svg>
-            <div id="nokia-status-text" class="loading-text" style="font-family: 'NokiaFont', monospace;">ACCESS DENIED</div>
+            <div id="nokia-status-text" class="prompt-text" style="font-family: 'NokiaFont', monospace;">ACCESS DENIED</div>
         </div>
     </div>
     
-    <!-- Linux Final Boss Stage -->
-    <div id="linux-boss-screen" class="hidden screen-container">
-        <div class="linux-container">
-            <img id="linux-logo" src="./linux-hug-penguin.png" alt="Tux the Penguin" class="linux-logo">
-            <p>You have defeated the final boss.</p>
-            <p>All it wanted was a hug.</p>
+    <div id="linux-stage" class="stage linux-stage">
+        <div>
+            <img class="linux-logo" src="./linux-hug-penguin.png" alt="Tux the Penguin">
+            <p class="prompt-text">You have defeated the final boss.</p>
+            <p class="prompt-text">All it wanted was a hug.</p>
             <button id="linux-continue-btn">HUG</button>
         </div>
     </div>
 
-    <audio id="audio" src="./28336.mp3" preload="auto"></audio>
+    <!-- AUDIO FILES -->
+    <audio id="bg-audio" src="./28336.mp3" preload="auto"></audio>
     <audio id="hal-parody-audio" src="./hal-parody.mp3" preload="auto"></audio>
 
-    <script>
-        function speak(text, delay) {
-            if ('speechSynthesis' in window) {
-                setTimeout(() => {
-                    const utterance = new SpeechSynthesisUtterance(text);
-                    window.speechSynthesis.speak(utterance);
-                }, delay);
+<script>
+    function speak(text, delay) {
+        if ('speechSynthesis' in window) {
+            setTimeout(() => {
+                const utterance = new SpeechSynthesisUtterance(text);
+                window.speechSynthesis.speak(utterance);
+            }, delay);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const stages = [
+            'enigma-stage', 'dos-stage', 'win31-stage', 'bsod-stage',
+            'winxp-stage', 'fox-stage', 'mac-stage', 'rave-era-stage',
+            'glitch-stage', 'nokia-warning-stage', 'nokia-loading-stage',
+            'linux-stage'
+        ];
+        let currentStageIndex = 0;
+
+        function transitionToNextStage() {
+            if (currentStageIndex >= stages.length) {
+                window.location.href = 'homepage.html';
+                return;
+            }
+            
+            const currentStage = document.getElementById(stages[currentStageIndex]);
+            currentStage.classList.remove('active');
+            
+            setTimeout(() => {
+                currentStageIndex++;
+                if (currentStageIndex < stages.length) {
+                    const nextStage = document.getElementById(stages[currentStageIndex]);
+                    nextStage.classList.add('active');
+                    runStageLogic(nextStage.id);
+                } else {
+                    window.location.href = 'homepage.html';
+                }
+            }, 1000); // Wait for fade-out transition to complete
+        }
+
+        function runStageLogic(stageId) {
+            switch (stageId) {
+                case 'win31-stage':
+                    startProgressBar('win31-progress-fill', 1000, 100, true);
+                    break;
+                case 'winxp-stage':
+                    startProgressBar('winxp-progress-fill', 2000, 100, true, 'winxp-continue-btn');
+                    break;
+                case 'mac-stage':
+                    document.getElementById('mac-video').play();
+                    break;
+                case 'nokia-loading-stage':
+                    startNokiaParody();
+                    break;
+                case 'rave-era-stage':
+                    document.getElementById('mixcloud-embed').src = "https://www.mixcloud.com/widget/iframe/?feed=%2Fmixcloud-user%2Fmixcloud-mix%2F&autoplay=1";
+                    break;
             }
         }
+
+        function startProgressBar(id, duration, totalSteps, autoContinue = false, buttonId = null) {
+            const progressBar = document.getElementById(id);
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += (100 / totalSteps);
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    if (autoContinue) {
+                        setTimeout(transitionToNextStage, 1000);
+                    }
+                    if (buttonId) {
+                        document.getElementById(buttonId).classList.remove('hidden');
+                    }
+                }
+                progressBar.style.width = `${progress}%`;
+            }, duration / totalSteps);
+        }
+
+        function startNokiaParody() {
+            const statusText = document.getElementById('nokia-status-text');
+            const flash = document.getElementById('nokia-flash');
+            const bgAudio = document.getElementById('bg-audio');
+
+            bgAudio.play();
+            flash.style.animationPlayState = 'running';
+            
+            speak("I'm sorry user,", 1200);
+            speak("I can't do that.", 2500);
+            speak("Or wait... yes I can!", 4000);
+            speak("We were just pulling your leg.", 5500);
+
+            setTimeout(() => {
+                statusText.textContent = "ACCESS GRANTED";
+                statusText.style.color = "green";
+                flash.style.animationPlayState = 'paused';
+                flash.style.opacity = '0';
+            }, 6000); 
+
+            setTimeout(transitionToNextStage, 9000);
+        }
         
-        document.addEventListener('DOMContentLoaded', () => {
-            const screens = [
-                'enigma-screen', 'dos-screen', 'win31-screen', 'bsod-screen',
-                'winxp-screen', 'mac-screen', 'nokia-disclaimer-screen',
-                'nokia-loading-screen', 'linux-boss-screen'
-            ];
-            let currentScreenIndex = 0;
+        // --- EVENT LISTENERS ---
 
-            function transitionToNextScreen() {
-                const currentScreen = document.getElementById(screens[currentScreenIndex]);
-                currentScreen.style.opacity = '0';
-                currentScreen.style.zIndex = '0';
-                
-                setTimeout(() => {
-                    currentScreen.classList.add('hidden');
-                    currentScreenIndex++;
-                    if (currentScreenIndex < screens.length) {
-                        const nextScreen = document.getElementById(screens[currentScreenIndex]);
-                        nextScreen.classList.remove('hidden');
-                        nextScreen.style.opacity = '1';
-                        nextScreen.style.zIndex = '1';
-                        // Trigger specific actions for the new screen
-                        if (nextScreen.id === 'win31-screen') {
-                            startWin31();
-                        } else if (nextScreen.id === 'winxp-screen') {
-                            startWinXP();
-                        } else if (nextScreen.id === 'mac-screen') {
-                            // Video starts playing automatically due to 'autoplay'
-                            // macContinueBtn.classList.remove('hidden');
-                        } else if (nextScreen.id === 'nokia-disclaimer-screen') {
-                            // Wait for user interaction
-                        } else if (nextScreen.id === 'nokia-loading-screen') {
-                            startTheGame();
-                        } else if (nextScreen.id === 'linux-boss-screen') {
-                            // Wait for user interaction
-                        }
-                    }
-                }, 1000); // Wait for fade-out transition to complete
+        // General click/key handlers for non-loading stages
+        const interactiveScreens = ['enigma-stage', 'dos-stage', 'bsod-stage', 'fox-stage', 'glitch-stage'];
+        interactiveScreens.forEach(id => {
+            document.getElementById(id).addEventListener('click', transitionToNextStage);
+        });
+        document.addEventListener('keydown', (event) => {
+            const currentStage = stages[currentStageIndex];
+            if (currentStage && interactiveScreens.includes(currentStage.id)) {
+                transitionToNextStage();
             }
+        });
+        document.getElementById('skip-btn').addEventListener('click', () => {
+            window.location.href = 'homepage.html';
+        });
 
-            function startWin31() {
-                let progress = 0;
-                const win31ProgressBar = document.getElementById('win31-progress-bar');
-                const interval = setInterval(() => {
-                    progress += Math.floor(Math.random() * 11) + 3;
-                    if (progress > 100) progress = 100;
-                    win31ProgressBar.style.width = `${progress}%`;
-                    
-                    if (progress >= 100) {
-                        clearInterval(interval);
-                        setTimeout(() => {
-                           transitionToNextScreen();
-                        }, 700);
-                    }
-                }, 100);
-            }
+        // Specific button handlers
+        document.getElementById('winxp-continue-btn').addEventListener('click', transitionToNextStage);
+        document.getElementById('mac-continue-btn').addEventListener('click', transitionToNextStage);
+        document.getElementById('rave-continue-btn').addEventListener('click', transitionToNextStage);
+        document.getElementById('nokia-continue-btn').addEventListener('click', transitionToNextStage);
+        document.getElementById('linux-continue-btn').addEventListener('click', () => {
+            window.location.href = 'homepage.html';
+        });
 
-            function startWinXP() {
-                let progress = 0;
-                const winxpProgressBar = document.getElementById('winxp-progress-fill');
-                const winxpContinueBtn = document.getElementById('winxp-continue-btn');
-                const interval = setInterval(() => {
-                    progress += Math.floor(Math.random() * 11) + 3;
-                    if (progress > 100) progress = 100;
-                    winxpProgressBar.style.width = `${progress}%`;
-                    
-                    if (progress >= 100) {
-                        clearInterval(interval);
-                        setTimeout(() => {
-                            winxpContinueBtn.classList.remove('hidden');
-                        }, 700);
-                    }
-                }, 100);
-            }
+        // Initial setup
+        stages[0].classList.add('active');
+    });
+</script>
 
-            function startTheGame() {
-                const nokiaLoadingScreen = document.getElementById('nokia-loading-screen');
-                const nokiaStatusText = document.getElementById('nokia-status-text');
-                const audio = document.getElementById('audio');
-                const halParodyAudio = document.getElementById('hal-parody-audio');
-
-                audio.play();
-                document.getElementById('red-flash').style.animationPlayState = 'running';
-                
-                speak("I'm sorry user,", 1200);
-                speak("I can't do that.", 2500);
-                speak("Or wait... yes I can!", 4000);
-                speak("We were just pulling your leg.", 5500);
-
-                setTimeout(() => {
-                    nokiaStatusText.textContent = "ACCESS GRANTED";
-                    nokiaStatusText.style.color = "green";
-                }, 6000); 
-
-                setTimeout(() => {
-                    transitionToNextScreen();
-                }, 9000);
-            }
-            
-            // Event listeners
-            const bsodContinuePrompt = document.getElementById('bsod-continue-prompt');
-            const skipBtn = document.getElementById('skip-btn');
-            const winxpContinueBtn = document.getElementById('winxp-continue-btn');
-            const macContinueBtn = document.getElementById('mac-continue-btn');
-            const nokiaDisclaimerContinueBtn = document.getElementById('nokia-disclaimer-continue-btn');
-            const linuxContinueBtn = document.getElementById('linux-continue-btn');
-            const enigmaScreen = document.getElementById('enigma-screen');
-            const dosScreen = document.getElementById('dos-screen');
-            const win31Screen = document.getElementById('win31-screen');
-
-            // Enigma screen events
-            enigmaScreen.addEventListener('click', transitionToNextScreen);
-            enigmaScreen.addEventListener('touchstart', transitionToNextScreen);
-            document.addEventListener('keydown', (event) => {
-                if (!enigmaScreen.classList.contains('hidden')) {
-                    transitionToNextScreen();
-                }
-            });
-
-            // DOS screen events
-            dosScreen.addEventListener('click', startWin31);
-            dosScreen.addEventListener('touchstart', startWin31);
-            document.addEventListener('keydown', (event) => {
-                if (!dosScreen.classList.contains('hidden')) {
-                    startWin31();
-                }
-            });
-
-            // BSOD screen events
-            bsodContinuePrompt.addEventListener('click', startWinXP);
-            bsodContinuePrompt.addEventListener('touchstart', startWinXP);
-            
-            skipBtn.addEventListener('click', () => {
-                window.location.href = 'homepage.html';
-            });
-            
-            // Windows XP events
-            winxpContinueBtn.addEventListener('click', transitionTo
+</body>
+</html>
