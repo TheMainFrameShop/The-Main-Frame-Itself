@@ -477,4 +477,51 @@
                 let progress = 0;
                 const winxpProgressBar = document.getElementById('winxp-progress-fill');
                 const interval = setInterval(() => {
-                    progress += Math.floor(Math.random(
+                    progress += Math.floor(Math.random() * 11) + 3;
+                    if (progress > 100) progress = 100;
+                    winxpProgressBar.style.width = `${progress}%`;
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            winxpContinueBtn.classList.remove('hidden');
+                        }, 700);
+                    }
+                }, 100);
+            }
+            
+            winxpContinueBtn.addEventListener('click', () => transitionToNextScreen());
+
+            // Mac -> Nokia Disclaimer
+            macContinueBtn.addEventListener('click', () => transitionToNextScreen());
+            
+            // Nokia Disclaimer -> Nokia Loading Screen
+            nokiaDisclaimerContinueBtn.addEventListener('click', startTheGame);
+            
+            function startTheGame() {
+                transitionToNextScreen();
+                audio.play();
+                document.getElementById('red-flash').style.animationPlayState = 'running';
+                
+                speak("I'm sorry user,", 1200);
+                speak("I can't do that.", 2500);
+                speak("Or wait... yes I can!", 4000);
+                speak("We were just pulling your leg.", 5500);
+
+                setTimeout(() => {
+                    nokiaStatusText.textContent = "ACCESS GRANTED";
+                    nokiaStatusText.style.color = "green";
+                }, 6000); 
+
+                setTimeout(() => {
+                    transitionToNextScreen();
+                }, 9000);
+            }
+            
+            // Linux -> Homepage
+            function hugThePenguin() {
+                window.location.href = 'homepage.html';
+            }
+
+            linuxContinueBtn.addEventListener('click', hugThePenguin);
+            
