@@ -17,12 +17,6 @@
         button { cursor:pointer; margin:1em; padding:.5em 1em; background:#e6e6e6; color:#0d0d0d; border:2px solid #e6e6e6; font-family:'Courier Prime', monospace; }
         .hidden { display:none; }
 
-        /* Status Panel */
-        #stage-checklist{position:fixed;top:10px;right:10px;background:rgba(0,0,0,0.85);color:#fff;padding:1em;border-radius:8px;z-index:9999;max-width:250px;font-size:0.9em;}
-        #stage-checklist h3{margin:0 0 0.5em 0;padding:0;font-size:1em;}
-        #stage-checklist ul{list-style:none;padding:0;margin:0;}
-        .status-complete { color: #0f0; }
-
         /* ENIGMA STAGE */
         .enigma-stage { color:#0f0; background:#0d0d0d; }
         .enigma-output { white-space:pre-wrap; text-align:left; width:80%; max-width:600px; }
@@ -154,7 +148,7 @@
 </head>
 <body>
 
-    <!-- STAGES OF THE TIMELINE -->
+    <!-- ENIGMA STAGE -->
     <div id="enigma-stage" class="stage enigma-stage active">
         <div class="enigma-output">
             <p>***</p>
@@ -411,4 +405,13 @@
                 '  let profit = 0;',
                 '  if (input === "subversive_idea") {',
                 '    profit = 100;',
-                '    console.log("Success! 
+                '    console.log("Success! Capitalism subverted.");',
+                '  } else {',
+                '    profit = 0;',
+                '    console.log("Error: User followed traditional business practices.");',
+                '  }',
+                '  return profit;',
+                '}',
+                '// Hackable Parameter: Try changing the profit value above to something else.'
+            ];
+            let lin
