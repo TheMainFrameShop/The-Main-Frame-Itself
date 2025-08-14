@@ -56,7 +56,52 @@
             text-align: center;
             padding: 50px;
         }
-        .win95-audio-player {
+        /*
+         * MOBILE DIAL PAD STYLES
+         */
+        .mobile-dialpad-container {
+            width: 90%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            border: 2px solid #fff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        .mobile-dialpad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .dialpad-button {
+            background-color: #444;
+            color: #fff;
+            font-size: 2em;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .dialpad-button:hover {
+            background-color: #666;
+        }
+        .mobile-text {
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+        .dialpad-input {
+            width: 100%;
+            text-align: center;
+            font-size: 1.5em;
+            background-color: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .win95-video-player {
             width: 400px;
             border: 2px solid #ccc;
             box-shadow: 5px 5px 0 #000;
@@ -115,17 +160,29 @@
                 <button id="bsod-continue" style="margin-top: 40px; padding: 10px 20px; background-color: #c0c0c0; color: #000; border: 2px outset #fff; cursor: pointer;">Click to Continue and Accept Your Fate</button>
             </a>
         </div>
+
+        <!-- The new Mobile Dial Pad Screen -->
+        <div id="mobile-dialpad-screen" class="hidden mobile-dialpad-container">
+            <h2 class="mobile-text">Enter your personal code to proceed.</h2>
+            <input type="text" id="dialpad-input" class="dialpad-input" readonly>
+            <div class="mobile-dialpad">
+                <button class="dialpad-button" onclick="dialCode('1')">1</button>
+                <button class="dialpad-button" onclick="dialCode('2')">2</button>
+                <button class="dialpad-button" onclick="dialCode('3')">3</button>
+                <button class="dialpad-button" onclick="dialCode('4')">4</button>
+                <button class="dialpad-button" onclick="dialCode('5')">5</button>
+                <button class="dialpad-button" onclick="dialCode('6')">6</button>
+                <button class="dialpad-button" onclick="dialCode('7')">7</button>
+                <button class="dialpad-button" onclick="dialCode('8')">8</button>
+                <button class="dialpad-button" onclick="dialCode('9')">9</button>
+                <button class="dialpad-button" onclick="dialCode('*')">*</button>
+                <button class="dialpad-button" onclick="dialCode('0')">0</button>
+                <button class="dialpad-button" onclick="dialCode('#')">#</button>
+            </div>
+            <button class="dialpad-button mobile-text" style="width: 100%; margin-top: 20px;" onclick="checkCode()">Dial</button>
+        </div>
     </div>
     
-    <!-- The new Windows 95-themed audio player with the Madam Missfit song -->
-    <div class="win95-audio-player">
-        <div class="win95-header">
-            <div>Please Hold...</div>
-            <div class="win95-header-button">x</div>
-        </div>
-        <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1379342917&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
-    </div>
-
     <script>
         function speak(text) {
             if ('speechSynthesis' in window) {
@@ -134,22 +191,43 @@
             }
         }
 
+        let dialpadCode = "";
+        
+        function dialCode(key) {
+            if (key === '*' || key === '#') {
+                dialpadCode = "";
+            } else {
+                dialpadCode += key;
+                document.getElementById('dialpad-input').value = dialpadCode;
+            }
+        }
+
+        function checkCode() {
+            // All combinations work!
+            if (dialpadCode.length > 0) {
+                speak("Thank you for your input. Your call is very important to us. Redirecting you to an agent now. Please hold.");
+                setTimeout(() => {
+                    window.location.href = 'homepage.html';
+                }, 3000);
+            } else {
+                speak("I am sorry, I did not receive a code. Please try again. To return to the main menu, please press star.");
+            }
+            dialpadCode = "";
+            document.getElementById('dialpad-input').value = "";
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const isUnauthorized = false;
             const isTorUser = false;
             const isElectionDay = false;
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
             const loadingOverlay = document.getElementById('mainframe-loading');
             const win95Screen = document.getElementById('win95-container');
             const bsodScreen = document.getElementById('bsod-screen');
+            const mobileDialpadScreen = document.getElementById('mobile-dialpad-container');
             const progressBar = document.getElementById('progress-bar');
             const bsodContinueBtn = document.getElementById('bsod-continue');
-            const win95AudioPlayer = document.querySelector('.win95-audio-player');
-            const win95AudioPlayerCloseBtn = win95AudioPlayer.querySelector('.win95-header-button');
-
-            win95AudioPlayerCloseBtn.addEventListener('click', () => {
-                win95AudioPlayer.classList.add('hidden');
-            });
 
             function startLoading() {
                 if (isElectionDay) {
@@ -173,13 +251,21 @@
                         clearInterval(interval);
                         setTimeout(() => {
                             win95Screen.classList.add('hidden');
-                            bsodScreen.classList.remove('hidden');
-                            speak("Don't worry, it's a joke. Sorry if this scared you.");
+                            if (isMobile) {
+                                mobileDialpadScreen.classList.remove('hidden');
+                            } else {
+                                bsodScreen.classList.remove('hidden');
+                                speak("Don't worry, it's a joke. Sorry if this scared you.");
+                            }
                         }, 700);
                     }
                 }, 420);
             }
-            
+
+            bsodContinueBtn.addEventListener('click', () => {
+                window.location.href = 'homepage.html';
+            });
+
             startLoading();
         });
     </script>
