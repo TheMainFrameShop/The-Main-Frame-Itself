@@ -99,6 +99,51 @@
         .linux-stage { background:#0d0d0d; color:#e6e6e6; }
         .linux-logo { width:100px; height:auto; }
         .linux-hug-btn { background:#000084; color:#fff; }
+
+        /* PREHISTORIC STAGE */
+        .prehistoric-stage {
+            background: linear-gradient(to top, #654321, #c2b280);
+            color: #000;
+            font-family: 'Courier Prime', monospace;
+            position: relative;
+            height: 100%;
+            text-align: center;
+        }
+
+        .prehistoric-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2em;
+            margin-top: 2em;
+        }
+
+        .prehistoric-item {
+            width: 100px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .prehistoric-item:hover {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .prehistoric-info {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            background-color: rgba(255,255,255,0.9);
+            color: #000;
+            padding: 1em;
+            border-radius: 8px;
+        }
+
+        .prehistoric-info.hidden {
+            display: none;
+        }
+
     </style>
 </head>
 <body>
@@ -368,30 +413,4 @@
                 '    profit = 0;',
                 '    console.log("Error: User followed traditional business practices.");',
                 '  }',
-                '  return profit;',
-                '}',
-                '// Hackable Parameter: Try changing the profit value above to something else.'
-            ];
-            let lineIndex = 0;
-            let charIndex = 0;
-            const typingSpeed = 20;
-
-            const typingInterval = setInterval(() => {
-                if (lineIndex < code.length) {
-                    const currentLine = code[lineIndex];
-                    if (charIndex <= currentLine.length) {
-                        codeBlock.innerHTML = code.slice(0, lineIndex).join('<br>') + '<br>' + currentLine.substring(0, charIndex) + '<span style="animation:blink 1s step-end infinite;">_</span>';
-                        charIndex++;
-                    } else {
-                        lineIndex++;
-                        charIndex = 0;
-                    }
-                } else {
-                    clearInterval(typingInterval);
-                    document.getElementById('code-era-continue-btn').classList.remove('hidden');
-                }
-            }, typingSpeed);
-        }
-
-        function setupPrehistoricInteractions() {
-            c
+               
