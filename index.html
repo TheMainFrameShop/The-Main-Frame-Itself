@@ -22,7 +22,7 @@
             display: none;
         }
 
-        /* WIN95 BSOD STYLES - This is the first screen of the puzzle */
+        /* WIN95 BSOD STYLES */
         @font-face {
             font-family: 'Pixelated';
             src: url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap') format('woff');
@@ -57,7 +57,29 @@
             cursor: pointer;
         }
 
-        /* NOKIA DISCLAIMER/PARODY STYLES - This is the second screen of the puzzle, and also serves as the seizure warning */
+        /* MAC PARODY STYLES */
+        .mac-container {
+            width: 80%; max-width: 400px;
+            padding: 20px;
+            border: 1px solid #000;
+            background-color: #c0c0c0;
+            text-align: center;
+            box-shadow: 6px 6px 0px 1px rgba(0,0,0,0.5);
+            font-family: 'Chicago', sans-serif;
+            color: #000;
+        }
+        .mac-logo {
+            width: 50px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .mac-header {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        /* NOKIA DISCLAIMER/PARODY STYLES */
         @font-face {
             font-family: 'NokiaFont';
             src: url('https://fonts.cdnfonts.com/s/17391/pixelated.woff') format('woff');
@@ -70,14 +92,6 @@
             box-shadow: 0 0 20px #fff;
             color: #fff;
             font-family: 'NokiaFont', monospace;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            opacity: 0;
-            animation: fade-in 1s forwards;
-            position: relative;
         }
         .nokia-screen-buttons button {
             background-color: #0d121c;
@@ -115,6 +129,21 @@
         @keyframes flash {
             50% { opacity: 1; }
         }
+        
+        /* LINUX STYLES */
+        .linux-container {
+            width: 80%; max-width: 400px;
+            padding: 20px;
+            text-align: center;
+            font-family: 'Pixelated', monospace;
+            background-color: #000;
+            color: #fff;
+        }
+        .linux-logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -129,16 +158,23 @@
         </div>
     </div>
 
-    <div id="nokia-disclaimer-screen" class="hidden nokia-screen-container">
+    <div id="mac-screen" class="hidden mac-container">
+        <img id="mac-logo" src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Macintosh_icon.svg" alt="Macintosh Logo" class="mac-logo">
+        <div class="mac-header">Welcome to The Main Frame</div>
+        <p style="font-size: 12px;">Initiating subversive protocols...</p>
+        <button id="mac-continue-btn">Continue</button>
+    </div>
+
+    <div id="nokia-disclaimer-screen" class="hidden nokia-screen-container loading-container">
         <h2><span style="font-size: 24px;">!</span> SEIZURE WARNING</h2>
         <p style="font-size: 12px;">This site contains flashing lights and animations. By clicking "Continue," you acknowledge this warning and proceed at your own risk.</p>
         <div class="nokia-screen-buttons">
-            <button id="continue-btn">CONTINUE</button>
-            <button id="exit-btn" onclick="window.location.href='https://www.google.com';">EXIT</button>
+            <button id="nokia-disclaimer-continue-btn">CONTINUE</button>
+            <button id="nokia-disclaimer-exit-btn" onclick="window.location.href='https://www.google.com';">EXIT</button>
         </div>
     </div>
 
-    <div id="nokia-loading-screen" class="hidden nokia-screen-container">
+    <div id="nokia-loading-screen" class="hidden nokia-screen-container loading-container">
         <div class="red-flash" id="red-flash"></div>
         <svg class="nokia-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <path d="M50 0 L40 50 L60 50 Z" transform="rotate(180 50 50)"/>
@@ -149,18 +185,48 @@
         <div class="loading-text">The Main Frame</div>
     </div>
     
+    <div id="linux-boss-screen" class="hidden linux-container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux_with_hands_outstretched_and_a_smile_on_its_face.svg" alt="Tux the Penguin" class="linux-logo">
+        <p>You have defeated the final boss.</p>
+        <p>All it wanted was a hug.</p>
+    </div>
+
     <audio id="audio" src="./28336.mp3" preload="auto"></audio>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const bsodScreen = document.getElementById('bsod-screen');
+            const macScreen = document.getElementById('mac-screen');
             const nokiaDisclaimerScreen = document.getElementById('nokia-disclaimer-screen');
             const nokiaLoadingScreen = document.getElementById('nokia-loading-screen');
-            const continueBtn = document.getElementById('continue-btn');
+            const linuxBossScreen = document.getElementById('linux-boss-screen');
             const audio = document.getElementById('audio');
 
-            function showNokiaDisclaimer() {
+            // --- Game Logic ---
+            const fruitImages = [
+                'https://upload.wikimedia.org/wikipedia/commons/e/e0/Macintosh_icon.svg',
+                'https://upload.wikimedia.org/wikipedia/commons/9/91/Orange_icon.svg',
+                'https://upload.wikimedia.org/wikipedia/commons/8/87/Lemon_icon.svg',
+                'https://upload.wikimedia.org/wikipedia/commons/8/82/Grape_icon.svg',
+                'https://upload.wikimedia.org/wikipedia/commons/a/a2/Banana_icon.svg',
+            ];
+            let fruitIndex = 0;
+            const macLogo = document.getElementById('mac-logo');
+            let fruitInterval;
+
+            function showMacScreen() {
                 bsodScreen.classList.add('hidden');
+                macScreen.classList.remove('hidden');
+
+                fruitInterval = setInterval(() => {
+                    macLogo.src = fruitImages[fruitIndex];
+                    fruitIndex = (fruitIndex + 1) % fruitImages.length;
+                }, 500);
+            }
+            
+            function showNokiaDisclaimer() {
+                clearInterval(fruitInterval);
+                macScreen.classList.add('hidden');
                 nokiaDisclaimerScreen.classList.remove('hidden');
             }
 
@@ -171,17 +237,24 @@
                 document.getElementById('red-flash').style.animationPlayState = 'running';
                 
                 setTimeout(() => {
-                    window.location.href = 'homepage.html';
+                    nokiaLoadingScreen.classList.add('hidden');
+                    linuxBossScreen.classList.remove('hidden');
                 }, 3000); 
+
+                setTimeout(() => {
+                    window.location.href = 'homepage.html';
+                }, 6000); // 3 seconds on Nokia screen + 3 seconds on Linux screen
             }
 
-            // The first step: show the BSOD screen. Click or press any key to move to the next screen.
-            document.getElementById('bsod-screen').addEventListener('click', showNokiaDisclaimer);
-            document.addEventListener('keydown', showNokiaDisclaimer);
-            window.addEventListener('gamepadconnected', showNokiaDisclaimer);
+            document.getElementById('bsod-screen').addEventListener('click', showMacScreen);
+            document.addEventListener('keydown', showMacScreen);
+            window.addEventListener('gamepadconnected', showMacScreen);
 
-            // The second step: after the disclaimer, click the "Continue" button to start the final loading screen.
-            continueBtn.addEventListener('click', startTheGame);
+            document.getElementById('mac-continue-btn').addEventListener('click', showNokiaDisclaimer);
+            document.getElementById('nokia-disclaimer-continue-btn').addEventListener('click', startTheGame);
+            document.getElementById('nokia-disclaimer-exit-btn').addEventListener('click', () => {
+                window.location.href = 'https://www.google.com';
+            });
         });
     </script>
 </body>
