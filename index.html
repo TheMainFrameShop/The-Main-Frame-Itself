@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -194,7 +193,8 @@
         <p>All it wanted was a hug.</p>
         <button id="linux-continue-btn">HUG</button>
     </div>
-    <audio id="background-audio" src="./28336.mp3" preload="auto"></audio>
+
+    <audio id="audio" src="./28336.mp3" preload="auto"></audio>
 
     <script>
         function speak(text) {
@@ -215,7 +215,7 @@
             const nokiaStatusText = document.getElementById('nokia-status-text');
             const linuxBossScreen = document.getElementById('linux-boss-screen');
             const linuxContinueBtn = document.getElementById('linux-continue-btn');
-            const backgroundAudio = document.getElementById('background-audio');
+            const audio = document.getElementById('audio');
 
             function showMacScreen() {
                 bsodScreen.classList.add('hidden');
@@ -230,7 +230,7 @@
             function startTheGame() {
                 nokiaDisclaimerScreen.classList.add('hidden');
                 nokiaLoadingScreen.classList.remove('hidden');
-                backgroundAudio.play();
+                audio.play();
                 document.getElementById('red-flash').style.animationPlayState = 'running';
                 
                 setTimeout(() => {
