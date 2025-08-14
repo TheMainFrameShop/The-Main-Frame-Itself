@@ -1,508 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Time Travel Marketplace: A Living History Sandbox</title>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
-    <style>
-        /* CORE STYLES */
-        body {
-            margin: 0;
-            background-color: #0d0d0d;
-            color: #e6e6e6;
-            overflow: hidden;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            font-family: monospace;
-        }
-        .hidden {
-            display: none;
-        }
-
-        /* Screen containers for each era/stage */
-        .stage {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2em;
-            box-sizing: border-box;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-            text-align: center;
-        }
-        .active {
-            opacity: 1;
-        }
-
-        /* General styles for title and prompts */
-        .era-title {
-            font-size: 2em;
-            margin-bottom: 0.5em;
-        }
-        .prompt-text {
-            font-size: 1.2em;
-            margin-bottom: 1em;
-        }
-        button {
-            cursor: pointer;
-            margin: 1em;
-            padding: 0.5em 1em;
-            background-color: #e6e6e6;
-            color: #0d0d0d;
-            border: 2px solid #e6e6e6;
-            font-family: 'Courier Prime', monospace;
-        }
-
-        /* ERA-SPECIFIC STYLING */
-
-        /* Enigma Screen */
-        .enigma-stage {
-            background-color: #0d0d0d;
-            color: #0f0;
-        }
-        .enigma-output {
-            white-space: pre-wrap;
-            text-align: left;
-            width: 80%;
-            max-width: 600px;
-        }
-
-        /* DOS Screen */
-        .dos-stage {
-            background-color: #0d0d0d;
-            color: #e6e6e6;
-            text-align: left;
-        }
-
-        /* WIN 3.1 Screen */
-        .win31-stage {
-            background-color: #c0c0c0;
-            color: #000;
-        }
-        .win31-title {
-            font-family: 'Arial', sans-serif;
-            font-size: 2em;
-            font-weight: bold;
-        }
-        .win31-progress-bar {
-            width: 300px;
-            height: 15px;
-            background-color: #fff;
-            border: 1px solid #000;
-            position: relative;
-            margin-top: 1em;
-        }
-        .win31-progress-fill {
-            height: 100%;
-            background-color: #000084;
-            transition: width 0.5s ease-out;
-        }
-        
-        /* WIN95 BSOD Parody */
-        .bsod-stage {
-            background-color: #808080;
-            color: #000;
-            font-family: 'Pixelated', monospace;
-        }
-        .bsod-text {
-            color: #000084;
-            font-weight: bold;
-        }
-        .bsod-buttons {
-            margin-top: 1em;
-        }
-        .bsod-buttons button {
-            background-color: #c0c0c0;
-            border: 2px outset #fff;
-            padding: 5px 15px;
-            font-size: 12px;
-            color: #000;
-        }
-
-        /* Windows XP Parody */
-        .winxp-stage {
-            background-color: #004d80;
-            color: #fff;
-        }
-        .winxp-title {
-            font-size: 2em;
-            font-weight: bold;
-        }
-        .winxp-logo {
-            width: 150px;
-            margin-bottom: 1em;
-        }
-        .winxp-progress-bar {
-            width: 300px;
-            height: 15px;
-            background-color: #4b4b4b;
-            border: 1px solid #000;
-            position: relative;
-            margin-top: 1em;
-        }
-        .winxp-progress-fill {
-            height: 100%;
-            background-color: #00bfff;
-            transition: width 0.5s ease-out;
-        }
-
-        /* Mac Parody */
-        .mac-stage {
-            background-color: #c0c0c0;
-            color: #000;
-        }
-        .mac-video {
-            width: 100px;
-            height: auto;
-        }
-        .mac-continue-btn {
-            background-color: #c0c0c0;
-            color: #000;
-            border: 2px outset #fff;
-        }
-
-        /* Nokia Warning/Loading */
-        .nokia-stage {
-            background-color: #0d121c;
-            color: #fff;
-            font-family: 'NokiaFont', monospace;
-        }
-        .nokia-logo {
-            width: 100px;
-            height: auto;
-            margin-bottom: 1em;
-        }
-        .nokia-flash {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 0, 0, 0.3);
-            animation: flash 0.5s infinite;
-            opacity: 0;
-        }
-        @keyframes flash {
-            50% { opacity: 1; }
-        }
-
-        /* Rave Era */
-        .rave-stage {
-            background-color: #0d0d0d;
-            color: #0f0;
-            font-family: 'Courier New', Courier, monospace;
-        }
-        .rave-buttons button {
-            background-color: #0f0;
-            color: #000;
-            border: 2px solid #0f0;
-            animation: rave-glow 1s infinite alternate;
-        }
-        @keyframes rave-glow {
-            from { box-shadow: 0 0 5px #0f0; }
-            to { box-shadow: 0 0 20px #0f0; }
-        }
-        .rave-embed {
-            width: 100%;
-            max-width: 500px;
-        }
-        .rave-text {
-            color: #0f0;
-            font-size: 1.5em;
-            animation: rave-text-flicker 1s infinite alternate;
-        }
-        @keyframes rave-text-flicker {
-            from { opacity: 1; }
-            to { opacity: 0.7; }
-        }
-
-        /* Linux Final Boss */
-        .linux-stage {
-            background-color: #0d0d0d;
-            color: #e6e6e6;
-        }
-        .linux-logo {
-            width: 100px;
-            height: auto;
-        }
-
-        .hidden { display: none; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Time Travel Marketplace Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
+<style>
+  body, html {
+    margin:0; padding:0; width:100%; height:100%; font-family: 'Courier Prime', monospace;
+    background:#0d0d0d; color:#e6e6e6; display:flex; justify-content:center; align-items:center;
+    overflow:hidden;
+  }
+  .stage { position:absolute; top:0; left:0; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; opacity:0; transition:opacity 1s; }
+  .active { opacity:1; }
+  button { margin:1em; padding:0.5em 1em; cursor:pointer; }
+  video, img, iframe { max-width:80%; }
+</style>
 </head>
 <body>
 
-    <!-- STAGES OF THE TIMELINE -->
-    <div id="enigma-stage" class="stage enigma-stage active">
-        <div class="enigma-output">
-            <p>***</p>
-            <p>DECODING MESSAGE...</p>
-            <p>ENCRYPTING DATA...</p>
-            <p>MESSAGE RECEIVED: "THE TIME TRAVEL MARKETPLACE"</p>
-            <p class="prompt-text">Press any key to continue...</p>
-        </div>
-    </div>
+<!-- ENIGMA STAGE -->
+<div id="enigma-stage" class="stage active">
+  <p>*** DECODING MESSAGE ***</p>
+  <p>Press any key to continue...</p>
+</div>
 
-    <div id="dos-stage" class="stage dos-stage">
-        <div class="dos-output">
-            <p>C:\></p>
-            <p>C:\>LOADING TIMETRAVEL.EXE</p>
-            <p>C:\>LOADED. PRESS ANY KEY</p>
-        </div>
-    </div>
+<!-- DOS STAGE -->
+<div id="dos-stage" class="stage">
+  <p>C:\> LOADING TIMETRAVEL.EXE</p>
+  <p>Press any key to continue...</p>
+</div>
 
-    <div id="win31-stage" class="stage win31-stage">
-        <div>
-            <div class="win31-title">Windows 3.1</div>
-            <p>Starting The Time Travel Marketplace...</p>
-            <div class="win31-progress-bar">
-                <div id="win31-progress-fill"></div>
-            </div>
-        </div>
-    </div>
-    
-    <div id="bsod-stage" class="stage bsod-stage">
-        <div>
-            <div class="era-title" style="color: #000084;">An Error Has Occurred</div>
-            <p>We've detected a critical flaw in the system architecture. It seems you've stumbled upon a satire shop, a place where capitalism goes to die a slow, ironic death.</p>
-            <p class="bsod-text">Please do not try to make sense of this. We all lose in the end.</p>
-            <div class="prompt-text bsod-text">Press any key to continue_</div>
-            <button id="skip-btn">SKIP</button>
-        </div>
-    </div>
-    
-    <div id="winxp-stage" class="stage winxp-stage">
-        <div>
-            <img class="winxp-logo" src="https://upload.wikimedia.org/wikipedia/commons/0/00/Windows_XP_logo_2001.svg" alt="Windows XP Logo">
-            <p class="winxp-title">Windows XP</p>
-            <div class="winxp-progress-bar">
-                <div id="winxp-progress-fill"></div>
-            </div>
-            <button id="winxp-continue-btn" class="winxp-continue-btn hidden">Continue</button>
-        </div>
-    </div>
+<!-- Windows 3.1 STAGE -->
+<div id="win31-stage" class="stage">
+  <div>Windows 3.1 Booting...</div>
+  <div style="width:300px;height:15px;background:#fff;border:1px solid #000;"><div id="win31-progress-fill" style="height:100%;background:#000084;"></div></div>
+</div>
 
-    <div id="fox-stage" class="stage fox-stage">
-        <div class="fox-text">
-            20TH CENTURY FICTION
-        </div>
-        <p>A history compiled by the Time Travel Marketplace</p>
-        <button id="fox-continue-btn">Continue</button>
-    </div>
-    
-    <div id="mac-stage" class="stage mac-stage">
-        <div>
-            <video id="mac-video" class="mac-video" autoplay loop muted playsinline>
-                <source src="./1755174544360.mp4" type="video/mp4">
-            </video>
-            <div class="era-title">Welcome to The Time Travel Marketplace</div>
-            <p class="prompt-text">Initiating sarcasm subroutine...</p>
-            <button id="mac-continue-btn">Continue</button>
-        </div>
-    </div>
+<!-- BSOD STAGE -->
+<div id="bsod-stage" class="stage" style="background:#808080; color:#000;">
+  <p style="color:#000084;font-weight:bold;">An Error Has Occurred</p>
+  <p>We've detected a critical flaw. This is satire. Press any key to continue.</p>
+</div>
 
-    <div id="rave-era-stage" class="stage rave-stage">
-        <div>
-            <div class="era-title rave-text">The Rave & Electronic Music Era</div>
-            <iframe id="mixcloud-embed" class="rave-embed" width="100%" height="120" src="" frameborder="0" style="display:none;"></iframe>
-            <p id="mixcloud-placeholder" class="prompt-text">🔊 Loading the musical time portal...</p>
-            <div class="rave-buttons">
-                <button id="drop-track-btn" onclick="console.log('Track dropped!')">Drop a Track</button>
-                <button id="rave-continue-btn">Next Era</button>
-            </div>
-        </div>
-    </div>
-    
-    <div id="glitch-stage" class="stage glitch-stage">
-        <p class="glitch-text">
-            . . . 2 1 s t - c e n t u r y . . .
-        </p>
-        <p>
-            T R U T H . D A T A . C O R R U P T E D
-        </p>
-        <p>
-            M O R E . H I S T O R Y . F O R C E D
-        </p>
-        <button id="glitch-continue-btn">Continue</button>
-    </div>
+<!-- Windows XP STAGE -->
+<div id="winxp-stage" class="stage" style="background:#004d80;color:#fff;">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Windows_XP_logo_2001.svg" alt="Windows XP Logo">
+  <div>Windows XP Booting...</div>
+  <div style="width:300px;height:15px;background:#4b4b4b;border:1px solid #000;"><div id="winxp-progress-fill" style="height:100%;background:#00bfff;"></div></div>
+</div>
 
-    <div id="nokia-warning-stage" class="stage nokia-stage">
-        <div>
-            <h2 style="font-family: 'NokiaFont', monospace;"><span style="font-size: 24px;">!</span> SEIZURE WARNING</h2>
-            <p style="font-size: 12px; font-family: 'NokiaFont', monospace;">This site contains flashing lights and animations. By clicking "Continue," you acknowledge this warning and proceed at your own risk.</p>
-            <div class="nokia-screen-buttons">
-                <button id="nokia-continue-btn">CONTINUE</button>
-                <button onclick="window.location.href='https://www.google.com';">EXIT</button>
-            </div>
-        </div>
-    </div>
+<!-- FOX PARODY STAGE -->
+<div id="fox-stage" class="stage" style="background:#000;color:#fff;">
+  <h2>20TH CENTURY FICTION</h2>
+  <button id="fox-continue-btn">Continue</button>
+</div>
 
-    <div id="nokia-loading-stage" class="stage nokia-stage">
-        <div>
-            <div class="nokia-flash" id="nokia-flash"></div>
-            <svg class="nokia-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 0 L40 50 L60 50 Z" transform="rotate(180 50 50)"/>
-                <path d="M50 100 L40 50 L60 50 Z" transform="rotate(180 50 50)"/>
-                <path d="M0 50 L50 40 L50 60 Z" transform="rotate(180 50 50)"/>
-                <path d="M100 50 L50 40 L50 60 Z" transform="rotate(180 50 50)"/>
-            </svg>
-            <div id="nokia-status-text" class="prompt-text" style="font-family: 'NokiaFont', monospace;">ACCESS DENIED</div>
-        </div>
-    </div>
-    
-    <div id="linux-stage" class="stage linux-stage">
-        <div>
-            <img class="linux-logo" src="./linux-hug-penguin.png" alt="Tux the Penguin">
-            <p class="prompt-text">You have defeated the final boss.</p>
-            <p class="prompt-text">All it wanted was a hug.</p>
-            <button id="linux-continue-btn">HUG</button>
-        </div>
-    </div>
+<!-- MAC PARODY STAGE -->
+<div id="mac-stage" class="stage" style="background:#c0c0c0;color:#000;">
+  <video id="mac-video" autoplay loop muted playsinline>
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+    Your browser does not support HTML5 video. This isn’t intentional but at least it’s archived.
+  </video>
+  <div>Welcome to The Time Travel Marketplace</div>
+  <button id="mac-continue-btn">Continue</button>
+</div>
 
-    <!-- AUDIO FILES -->
-    <audio id="bg-audio" src="./28336.mp3" preload="auto"></audio>
-    <audio id="hal-parody-audio" src="./hal-parody.mp3" preload="auto"></audio>
+<!-- RAVE ERA STAGE -->
+<div id="rave-era-stage" class="stage" style="background:#0d0d0d;color:#0f0;">
+  <div>The Rave & Electronic Music Era</div>
+  <iframe id="mixcloud-embed" width="100%" height="120" src="" frameborder="0" style="display:none;"></iframe>
+  <p id="mixcloud-placeholder">Loading the musical time portal...</p>
+  <button id="rave-continue-btn">Next Era</button>
+</div>
+
+<!-- LINUX FINAL STAGE -->
+<div id="linux-stage" class="stage">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg" alt="Tux the Penguin">
+  <p>You have defeated the final boss. All it wanted was a hug.</p>
+  <button id="linux-continue-btn">HUG</button>
+</div>
 
 <script>
-    function speak(text, delay) {
-        if ('speechSynthesis' in window) {
-            setTimeout(() => {
-                const utterance = new SpeechSynthesisUtterance(text);
-                window.speechSynthesis.speak(utterance);
-            }, delay);
-        }
+document.addEventListener('DOMContentLoaded',()=>{
+  const stages=['enigma-stage','dos-stage','win31-stage','bsod-stage','winxp-stage','fox-stage','mac-stage','rave-era-stage','linux-stage'];
+  let current=0;
+
+  function nextStage(){
+    if(current<stages.length-1){
+      document.getElementById(stages[current]).classList.remove('active');
+      current++;
+      const next=document.getElementById(stages[current]);
+      next.classList.add('active');
+      runStageLogic(next.id);
     }
+  }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const stages = [
-            'enigma-stage', 'dos-stage', 'win31-stage', 'bsod-stage',
-            'winxp-stage', 'fox-stage', 'mac-stage', 'rave-era-stage',
-            'glitch-stage', 'nokia-warning-stage', 'nokia-loading-stage',
-            'linux-stage'
-        ];
-        let currentStageIndex = 0;
+  function runStageLogic(id){
+    switch(id){
+      case 'win31-stage':
+        fillProgress('win31-progress-fill',1000,100,true);
+        break;
+      case 'winxp-stage':
+        fillProgress('winxp-progress-fill',2000,100,true);
+        break;
+      case 'mac-stage':
+        const vid=document.getElementById('mac-video');
+        vid.play().catch(()=>{console.log("Video fallback text will show.");});
+        break;
+      case 'rave-era-stage':
+        const iframe=document.getElementById('mixcloud-embed');
+        iframe.src="https://www.mixcloud.com/widget/iframe/?feed=%2FTheMusicalMaitreD%2F&autoplay=1";
+        iframe.style.display='block';
+        document.getElementById('mixcloud-placeholder').style.display='none';
+        break;
+    }
+  }
 
-        function transitionToNextStage() {
-            if (currentStageIndex >= stages.length) {
-                window.location.href = 'homepage.html';
-                return;
-            }
-            
-            const currentStage = document.getElementById(stages[currentStageIndex]);
-            currentStage.classList.remove('active');
-            
-            setTimeout(() => {
-                currentStageIndex++;
-                if (currentStageIndex < stages.length) {
-                    const nextStage = document.getElementById(stages[currentStageIndex]);
-                    nextStage.classList.add('active');
-                    runStageLogic(nextStage.id);
-                } else {
-                    window.location.href = 'homepage.html';
-                }
-            }, 1000); // Wait for fade-out transition to complete
-        }
+  function fillProgress(id,duration,steps,autoNext){
+    const bar=document.getElementById(id);
+    let progress=0;
+    const interval=setInterval(()=>{
+      progress+=100/steps;
+      if(progress>=100){progress=100; clearInterval(interval); if(autoNext)setTimeout(nextStage,500);}
+      bar.style.width=progress+'%';
+    },duration/steps);
+  }
 
-        function runStageLogic(stageId) {
-            switch (stageId) {
-                case 'win31-stage':
-                    startProgressBar('win31-progress-fill', 1000, 100, true);
-                    break;
-                case 'winxp-stage':
-                    startProgressBar('winxp-progress-fill', 2000, 100, true, 'winxp-continue-btn');
-                    break;
-                case 'mac-stage':
-                    document.getElementById('mac-video').play();
-                    break;
-                case 'nokia-loading-stage':
-                    startNokiaParody();
-                    break;
-                case 'rave-era-stage':
-                    document.getElementById('mixcloud-embed').src = "https://www.mixcloud.com/widget/iframe/?feed=%2Fmixcloud-user%2Fmixcloud-mix%2F&autoplay=1";
-                    break;
-            }
-        }
-
-        function startProgressBar(id, duration, totalSteps, autoContinue = false, buttonId = null) {
-            const progressBar = document.getElementById(id);
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += (100 / totalSteps);
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(interval);
-                    if (autoContinue) {
-                        setTimeout(transitionToNextStage, 1000);
-                    }
-                    if (buttonId) {
-                        document.getElementById(buttonId).classList.remove('hidden');
-                    }
-                }
-                progressBar.style.width = `${progress}%`;
-            }, duration / totalSteps);
-        }
-
-        function startNokiaParody() {
-            const statusText = document.getElementById('nokia-status-text');
-            const flash = document.getElementById('nokia-flash');
-            const bgAudio = document.getElementById('bg-audio');
-
-            bgAudio.play();
-            flash.style.animationPlayState = 'running';
-            
-            speak("I'm sorry user,", 1200);
-            speak("I can't do that.", 2500);
-            speak("Or wait... yes I can!", 4000);
-            speak("We were just pulling your leg.", 5500);
-
-            setTimeout(() => {
-                statusText.textContent = "ACCESS GRANTED";
-                statusText.style.color = "green";
-                flash.style.animationPlayState = 'paused';
-                flash.style.opacity = '0';
-            }, 6000); 
-
-            setTimeout(transitionToNextStage, 9000);
-        }
-        
-        // --- EVENT LISTENERS ---
-
-        // General click/key handlers for non-loading stages
-        const interactiveScreens = ['enigma-stage', 'dos-stage', 'bsod-stage', 'fox-stage', 'glitch-stage'];
-        interactiveScreens.forEach(id => {
-            document.getElementById(id).addEventListener('click', transitionToNextStage);
-        });
-        document.addEventListener('keydown', (event) => {
-            const currentStage = stages[currentStageIndex];
-            if (currentStage && interactiveScreens.includes(currentStage.id)) {
-                transitionToNextStage();
-            }
-        });
-        document.getElementById('skip-btn').addEventListener('click', () => {
-            window.location.href = 'homepage.html';
-        });
-
-        // Specific button handlers
-        document.getElementById('winxp-continue-btn').addEventListener('click', transitionToNextStage);
-        document.getElementById('mac-continue-btn').addEventListener('click', transitionToNextStage);
-        document.getElementById('rave-continue-btn').addEventListener('click', transitionToNextStage);
-        document.getElementById('nokia-continue-btn').addEventListener('click', transitionToNextStage);
-        document.getElementById('linux-continue-btn').addEventListener('click', () => {
-            window.location.href = 'homepage.html';
-        });
-
-        // Initial setup
-        stages[0].classList.add('active');
-    });
+  // Key and button events
+  document.addEventListener('keydown',nextStage);
+  stages.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.addEventListener('click',nextStage);
+  });
+  document.getElementById('fox-continue-btn').addEventListener('click',nextStage);
+  document.getElementById('mac-continue-btn').addEventListener('click',nextStage);
+  document.getElementById('rave-continue-btn').addEventListener('click',nextStage);
+  document.getElementById('linux-continue-btn').addEventListener('click',()=>{alert("Congratulations! You've completed the prototype.");});
+});
 </script>
 
 </body>
