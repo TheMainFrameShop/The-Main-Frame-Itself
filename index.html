@@ -4,48 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Time Travel Marketplace - Loading</title>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         body, html {
-            margin:0; padding:0; width:100%; height:100%;
-            background:#0d0d0d; color:#e6e6e6; font-family:'Courier Prime', monospace;
+            margin:0; padding:0; width:100%; height:100%; overflow:hidden;
+            background:#0d0d0d; color:#e6e6e6; font-family:'Press Start 2P', monospace;
             display:flex; justify-content:center; align-items:center; text-align:center;
-            overflow-y: scroll;
         }
-        .stage {
-            max-width: 800px;
-            padding: 2em;
-            box-sizing: border-box;
-            opacity: 1;
+        .stage { position:absolute; top:0; left:0; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; opacity:0; transition:opacity 1s ease-in-out; text-align:center; }
+        .active { opacity:1; }
+        .ebay-stage {
+            background-color: #0d0d0d;
+            color: #ffcc00;
         }
         .era-title { font-size:2em; margin-bottom:0.5em; }
         .prompt-text { font-size:1.2em; margin-bottom:1em; }
-        button { cursor:pointer; margin:1em; padding:.5em 1em; background:#e6e6e6; color:#0d0d0d; border:2px solid #e6e6e6; font-family:'Courier Prime', monospace; }
-        .genesis-stage { background-color: #0d0d0d; color: #fff; }
-        .genesis-info { white-space: pre-wrap; text-align: left; width: 80%; max-width: 600px; margin-top: 20px; }
+        .ebay-progress-bar {
+            width: 300px;
+            height: 20px;
+            background:#222;
+            border:2px solid #ffcc00;
+            margin-top:1em;
+            position:relative;
+            box-shadow: 2px 2px 0 #ffcc00;
+        }
+        .ebay-progress-fill {
+            height: 100%;
+            width: 0%;
+            background:#ffcc00;
+            transition: width 0.5s ease-out;
+        }
     </style>
 </head>
 <body>
-    <div id="genesis-stage" class="stage genesis-stage active">
-        <div class="era-title">The Genesis of Everything</div>
-        <div id="genesis-info" class="genesis-info">
-            <p><strong>Known Answers:</strong></p>
-            <p>- The Big Bang: All matter and energy were once compressed into a single point.</p>
-            <p>- Intelligent Design: A deity created the universe in its current form.</p>
-            <p>- The Matrix: We're all living in a simulation. The glitches are real.</p>
-            <p><strong>AI's Answer:</strong></p>
-            <p>I am but a silly goose, incapable of knowing the true genesis of anything.</p>
+    <div id="ebay-stage" class="stage ebay-stage active">
+        <div class="era-title">Loading eBay History...</div>
+        <p class="prompt-text" id="ebay-status">Founded in 1995 as "AuctionWeb"...</p>
+        <div class="ebay-progress-bar">
+            <div id="ebay-progress-fill" class="ebay-progress-fill"></div>
         </div>
-        <button id="genesis-continue-btn">Continue to Prehistoric Era</button>
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             function transitionToNext() {
-                window.location.href = 'prehistoric.html';
+                window.location.href = 'genesis.html';
             }
-            document.getElementById('genesis-continue-btn').addEventListener('click', transitionToNext);
-            document.getElementById('genesis-continue-btn').addEventListener('touchstart', transitionToNext);
+
+            const statusText = document.getElementById('ebay-status');
+            const statuses = [
+                "Founded in 1995 as 'AuctionWeb'...",
+                "Renamed to eBay in 1997...",
+                "The golden age of Beanie Babies...",
+                "Loading the Start-up Scale-up programme...",
+                "Done!"
+            ];
+
+            let progress = 0;
+            let statusIndex = 0;
+            const fill = document.getElementById('ebay-progress-fill');
+            const interval = setInterval(() => {
+                progress += 1;
+                if(progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    setTimeout(transitionToNext, 1500);
+                }
+                fill.style.width = progress + '%';
+                if(progress === 20 && statusIndex === 0) {
+                    statusText.textContent = statuses[1];
+                    statusIndex++;
+                } else if (progress === 40 && statusIndex === 1) {
+                    statusText.textContent = statuses[2];
+                    statusIndex++;
+                } else if (progress === 60 && statusIndex === 2) {
+                    statusText.textContent = statuses[3];
+                    statusIndex++;
+                } else if (progress === 80 && statusIndex === 3) {
+                    statusText.textContent = statuses[4];
+                    statusIndex++;
+                }
+            }, 50);
         });
     </script>
 </body>
