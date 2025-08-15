@@ -158,7 +158,7 @@
             max-width: 600px;
             margin-top: 20px;
         }
-        
+
         /* WHONIX/TAILS STAGE */
         .whonix-tails-stage {
             background-color: #000;
@@ -171,34 +171,20 @@
             width: 80%;
             max-width: 600px;
         }
-        
-        /* New styling for the 'I' in TIME to look like a TARDIS */
-        .tardis-i::before {
-            content: " ";
-            display: inline-block;
-            width: 1em;
-            height: 1.5em;
-            background-color: #0077c9;
-            border: 2px solid #fff;
-            margin-right: 0.2em;
-            transform: translateY(0.2em);
-        }
     </style>
 </head>
 <body>
 
-    <!-- ENIGMA STAGE -->
     <div id="enigma-stage" class="stage enigma-stage active">
         <div class="enigma-output">
             <p>***</p>
             <p>DECODING MESSAGE...</p>
             <p>ENCRYPTING DATA...</p>
-            <p>MESSAGE RECEIVED: "THE <span class="tardis-i">I</span>ME TRAVEL MARKETPLACE"</p>
+            <p>MESSAGE RECEIVED: "THE TIME TRAVEL MARKETPLACE"</p>
             <p class="prompt-text">Press any key to continue...</p>
         </div>
     </div>
 
-    <!-- PREHISTORIC STAGE -->
     <div id="prehistoric-stage" class="stage prehistoric-stage hidden">
         <div class="era-title">Nature’s Inventions: Early Man & Evolution</div>
         <p class="prompt-text">Hover over the elements to see how evolution and early tools shaped life...</p>
@@ -214,7 +200,6 @@
         <button id="prehistoric-continue-btn">Continue</button>
     </div>
 
-    <!-- DOS STAGE -->
     <div id="dos-stage" class="stage dos-stage hidden">
         <div class="dos-output">
             <p>C:\></p>
@@ -223,7 +208,6 @@
         </div>
     </div>
 
-    <!-- WIN 3.1 STAGE -->
     <div id="win31-stage" class="stage win31-stage hidden">
         <div>
             <p class="win31-title">Windows 3.1</p>
@@ -234,7 +218,6 @@
         </div>
     </div>
 
-    <!-- BSOD PARODY -->
     <div id="bsod-stage" class="stage bsod-stage hidden">
         <div>
             <p style="font-size:1.5em;">An Error Has Occurred: You've reached a satire shop where capitalism dies.</p>
@@ -242,20 +225,17 @@
         </div>
     </div>
 
-    <!-- CODE ERA STAGE -->
     <div id="code-era-stage" class="stage code-era-stage hidden">
         <div class="era-title">The Dawn of Code</div>
         <p class="prompt-text">
             Before computers, there were instructions, algorithms, and clever machines.
         </p>
         <div class="code-block" id="code-block">
-            <!-- Parody code will be typed here -->
-        </div>
+            </div>
         <button id="code-hack-btn">Hack The Code</button>
         <button id="code-era-continue-btn" class="hidden">Continue</button>
     </div>
 
-    <!-- WIN XP STAGE -->
     <div id="winxp-stage" class="stage winxp-stage hidden">
         <div>
             <img class="winxp-logo" src="https://upload.wikimedia.org/wikipedia/commons/0/00/Windows_XP_logo_2001.svg" alt="Windows XP Logo">
@@ -267,7 +247,6 @@
         </div>
     </div>
 
-    <!-- MAC PARODY STAGE -->
     <div id="mac-stage" class="stage mac-stage hidden">
         <div>
             <video id="mac-video" class="mac-video" autoplay loop muted playsinline>
@@ -282,14 +261,12 @@
         </div>
     </div>
 
-    <!-- 20TH CENTURY / FOX PARODY -->
     <div id="fox-stage" class="stage fox-stage hidden">
         <p class="fox-text">20TH CENTURY FICTION</p>
         <p>A history compiled by the Time Travel Marketplace</p>
         <button id="fox-continue-btn">Continue</button>
     </div>
     
-    <!-- Sus History Stage -->
     <div id="sus-history-stage" class="stage sus-history-stage hidden">
         <div class="sus-history-disclaimer">
             <p><strong>Disclaimer:</strong> This section contains history and content that may be inaccurate, satirical, or offensive. The views expressed here are not the views of the creator.</p>
@@ -300,7 +277,6 @@
         <button id="sus-history-continue-btn">Continue</button>
     </div>
 
-    <!-- 80s ARCADE STAGE -->
     <div id="arcade-stage" class="stage arcade-stage hidden">
         <div class="arcade-screen">
             <div class="player-icon">🕹️</div>
@@ -311,7 +287,6 @@
         <button id="arcade-continue-btn" class="hidden">Next Era</button>
     </div>
 
-    <!-- RAVE / MUSIC ERA -->
     <div id="rave-era-stage" class="stage rave-stage hidden">
         <div>
             <p class="era-title rave-text">The Rave & Electronic Music Era</p>
@@ -324,14 +299,12 @@
         </div>
     </div>
     
-    <!-- GLITCH STAGE -->
     <div id="glitch-stage" class="stage glitch-stage hidden">
         <p class="glitch-text">2 1 S T - C E N T U R Y</p>
         <p>TRUTH . DATA . CORRUPTED</p>
         <button id="glitch-continue-btn">Continue</button>
     </div>
 
-    <!-- WHONIX/TAILS STAGE -->
     <div id="whonix-tails-stage" class="stage whonix-tails-stage hidden">
         <div class="era-title">The Privacy Era</div>
         <div class="whonix-tails-output">
@@ -342,7 +315,6 @@
         <button id="whonix-tails-continue-btn">Continue</button>
     </div>
 
-    <!-- NOKIA WARNING/LOADING -->
     <div id="nokia-warning-stage" class="stage nokia-stage hidden">
         <div>
             <h2 style="font-family:'NokiaFont', monospace;">! SEIZURE WARNING</h2>
@@ -351,7 +323,6 @@
         </div>
     </div>
 
-    <!-- NOKIA PARODY -->
     <div id="nokia-parody-stage" class="stage nokia-stage hidden">
         <div>
             <div class="nokia-flash" id="nokia-flash"></div>
@@ -365,7 +336,6 @@
         </div>
     </div>
 
-    <!-- LINUX FINAL BOSS -->
     <div id="linux-stage" class="stage linux-stage hidden">
         <div>
             <img id="linux-logo" src="./linux-hug-penguin.png" width="150" alt="Tux">
@@ -378,7 +348,7 @@
     <script>
         const stages = [
             'enigma-stage','prehistoric-stage','dos-stage','win31-stage','netboot-stage',
-            'bsod-stage','code-era-stage','winxp-stage','fox-stage','sus-history-stage',
+            'bsod-stage','code-era-stage','winxp-stage','fox-stage','sus-history-continue-btn',
             'mac-stage','arcade-stage','rave-era-stage','whonix-tails-stage', 'glitch-stage','nokia-warning-stage',
             'nokia-parody-stage','linux-stage'
         ];
@@ -443,172 +413,4 @@
                     setupPrehistoricInteractions();
                     break;
                 case 'seventies-stage':
-                    setupSeventiesInteractions();
-                    break;
-                case 'arcade-stage':
-                    setupArcadeStage();
-                    break;
-            }
-        }
-
-        function startCodeTyping() {
-            const codeBlock = document.getElementById('code-block');
-            const code = [
-                '// Historical Footnote: The first computer bug was an actual moth.',
-                'function antiCapitalistShop() {',
-                '  let profit = 0;',
-                '  if (input === "subversive_idea") {',
-                '    profit = 100;',
-                '    console.log("Success! Capitalism subverted.");',
-                '  } else {',
-                '    profit = 0;',
-                '    console.log("Error: User followed traditional business practices.");',
-                '  }',
-                '  return profit;',
-                '}',
-                '// Hackable Parameter: Try changing the profit value above to something else.'
-            ];
-            let lineIndex = 0;
-            let charIndex = 0;
-            const typingSpeed = 20;
-
-            const typingInterval = setInterval(() => {
-                if (lineIndex < code.length) {
-                    const currentLine = code[lineIndex];
-                    if (charIndex <= currentLine.length) {
-                        codeBlock.innerHTML = code.slice(0, lineIndex).join('<br>') + '<br>' + currentLine.substring(0, charIndex) + '<span style="animation:blink 1s step-end infinite;">_</span>';
-                        charIndex++;
-                    } else {
-                        lineIndex++;
-                        charIndex = 0;
-                    }
-                } else {
-                    clearInterval(typingInterval);
-                    document.getElementById('code-era-continue-btn').classList.remove('hidden');
-                }
-            }, typingSpeed);
-        }
-
-        function startNetbootParody() {
-            const netbootOutput = document.getElementById('netboot-output');
-            const outputText = [
-                "PXE-E61: Media test failure, check cable",
-                "PXE-M0F: Exiting Intel PXE ROM",
-                "Reboot and Select proper Boot device or Insert Boot Media in selected Boot device",
-                "_"
-            ];
-            let lineIndex = 0;
-            const netbootInterval = setInterval(() => {
-                if (lineIndex < outputText.length) {
-                    netbootOutput.innerHTML += `<p>${outputText[lineIndex]}</p>`;
-                    lineIndex++;
-                } else {
-                    clearInterval(netbootInterval);
-                    document.getElementById('netboot-continue-btn').classList.remove('hidden');
-                }
-            }, 1000);
-        }
-
-        function setupPrehistoricInteractions() {
-            const prehistoricItems = document.querySelectorAll('.prehistoric-item');
-            const prehistoricInfo = document.getElementById('prehistoric-info');
-            prehistoricItems.forEach(item => {
-                item.addEventListener('mouseenter', () => {
-                    prehistoricInfo.textContent = item.getAttribute('data-info');
-                    prehistoricInfo.classList.remove('hidden');
-                });
-                item.addEventListener('mouseleave', () => {
-                    prehistoricInfo.classList.add('hidden');
-                });
-            });
-            document.getElementById('prehistoric-continue-btn').addEventListener('click', () => nextStage());
-        }
-
-        function setupSeventiesInteractions() {
-            const infoIcons = document.querySelectorAll('.info-icon');
-            const infoPanel = document.getElementById('info-panel');
-            infoIcons.forEach(icon => {
-                icon.addEventListener('click', (event) => {
-                    const info = event.target.closest('.info-icon').getAttribute('data-info');
-                    infoPanel.textContent = info;
-                    infoPanel.classList.remove('hidden');
-                });
-            });
-            document.getElementById('seventies-continue-btn').addEventListener('click', () => nextStage());
-        }
-
-        function setupArcadeStage() {
-            document.getElementById('insert-coin-btn').addEventListener('click', () => {
-                const arcadeScreen = document.getElementById('arcade-screen');
-                arcadeScreen.innerHTML = '<h2>PLAYING...</h2><p>Game over. Press continue to proceed.</p>';
-                document.getElementById('insert-coin-btn').classList.add('hidden');
-                document.getElementById('arcade-continue-btn').classList.remove('hidden');
-            });
-        }
-
-        function fillProgress(id, duration, callback) {
-            const el = document.getElementById(id);
-            let width = 0;
-            const interval = setInterval(() => {
-                width += 2;
-                if (width >= 100) {
-                    width = 100;
-                    clearInterval(interval);
-                    if (callback) callback();
-                }
-                el.style.width = width + '%';
-            }, duration / 50);
-        }
-
-        function startNokiaParody() {
-            const statusText = document.getElementById('nokia-status-text');
-            const flash = document.getElementById('nokia-flash');
-            const bgAudio = document.getElementById('bg-audio');
-
-            bgAudio.play();
-            flash.style.animationPlayState = 'running';
-            
-            speak("I'm sorry user,", 1200);
-            speak("I can't do that.", 2500);
-            speak("Or wait... yes I can!", 4000);
-            speak("We were just pulling your leg.", 5500);
-
-            setTimeout(() => {
-                statusText.textContent = "ACCESS GRANTED";
-                statusText.style.color = "green";
-                flash.style.animationPlayState = 'paused';
-                flash.style.opacity = '0';
-            }, 6000); 
-
-            setTimeout(() => nextStage(), 9000);
-        }
-        
-        // EVENT LISTENERS
-        document.addEventListener('keydown', nextStage);
-        document.getElementById('enigma-stage').onclick = nextStage;
-        document.getElementById('prehistoric-continue-btn').onclick = nextStage;
-        document.getElementById('dos-stage').onclick = nextStage;
-        document.getElementById('win31-stage').onclick = nextStage;
-        document.getElementById('bsod-stage').onclick = nextStage;
-        document.getElementById('skip-bsod-btn').onclick = () => window.location.href = 'homepage.html';
-        document.getElementById('code-era-continue-btn').onclick = nextStage;
-        document.getElementById('winxp-continue-btn').onclick = nextStage;
-        document.getElementById('fox-continue-btn').onclick = nextStage;
-        document.getElementById('mac-continue-btn').onclick = nextStage;
-        document.getElementById('seventies-continue-btn').onclick = nextStage;
-        document.getElementById('sus-history-continue-btn').onclick = nextStage;
-        document.getElementById('arcade-continue-btn').onclick = nextStage;
-        document.getElementById('rave-continue-btn').onclick = nextStage;
-        document.getElementById('glitch-continue-btn').onclick = nextStage;
-        document.getElementById('nokia-continue-btn').onclick = nextStage;
-        document.getElementById('linux-continue-btn').onclick = () => window.location.href = 'homepage.html';
-        document.getElementById('netboot-continue-btn').onclick = () => nextStage();
-        document.getElementById('genesis-continue-btn').onclick = () => nextStage();
-
-        // START THE SEQUENCE
-        document.getElementById('enigma-stage').classList.add('active');
-    });
-</script>
-</body>
-</html>
-
+                    setupS
