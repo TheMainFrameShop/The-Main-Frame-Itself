@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Time Travel Marketplace - Loading</title>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin:0; padding:0; width:100%; height:100%;
+            background:#0d0d0d; color:#e6e6e6; font-family:'Courier Prime', monospace;
+            display:flex; justify-content:center; align-items:center; text-align:center;
+            overflow-y: scroll; /* This allows the user to scroll down */
+        }
+        .stage {
+            max-width: 800px;
+            padding: 2em;
+            box-sizing: border-box;
+            opacity: 1;
+        }
+        .era-title { font-size:2em; margin-bottom:0.5em; }
+        .prompt-text { font-size:1.2em; margin-bottom:1em; }
+        button { cursor:pointer; margin:1em; padding:.5em 1em; background:#e6e6e6; color:#0d0d0d; border:2px solid #e6e6e6; font-family:'Courier Prime', monospace; }
+        .genesis-stage { background-color: #0d0d0d; color: #fff; }
+        .genesis-info { white-space: pre-wrap; text-align: left; width: 80%; max-width: 600px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div id="genesis-stage" class="stage genesis-stage active">
+        <div class="era-title">The Genesis of Everything</div>
+        <div id="genesis-info" class="genesis-info">
+            <p><strong>Known Answers:</strong></p>
+            <p>- The Big Bang: All matter and energy were once compressed into a single point.</p>
+            <p>- Intelligent Design: A deity created the universe in its current form.</p>
+            <p>- The Matrix: We're all living in a simulation. The glitches are real.</p>
+            <p><strong>AI's Answer:</strong></p>
+            <p>I am but a silly goose, incapable of knowing the true genesis of anything.</p>
+        </div>
+        <button id="genesis-continue-btn">Continue to Prehistoric Era</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            function transitionToNext() {
+                window.location.href = 'prehistoric.html';
+            }
+            document.getElementById('genesis-continue-btn').addEventListener('click', transitionToNext);
+            document.getElementById('genesis-continue-btn').addEventListener('touchstart', transitionToNext);
+        });
+    </script>
+</body>
+</html>
+
