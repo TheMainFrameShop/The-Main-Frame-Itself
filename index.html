@@ -148,7 +148,7 @@
 </head>
 <body>
 
-    <!-- ENIGMA STAGE -->
+    <!-- STAGES OF THE TIMELINE -->
     <div id="enigma-stage" class="stage enigma-stage active">
         <div class="enigma-output">
             <p>***</p>
@@ -314,7 +314,7 @@
             <p id="nokia-status-text" class="nokia-status-text">ACCESS DENIED</p>
         </div>
     </div>
-    
+
     <!-- LINUX FINAL BOSS -->
     <div id="linux-stage" class="stage linux-stage hidden">
         <div>
@@ -324,15 +324,13 @@
             <button id="linux-continue-btn">HUG</button>
         </div>
     </div>
-
-    <audio id="bg-audio" src="./28336.mp3" preload="auto"></audio>
-    <audio id="hal-parody-audio" src="./hal-parody.mp3" preload="auto"></audio>
-
+    
     <script>
         const stages = [
-            'enigma-stage','prehistoric-stage','dos-stage','win31-stage','bsod-stage','code-era-stage',
-            'winxp-stage','fox-stage','sus-history-stage','mac-stage','arcade-stage','rave-era-stage',
-            'glitch-stage','nokia-warning-stage','nokia-parody-stage','linux-stage'
+            'enigma-stage','prehistoric-stage','dos-stage','win31-stage','netboot-stage',
+            'bsod-stage','code-era-stage','winxp-stage','fox-stage','sus-history-stage',
+            'mac-stage','arcade-stage','rave-era-stage','whonix-tails-stage', 'glitch-stage','nokia-warning-stage',
+            'nokia-parody-stage','linux-stage'
         ];
         let currentStageIndex = 0;
         
@@ -369,6 +367,9 @@
             switch(stageId) {
                 case 'win31-stage':
                     fillProgress('win31-progress-fill', 2000, () => nextStage());
+                    break;
+                case 'netboot-stage':
+                    startNetbootParody();
                     break;
                 case 'winxp-stage':
                     fillProgress('winxp-progress-fill', 2000, () => document.getElementById('winxp-continue-btn').classList.remove('hidden'));
@@ -413,5 +414,4 @@
                 '    profit = 0;',
                 '    console.log("Error: User followed traditional business practices.");',
                 '  }',
-                '  return profit;',
-   
+                '  
