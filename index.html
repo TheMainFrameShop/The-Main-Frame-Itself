@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -144,7 +143,15 @@
         .prehistoric-info.hidden {
             display: none;
         }
-
+        
+        /* ADMIT ONE STAGE */
+        .admit-one-stage { background-color: #f0f0f0; color: #000; font-family: 'Times New Roman', serif; }
+        .ticket-container { border: 2px solid #000; padding: 2em; background-color: #fff; transform: rotate(-5deg); box-shadow: 5px 5px 0 #333; }
+        .ticket-title { font-size: 3em; font-weight: bold; margin-bottom: 0.5em; }
+        .ticket-text { font-size: 1.5em; }
+        .ticket-text span { color: #f00; font-weight: bold; }
+        .ticket-continue-btn { margin-top: 2em; background-color: #000; color: #fff; border: 2px solid #000; }
+        
         /* GENESIS STAGE */
         .genesis-stage {
             background-color: #000;
@@ -320,12 +327,25 @@
         <button id="glitch-continue-btn">Continue</button>
     </div>
 
+    <!-- WHONIX/TAILS STAGE -->
+    <div id="whonix-tails-stage" class="stage whonix-tails-stage hidden">
+        <div class="era-title">The Privacy Era</div>
+        <div class="whonix-tails-output">
+            <p><strong>Whonix:</strong> A secure OS that isolates the user from the network.</p>
+            <p><strong>Tails:</strong> A live operating system that can be run from a USB stick.</p>
+            <p><strong>Disclaimer:</strong> This is a parody for entertainment and archival purposes only. We have no affiliation with either OS.</p>
+        </div>
+        <button id="whonix-tails-continue-btn">Continue</button>
+    </div>
+
     <!-- NOKIA WARNING/LOADING -->
     <div id="nokia-warning-stage" class="stage nokia-stage hidden">
         <div>
             <h2 style="font-family:'NokiaFont', monospace;">! SEIZURE WARNING</h2>
             <p style="font-size:12px; font-family:'NokiaFont', monospace;">This site contains flashing lights and animations. By clicking "Continue," you acknowledge this warning and proceed at your own risk.</p>
-            <button id="nokia-continue-btn">CONTINUE</button>
+            <div class="nokia-screen-buttons">
+                <button id="nokia-continue-btn">CONTINUE</button>
+            </div>
         </div>
     </div>
 
@@ -339,7 +359,7 @@
                 <path d="M0 50 L50 40 L50 60 Z" transform="rotate(180 50 50)"/>
                 <path d="M100 50 L50 40 L50 60 Z" transform="rotate(180 50 50)"/>
             </svg>
-            <p id="nokia-status-text" class="nokia-status-text">ACCESS DENIED</p>
+            <div id="nokia-status-text" class="nokia-status-text">ACCESS DENIED</div>
         </div>
     </div>
 
@@ -400,28 +420,4 @@
                     startNetbootParody();
                     break;
                 case 'winxp-stage':
-                    fillProgress('winxp-progress-fill', 2000, () => document.getElementById('winxp-continue-btn').classList.remove('hidden'));
-                    break;
-                case 'mac-stage':
-                    document.getElementById('mac-video').play();
-                    fillProgress('mac-progress-fill', 3000, () => document.getElementById('mac-continue-btn').classList.remove('hidden'));
-                    break;
-                case 'rave-era-stage':
-                    document.getElementById('mixcloud-embed').src = "https://www.mixcloud.com/widget/iframe/?feed=%2Fmixcloud-user%2Fmixcloud-mix%2F&autoplay=1";
-                    document.getElementById('mixcloud-embed').style.display = 'block';
-                    document.getElementById('mixcloud-placeholder').style.display = 'none';
-                    break;
-                case 'nokia-parody-stage':
-                    startNokiaParody();
-                    break;
-                case 'code-era-stage':
-                    startCodeTyping();
-                    break;
-                case 'prehistoric-stage':
-                    setupPrehistoricInteractions();
-                    break;
-                case 'seventies-stage':
-                    setupSeventiesInteractions();
-                    break;
-                case 'arcade-stage':
-                 
+                    fillProgress('
