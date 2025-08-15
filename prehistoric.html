@@ -3,94 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Time Travel Marketplace - Loading</title>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
+    <title>The Time Travel Marketplace - Project Guide</title>
     <style>
-        /* Core styling for the Prehistoric page */
-        body, html {
-            margin:0; padding:0; width:100%; height:100%; overflow:hidden;
-            background:#0d0d0d; color:#e6e6e6; font-family:'Courier Prime', monospace;
-            display:flex; justify-content:center; align-items:center; text-align:center;
+        @page {
+            size: A4;
+            margin: 20mm;
         }
-        .prehistoric-stage {
-            background: linear-gradient(to top, #654321, #c2b280);
-            color: #000;
+        body {
             font-family: 'Courier Prime', monospace;
-            position: relative;
-            height: 100%;
-            text-align: center;
+            color: #000;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+            display: block;
         }
-        .era-title { font-size:2em; margin-bottom:0.5em; }
-        .prompt-text { font-size:1.2em; margin-bottom:1em; }
-        .prehistoric-container {
+        .guide-container {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            border: 2px solid #000;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+        .header p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+        }
+        .task-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .task {
+            position: relative;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #999;
+            display: flex;
+            align-items: center;
+        }
+        .task:last-of-type {
+            border-bottom: none;
+        }
+        .task-number {
+            font-size: 18px;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        .task-content {
+            flex-grow: 1;
+            text-align: left;
+        }
+        .task-strip {
+            width: 150px;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: -2px; /* Position it slightly off the right edge */
+            border-left: 2px dashed #000;
+            text-align: center;
+            font-size: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 2em;
-            margin-top: 2em;
-        }
-        .prehistoric-item {
-            width: 100px;
+            background-color: #f0f0f0;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            -webkit-print-color-adjust: exact;
+            color-adjust: exact;
         }
-        .prehistoric-item:hover {
-            transform: scale(1.2) rotate(5deg);
+        .task-comment {
+            font-style: italic;
+            font-size: 12px;
+            margin-top: 5px;
         }
-        .prehistoric-info {
-            position: absolute;
-            bottom: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60%;
-            background-color: rgba(255,255,255,0.9);
-            color: #000;
-            padding: 1em;
-            border-radius: 8px;
+        .no-print { display: none; }
+
+        /* Print-specific styles */
+        @media print {
+            .guide-container {
+                border: none;
+            }
+            .task {
+                border-bottom: 1px dashed #999;
+            }
+            .task-strip {
+                border-left: 2px dashed #000;
+            }
         }
-        .prehistoric-info.hidden {
-            display: none;
-        }
-        button { cursor:pointer; margin:1em; padding:.5em 1em; background:#e6e6e6; color:#0d0d0d; border:2px solid #e6e6e6; font-family:'Courier Prime', monospace; }
     </style>
 </head>
 <body>
-    <div id="prehistoric-stage" class="stage prehistoric-stage active">
-        <div class="era-title">Nature’s Inventions: Early Man & Evolution</div>
-        <p class="prompt-text">Hover over the elements to see how evolution and early tools shaped life...</p>
-
-        <div class="prehistoric-container">
-            <img src="./assets/images/stone-tool.svg" alt="Stone Tool" class="prehistoric-item" data-info="Stone tools were first used around 2.5 million years ago by early hominins.">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Flame_icon.svg" alt="Controlled Fire" class="prehistoric-item" data-info="Controlled use of fire appeared roughly 1 million years ago, providing warmth and protection.">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Wheel_icon.svg" alt="Wheel" class="prehistoric-item" data-info="The wheel was invented much later, around 3500 BCE, revolutionizing transport.">
+    <div class="guide-container">
+        <div class="header">
+            <h1>The Time Travel Marketplace</h1>
+            <p>Project Guide for Alice (and Alice's AI)</p>
+            <p>Date: [Date of printing]</p>
         </div>
-
-        <div class="prehistoric-info hidden" id="prehistoric-info"></div>
-
-        <button id="prehistoric-continue-btn">Continue</button>
+        <ul class="task-list">
+            <li class="task">
+                <div class="task-number">1.</div>
+                <div class="task-content">
+                    <strong>Check GitHub:</strong> Verify the latest commit has a green checkmark.
+                </div>
+                <div class="task-strip">Completed</div>
+            </li>
+            <li class="task">
+                <div class="task-number">2.</div>
+                <div class="task-content">
+                    <strong>Clear Cache:</strong> Clear your browser cache on your mobile and laptop.
+                </div>
+                <div class="tear-off-line"></div>
+            </li>
+            <li class="task">
+                <div class="task-number">3.</div>
+                <div class="task-content">
+                    <strong>Test Screens:</strong> Confirm all stages from Enigma to Linux Penguin work.
+                </div>
+                <div class="tear-off-line"></div>
+            </li>
+            <li class="task">
+                <div class="task-number">4.</div>
+                <div class="task-content">
+                    <strong>Check Transitions:</strong> Verify screens fade smoothly.
+                </div>
+                <div class="tear-off-line"></div>
+            </li>
+            <li class="task">
+                <div class="task-number">5.</div>
+                <div class="task-content">
+                    <strong>Next Idea:</strong> Come up with a new idea for the "Time Travel Marketplace" website!
+                </div>
+                <div class="tear-off-line"></div>
+            </li>
+        </ul>
+        <p class="no-print" style="text-align: center; margin-top:20px;">
+            <button onclick="window.print()">Print This Guide</button>
+        </p>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const prehistoricItems = document.querySelectorAll('.prehistoric-item');
-            const prehistoricInfo = document.getElementById('prehistoric-info');
-            const prehistoricBtn = document.getElementById('prehistoric-continue-btn');
-
-            prehistoricItems.forEach(item => {
-                item.addEventListener('mouseenter', () => {
-                    prehistoricInfo.textContent = item.getAttribute('data-info');
-                    prehistoricInfo.classList.remove('hidden');
-                });
-                item.addEventListener('mouseleave', () => {
-                    prehistoricInfo.classList.add('hidden');
-                });
-            });
-
-            prehistoricBtn.addEventListener('click', () => {
-                window.location.href = 'pigeon.html';
-            });
-        });
-    </script>
 </body>
 </html>
 
