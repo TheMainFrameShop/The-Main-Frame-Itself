@@ -7,61 +7,78 @@
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
     <style>
         body, html {
-            margin:0; padding:0; width:100%; height:100%;
+            margin:0; padding:0; width:100%; height:100%; overflow:hidden;
             background:#0d0d0d; color:#e6e6e6; font-family:'Courier Prime', monospace;
             display:flex; justify-content:center; align-items:center; text-align:center;
-            overflow-y: scroll;
         }
-        .stage {
-            max-width: 800px;
-            padding: 2em;
-            box-sizing: border-box;
-            opacity: 1;
+        .stage { position:absolute; top:0; left:0; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; opacity:0; transition:opacity 1s ease-in-out; text-align:center; }
+        .active { opacity:1; }
+        .minecraft-stage {
+            background-color: #0d0d0d;
+            color: #0f0;
+        }
+        .minecraft-output {
+            white-space: pre-wrap;
+            text-align: left;
+            width: 80%;
+            max-width: 600px;
+        }
+        .minecraft-progress-bar {
+            width: 300px;
+            height: 15px;
+            background:#fff;
+            border:1px solid #000;
+            margin-top:1em;
+            position:relative;
+        }
+        .minecraft-progress-fill {
+            height: 100%;
+            width: 0%;
+            background:#000084;
+            transition: width 0.5s ease-out;
         }
         .era-title { font-size:2em; margin-bottom:0.5em; }
         .prompt-text { font-size:1.2em; margin-bottom:1em; }
-        button { 
-            cursor:pointer; margin:1em; padding:.5em 1em; background:#e6e6e6; 
-            color:#0d0d0d; border:2px solid #e6e6e6; font-family:'Courier Prime', monospace; 
-            animation: pulse 1s infinite;
-        }
-        .genesis-stage { background-color: #0d0d0d; color: #fff; }
-        .genesis-info { 
-            white-space: pre-wrap; text-align: left; width: 80%; max-width: 600px; margin-top: 20px; 
-            animation: text-flicker 1s infinite alternate;
-        }
-        @keyframes text-flicker {
-            from { opacity: 1; }
-            to { opacity: 0.7; }
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
     </style>
 </head>
 <body>
-    <div id="genesis-stage" class="stage genesis-stage active">
-        <div class="era-title">The Genesis of Everything</div>
-        <div id="genesis-info" class="genesis-info">
-            <p><strong>Known Answers:</strong></p>
-            <p>- The Big Bang: All matter and energy were once compressed into a single point.</p>
-            <p>- Intelligent Design: A deity created the universe in its current form.</p>
-            <p>- The Matrix: We're all living in a simulation. The glitches are real.</p>
-            <p><strong>AI's Answer:</strong></p>
-            <p>I am but a silly goose, incapable of knowing the true genesis of anything.</p>
+    <div id="minecraft-stage" class="stage minecraft-stage active">
+        <div class="era-title">Loading World...</div>
+        <p class="prompt-text" id="minecraft-status">Loading terrain...</p>
+        <div class="minecraft-progress-bar">
+            <div id="minecraft-progress-fill" class="minecraft-progress-fill"></div>
         </div>
-        <button id="genesis-continue-btn">Continue to Prehistoric Era</button>
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             function transitionToNext() {
-                window.location.href = 'prehistoric.html';
+                window.location.href = 'genesis.html';
             }
-            document.getElementById('genesis-continue-btn').addEventListener('click', transitionToNext);
-            document.getElementById('genesis-continue-btn').addEventListener('touchstart', transitionToNext);
+
+            const statusText = document.getElementById('minecraft-status');
+            const statuses = [
+                "Loading terrain...",
+                "Generating lifeforms...",
+                "Populating world with 8 billion people...",
+                "Done!"
+            ];
+
+            let progress = 0;
+            let statusIndex = 0;
+            const fill = document.getElementById('minecraft-progress-fill');
+            const interval = setInterval(() => {
+                progress += 2;
+                if(progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    setTimeout(transitionToNext, 1000);
+                }
+                fill.style.width = progress + '%';
+                if(progress > statusIndex * 25 && statusIndex < statuses.length) {
+                    statusText.textContent = statuses[statusIndex];
+                    statusIndex++;
+                }
+            }, 20);
         });
     </script>
 </body>
