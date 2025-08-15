@@ -10,13 +10,13 @@
             margin:0; padding:0; width:100%; height:100%;
             background:#0d0d0d; color:#e6e6e6; font-family:'Courier Prime', monospace;
             display:flex; justify-content:center; align-items:center; text-align:center;
-            overflow-y: scroll; /* This allows the user to scroll down */
+            overflow-y: scroll;
         }
         .stage {
             max-width: 800px;
             padding: 2em;
             box-sizing: border-box;
-            opacity: 1; /* This screen is active on load */
+            opacity: 1;
         }
         .era-title { font-size:2em; margin-bottom:0.5em; }
         .prompt-text { font-size:1.2em; margin-bottom:1em; }
@@ -45,6 +45,7 @@
                 window.location.href = 'prehistoric.html';
             }
             document.getElementById('genesis-continue-btn').addEventListener('click', transitionToNext);
+            document.getElementById('genesis-continue-btn').addEventListener('touchstart', transitionToNext);
         });
     </script>
 </body>
