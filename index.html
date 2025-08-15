@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Time Travel Marketplace - Loading</title>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         body, html {
             margin:0; padding:0; width:100%; height:100%; overflow:hidden;
-            background:#0d0d0d; color:#e6e6e6; font-family:'VT323', monospace;
+            background:#0d0d0d; color:#e6e6e6; font-family:'Press Start 2P', monospace;
             display:flex; justify-content:center; align-items:center; text-align:center;
         }
         .stage { position:absolute; top:0; left:0; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; opacity:0; transition:opacity 1s ease-in-out; text-align:center; }
@@ -62,18 +62,24 @@
             let statusIndex = 0;
             const fill = document.getElementById('minecraft-progress-fill');
             const interval = setInterval(() => {
-                progress += 2;
+                progress += 1;
                 if(progress >= 100) {
                     progress = 100;
                     clearInterval(interval);
-                    setTimeout(transitionToNext, 1000);
+                    setTimeout(transitionToNext, 1500); // Slower delay before transition
                 }
                 fill.style.width = progress + '%';
-                if(progress > statusIndex * 25 && statusIndex < statuses.length) {
-                    statusText.textContent = statuses[statusIndex];
+                if(progress === 25 && statusIndex === 0) {
+                    statusText.textContent = statuses[1];
+                    statusIndex++;
+                } else if (progress === 50 && statusIndex === 1) {
+                    statusText.textContent = statuses[2];
+                    statusIndex++;
+                } else if (progress === 75 && statusIndex === 2) {
+                    statusText.textContent = statuses[3];
                     statusIndex++;
                 }
-            }, 100);
+            }, 50); // Slower progress bar animation
         });
     </script>
 </body>
