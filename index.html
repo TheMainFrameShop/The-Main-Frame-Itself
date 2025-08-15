@@ -34,6 +34,9 @@
             background:#00a000;
             transition: width 0.5s ease-out;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -43,30 +46,29 @@
         <div class="minecraft-progress-bar">
             <div id="minecraft-progress-fill" class="minecraft-progress-fill"></div>
         </div>
+        <button id="minecraft-continue-btn" class="hidden">Continue</button>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            function transitionToNext() {
-                window.location.href = 'genesis.html';
-            }
-
             const statusText = document.getElementById('minecraft-status');
+            const continueBtn = document.getElementById('minecraft-continue-btn');
+            const fill = document.getElementById('minecraft-progress-fill');
             const statuses = [
                 "Loading terrain...",
                 "Generating lifeforms...",
                 "Populating world with 8 billion people...",
                 "Done!"
             ];
-
             let progress = 0;
             let statusIndex = 0;
-            const fill = document.getElementById('minecraft-progress-fill');
+
             const interval = setInterval(() => {
                 progress += 1;
                 if(progress >= 100) {
                     progress = 100;
                     clearInterval(interval);
-                    setTimeout(transitionToNext, 1500);
+                    statusText.textContent = "World Loaded!";
+                    continueBtn.classList.remove('hidden');
                 }
                 fill.style.width = progress + '%';
                 if(progress === 25 && statusIndex === 0) {
@@ -80,6 +82,13 @@
                     statusIndex++;
                 }
             }, 50);
+
+            continueBtn.addEventListener('click', () => {
+                window.location.href = 'genesis.html';
+            });
+            continueBtn.addEventListener('touchstart', () => {
+                window.location.href = 'genesis.html';
+            });
         });
     </script>
 </body>
