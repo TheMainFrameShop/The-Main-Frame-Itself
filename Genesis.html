@@ -16,13 +16,36 @@
             max-width: 800px;
             padding: 2em;
             box-sizing: border-box;
-            opacity: 1;
+            opacity: 1; /* This screen is active on load */
         }
         .era-title { font-size:2em; margin-bottom:0.5em; }
         .prompt-text { font-size:1.2em; margin-bottom:1em; }
         button { cursor:pointer; margin:1em; padding:.5em 1em; background:#e6e6e6; color:#0d0d0d; border:2px solid #e6e6e6; font-family:'Courier Prime', monospace; }
         .genesis-stage { background-color: #0d0d0d; color: #fff; }
         .genesis-info { white-space: pre-wrap; text-align: left; width: 80%; max-width: 600px; margin-top: 20px; }
+        
+        /* NEW: TARDIS "I" STYLING */
+        .tardis-i {
+            display: inline-block;
+            font-size: 1.5em;
+            vertical-align: middle;
+            position: relative;
+            margin: 0 0.2em;
+            color: transparent;
+        }
+        .tardis-i::before {
+            content: " ";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0.8em;
+            height: 1.5em;
+            background-color: #0077c9;
+            border: 2px solid #fff;
+            box-shadow: 0 0 10px #0077c9;
+        }
+        
     </style>
 </head>
 <body>
