@@ -66,7 +66,7 @@
                 if(progress >= 100) {
                     progress = 100;
                     clearInterval(interval);
-                    setTimeout(transitionToNext, 1500); // Slower delay before transition
+                    setTimeout(transitionToNext, 1500);
                 }
                 fill.style.width = progress + '%';
                 if(progress === 25 && statusIndex === 0) {
@@ -79,7 +79,7 @@
                     statusText.textContent = statuses[3];
                     statusIndex++;
                 }
-            }, 50); // Slower progress bar animation
+            }, 50);
         });
     </script>
 </body>
