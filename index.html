@@ -69,8 +69,14 @@
                     setTimeout(transitionToNext, 1500);
                 }
                 fill.style.width = progress + '%';
-                if(progress > statusIndex * 25 && statusIndex < statuses.length) {
-                    statusText.textContent = statuses[statusIndex];
+                if(progress === 25 && statusIndex === 0) {
+                    statusText.textContent = statuses[1];
+                    statusIndex++;
+                } else if (progress === 50 && statusIndex === 1) {
+                    statusText.textContent = statuses[2];
+                    statusIndex++;
+                } else if (progress === 75 && statusIndex === 2) {
+                    statusText.textContent = statuses[3];
                     statusIndex++;
                 }
             }, 50);
