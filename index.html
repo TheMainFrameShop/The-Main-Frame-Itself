@@ -34,6 +34,7 @@
             background:#ffcc00;
             transition: width 0.5s ease-out;
         }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
@@ -46,11 +47,8 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            function transitionToNext() {
-                window.location.href = 'genesis.html';
-            }
-
             const statusText = document.getElementById('ebay-status');
+            const fill = document.getElementById('ebay-progress-fill');
             const statuses = [
                 "Founded in 1995 as 'AuctionWeb'...",
                 "Renamed to eBay in 1997...",
@@ -61,13 +59,14 @@
 
             let progress = 0;
             let statusIndex = 0;
-            const fill = document.getElementById('ebay-progress-fill');
             const interval = setInterval(() => {
                 progress += 1;
                 if(progress >= 100) {
                     progress = 100;
                     clearInterval(interval);
-                    setTimeout(transitionToNext, 1500);
+                    setTimeout(() => {
+                        window.location.href = 'genesis.html';
+                    }, 1500);
                 }
                 fill.style.width = progress + '%';
                 if(progress === 20 && statusIndex === 0) {
