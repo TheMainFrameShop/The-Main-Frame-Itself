@@ -102,16 +102,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Clear previous state and animations
         clearInterval(loadingTextInterval);
-        mainContainer.className = 'main-container';
-
+        
+        // Remove previous theme class and add the new one
+        const allThemeClasses = Object.values(eras).map(e => e.themeClass);
+        mainContainer.classList.remove(...allThemeClasses);
+        mainContainer.classList.add(era.themeClass);
+        
         // Update content
         eraTitle.textContent = era.title;
         loadingTextElement.textContent = era.loadingMessages[0];
         productDisclaimer.textContent = era.disclaimer;
         timelineImage.style.backgroundImage = era.timelineImage;
-
-        // Add theme class
-        mainContainer.classList.add(era.themeClass);
 
         // Update product links
         productLinksContainer.innerHTML = '';
@@ -194,12 +195,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const eraNames = Object.keys(eras);
             const foundEra = eraNames.find(name => name.toLowerCase().includes(searchTerm));
             if (foundEra) {
-                window.open(eras[foundEra].products[0].link, '_blank');
+                updateEra(foundEra);
             }
         }
     });
 
     // --- INITIALIZATION ---
     updateEra('ebay'); // Start with the eBay era
-    setInterval(transitionToNextEra, 60000); // Transition to a new era every 60 seconds
+    setInterval(transitionToNextEra, 10000); // Transition to a new era every 10 seconds
 });
