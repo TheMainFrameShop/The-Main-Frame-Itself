@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- ERA DATA ---
-    // The eras are in a fixed, chronological order. The randomization happens within each era.
     const eras = {
         'ebay': {
             title: 'eBAY HISTORY',
@@ -189,7 +188,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const searchTerm = e.target.value.toLowerCase().trim();
             const foundEra = eraNames.find(name => name.toLowerCase().includes(searchTerm));
             if (foundEra) {
-                // Open the relevant eBay store page in a new tab
                 window.open(eras[foundEra].products[0].link, '_blank');
             }
         }
