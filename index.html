@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>??? The Time Travelers Market Place OS - META</title>
+<link rel='stylesheet' href='style.css'>
+<script src='script.js' defer></script>
+<!-- Ruffle Flash emulator -->
+<script src='https://unpkg.com/@ruffle-rs/ruffle'></script>
+</head>
+<body>
+
+<div id='bootScreen'><pre id='bootText'>?? Initializing META OS...</pre></div>
+<div id='productOverlay'></div>
+
+<div id='controls'>
+<input type='search' id='eraSearch' placeholder='Search era: preprehistoric • history • life • present • future' />
+<button id='pauseBtn'>?? Pause</button>
+<button id='vibeBtn'>?? No-Sleep: Off</button>
+<button id='motionBtn'>?? Reduce Motion: Off</button>
+<button id='sensoryBtn'>??? Sensory: Off</button>
+<button id='inventoryBtn'>?? Inventory</button>
+</div>
+
+<!-- Inventory modal -->
+<div id='inventory' style='display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); color:#fff; z-index:1000; padding:20px;'>
+<h2>?? Inventory</h2>
+<ul id='inventoryItems'></ul>
+<button onclick='document.getElementById(\"inventory\").style.display=\"none\";'>Close</button>
+</div>
+
+<noscript>?? Enable JavaScript for full experience!</noscript>
+
+</body>
+</html>
