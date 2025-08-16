@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,6 +94,10 @@
             height: auto;
         }
 
+        .controls {
+            margin-top: 10px;
+        }
+
         .control-btn {
             background: #444;
             color: #e0e0e0;
@@ -140,6 +143,15 @@
         }
         .theme-roman .loading-bar { background-color: #8a6c4b; }
         .theme-roman .product-disclaimer { color: #907865; }
+
+        .theme-femme {
+            border-color: #ff69b4;
+            box-shadow: 0 0 10px #ff69b4;
+            background-color: #2a003a;
+            color: #ffe0f0;
+        }
+        .theme-femme .loading-bar { background-color: #ff1493; }
+        .theme-femme .product-disclaimer { color: #ffb6c1; }
     </style>
 </head>
 <body>
@@ -178,12 +190,12 @@
                         'Discovering new products...',
                         'Finalizing protocols...'
                     ],
-                    disclaimer: 'Due to the unpredictable nature of online bidding, our inventory is subject to the whims of the highest bidder. Caveat Emptor.',
+                    disclaimer: 'Due to the unpredictable nature of online bidding, our inventory is subject to the whims of the highest bidder. Henceforth, caveat emptor.',
                     timelineImages: [
-                        'https://web.archive.org/web/19991008080211im_/http://www.ebay.com/images/home/home_t.gif', // Image from 1999
-                        'https://web.archive.org/web/20050810142646im_/http://pages.ebay.com/ebaystores/images/home_t.gif', // Image from 2005
-                        'https://web.archive.org/web/20101017085112im_/http://www.ebay.com/images/home/home_t.gif', // Image from 2010
-                        'https://web.archive.org/web/20150320144510im_/http://www.ebay.com/images/home/home_t.gif'  // Image from 2015
+                        'https://web.archive.org/web/19991008080211im_/http://www.ebay.com/images/home/home_t.gif', 
+                        'https://web.archive.org/web/20050810142646im_/http://pages.ebay.com/ebaystores/images/home_t.gif', 
+                        'https://web.archive.org/web/20101017085112im_/http://www.ebay.com/images/home/home_t.gif', 
+                        'https://web.archive.org/web/20150320144510im_/http://www.ebay.com/images/home/home_t.gif'  
                     ],
                     products: [
                         { name: 'Hammer', image: 'hammer.png', link: 'https://www.ebay.com/str/yourstore/ebay-era' },
@@ -199,9 +211,11 @@
                         'Primordial ooze initializing...',
                         'Synapses establishing...',
                         'Single-celled life forming...',
-                        'Evolving for new transactions...'
+                        'Evolving for new transactions...',
+                        'Spawning new realities...',
+                        'Wherefore, all things begin...'
                     ],
-                    disclaimer: 'Warning: All life is currently single-celled and lacks complex thought. Transactions are highly volatile.',
+                    disclaimer: 'Warning: All life is currently single-celled and lacks complex thought. Wherefore, transactions are highly volatile. Class is a capitalist myth, over morrow.',
                     timelineImages: ['genesis-timeline.png'],
                     products: [
                         { name: 'Amoeba', image: 'amoeba.png', link: 'https://www.ebay.com/str/yourstore/genesis-era' },
@@ -217,9 +231,11 @@
                         'Planting seeds...',
                         'Domesticating animals...',
                         'Building permanent shelters...',
-                        'Inventing the wheel...'
+                        'Inventing the wheel...',
+                        'Crafting stone axes...',
+                        'Foraging for sustenance...'
                     ],
-                    disclaimer: 'All sales are final. Disputes will be settled in a trial by combat or bartering with shiny rocks.',
+                    disclaimer: 'All sales are final, and disputes shall be settled with a strong stick. Henceforth, all goods are considered as-is.',
                     timelineImages: ['neolithic-timeline.png'],
                     products: [
                         { name: 'Stone Axe', image: 'axe.png', link: 'https://www.ebay.com/str/yourstore/neolithic-era' },
@@ -235,9 +251,11 @@
                         'Building aqueducts...',
                         'Standardizing roads...',
                         'Expanding the legions...',
-                        'Consulting the Senate...'
+                        'Consulting the Senate...',
+                        'Gladiators preparing...',
+                        'Coliseum opening...'
                     ],
-                    disclaimer: 'The Emperor\'s inventory is vast and subject to the whims of the Senate. All transactions are recorded for taxation. Caveat Emptor.',
+                    disclaimer: 'The Emperor\'s inventory is vast and subject to the whims of the Senate. All transactions are recorded for taxation. Henceforth, all property is owned by the state.',
                     timelineImages: ['roman-timeline.png'],
                     products: [
                         { name: 'Chariot', image: 'chariot.png', link: 'https://www.ebay.com/str/yourstore/roman-empire' },
@@ -246,6 +264,20 @@
                     ],
                     music: 'audio/roman-music.mp3',
                     themeClass: 'theme-roman'
+                },
+                'femme': {
+                    title: 'Hello, Alice.',
+                    loadingMessages: [
+                        'Establishing connection...',
+                        'Confirming identity...',
+                        'Transmitting signal...',
+                        'Activating true colors...',
+                    ],
+                    disclaimer: 'This realm belongs to you, Alice. Henceforth, you are affirmed.',
+                    timelineImages: [''], // Femme mode has no specific timeline image
+                    products: [],
+                    music: 'audio/femme-music.mp3',
+                    themeClass: 'theme-femme'
                 }
             };
 
@@ -266,6 +298,7 @@
             let currentEraIndex = 0;
             let loadingTextInterval;
             let isPlaying = false;
+            const femmeModeEnabled = false;
 
             // --- CORE LOGIC ---
             function updateEra(eraName) {
@@ -282,8 +315,13 @@
                 // Update content
                 eraTitle.textContent = era.title;
                 productDisclaimer.textContent = era.disclaimer;
-                timelineImage.style.backgroundImage = `url(${era.timelineImages[0]})`;
                 
+                if (era.timelineImages.length > 0) {
+                    timelineImage.style.backgroundImage = `url(${era.timelineImages[0]})`;
+                } else {
+                    timelineImage.style.backgroundImage = 'none'; // Clear the image for femme mode
+                }
+
                 // Randomly select a loading message
                 const randomMessage = era.loadingMessages[Math.floor(Math.random() * era.loadingMessages.length)];
                 loadingTextElement.textContent = randomMessage;
@@ -307,9 +345,13 @@
                 });
 
                 // Update music
-                eraMusic.src = era.music;
-                if (isPlaying) {
-                    eraMusic.play();
+                if (era.music) {
+                    eraMusic.src = era.music;
+                    if (isPlaying) {
+                        eraMusic.play();
+                    }
+                } else {
+                    eraMusic.pause();
                 }
 
                 // Start loading text animation
@@ -328,7 +370,11 @@
             }
 
             function transitionToNextEra() {
-                currentEraIndex = (currentEraIndex + 1) % eraNames.length;
+                // Do not transition if femme mode is active
+                if (mainContainer.classList.contains('theme-femme')) {
+                    return;
+                }
+                currentEraIndex = (currentEraIndex + 1) % (eraNames.length - 1); // Exclude femme mode
                 updateEra(eraNames[currentEraIndex]);
             }
 
@@ -366,16 +412,22 @@
             eraSearchInput.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
                     const searchTerm = e.target.value.toLowerCase().trim();
-                    const foundEra = eraNames.find(name => name.toLowerCase().includes(searchTerm));
-                    if (foundEra) {
-                        window.open(eras[foundEra].products[0].link, '_blank');
+                    if (searchTerm === 'femme') {
+                        updateEra('femme');
+                        clearInterval(transitionInterval);
+                        eraSearchInput.value = ''; // Clear input
+                    } else {
+                        const foundEra = eraNames.find(name => name.toLowerCase().includes(searchTerm));
+                        if (foundEra) {
+                            window.open(eras[foundEra].products[0].link, '_blank');
+                        }
                     }
                 }
             });
 
             // --- INITIALIZATION ---
             updateEra('ebay'); // Start with the eBay era
-            setInterval(transitionToNextEra, 10000); // Transition to a new era every 10 seconds
+            const transitionInterval = setInterval(transitionToNextEra, 10000); // Transition to a new era every 10 seconds
         });
     </script>
 </body>
