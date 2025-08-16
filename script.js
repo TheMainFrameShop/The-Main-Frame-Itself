@@ -104,9 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateEra(eraName) {
         const era = eras[eraName];
         if (!era) return;
-
-        // Clear previous state and animations
-        clearInterval(loadingTextInterval);
         
         // Remove previous theme class and add the new one
         const allThemeClasses = Object.values(eras).map(e => e.themeClass);
@@ -116,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update content
         eraTitle.textContent = era.title;
         productDisclaimer.textContent = era.disclaimer;
-        timelineImage.style.backgroundImage = 'url(' + era.timelineImages[0] + ')'; // Set initial image
+        timelineImage.style.backgroundImage = `url(${era.timelineImages[0]})`;
         
         // Randomly select a loading message
         const randomMessage = era.loadingMessages[Math.floor(Math.random() * era.loadingMessages.length)];
@@ -147,6 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Start loading text animation
+        clearInterval(loadingTextInterval);
         let messageIndex = era.loadingMessages.indexOf(randomMessage);
         loadingTextInterval = setInterval(() => {
             messageIndex = (messageIndex + 1) % era.loadingMessages.length;
@@ -155,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Randomly update timeline image within an era
             if (era.timelineImages.length > 1) {
                 const randomImage = era.timelineImages[Math.floor(Math.random() * era.timelineImages.length)];
-                timelineImage.style.backgroundImage = 'url(' + randomImage + ')';
+                timelineImage.style.backgroundImage = `url(${randomImage})`;
             }
         }, 2000);
     }
