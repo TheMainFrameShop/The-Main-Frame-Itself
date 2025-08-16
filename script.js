@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- ERA DATA ---
+    // The eras are in a fixed, chronological order. The randomization happens within each era.
     const eras = {
         'ebay': {
             title: 'eBAY HISTORY',
@@ -90,19 +91,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const eraSearchInput = document.getElementById('era-search');
 
     // --- STATE VARIABLES ---
+    const eraNames = Object.keys(eras);
     let currentEraIndex = 0;
     let loadingTextInterval;
     let isPlaying = false;
-    let animationPaused = false;
 
     // --- CORE LOGIC ---
     function updateEra(eraName) {
         const era = eras[eraName];
         if (!era) return;
 
-        // Clear previous state and animations
-        clearInterval(loadingTextInterval);
-        
         // Remove previous theme class and add the new one
         const allThemeClasses = Object.values(eras).map(e => e.themeClass);
         mainContainer.classList.remove(...allThemeClasses);
@@ -110,10 +108,13 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Update content
         eraTitle.textContent = era.title;
-        loadingTextElement.textContent = era.loadingMessages[0];
         productDisclaimer.textContent = era.disclaimer;
         timelineImage.style.backgroundImage = era.timelineImage;
 
+        // Randomly select a loading message
+        const randomMessage = era.loadingMessages[Math.floor(Math.random() * era.loadingMessages.length)];
+        loadingTextElement.textContent = randomMessage;
+        
         // Update product links
         productLinksContainer.innerHTML = '';
         era.products.forEach(product => {
@@ -139,7 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Start loading text animation
-        let messageIndex = 0;
+        clearInterval(loadingTextInterval);
+        let messageIndex = era.loadingMessages.indexOf(randomMessage);
         loadingTextInterval = setInterval(() => {
             messageIndex = (messageIndex + 1) % era.loadingMessages.length;
             loadingTextElement.textContent = era.loadingMessages[messageIndex];
@@ -147,7 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function transitionToNextEra() {
-        const eraNames = Object.keys(eras);
         currentEraIndex = (currentEraIndex + 1) % eraNames.length;
         updateEra(eraNames[currentEraIndex]);
     }
@@ -156,20 +157,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('.loading-bar').style.animationPlayState = 'paused';
         clearInterval(loadingTextInterval);
         eraMusic.pause();
-        animationPaused = true;
         
         // Resume after a delay
         setTimeout(() => {
             document.querySelector('.loading-bar').style.animationPlayState = 'running';
-            let messageIndex = eras[Object.keys(eras)[currentEraIndex]].loadingMessages.indexOf(loadingTextElement.textContent);
-            loadingTextInterval = setInterval(() => {
-                messageIndex = (messageIndex + 1) % eras[Object.keys(eras)[currentEraIndex]].loadingMessages.length;
-                loadingTextElement.textContent = eras[Object.keys(eras)[currentEraIndex]].loadingMessages[messageIndex];
-            }, 2000);
+            updateEra(eraNames[currentEraIndex]);
             if (isPlaying) {
                 eraMusic.play();
             }
-            animationPaused = false;
         }, 5000);
     }
 
@@ -192,10 +187,10 @@ document.addEventListener('DOMContentLoaded', () => {
     eraSearchInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             const searchTerm = e.target.value.toLowerCase().trim();
-            const eraNames = Object.keys(eras);
             const foundEra = eraNames.find(name => name.toLowerCase().includes(searchTerm));
             if (foundEra) {
-                updateEra(foundEra);
+                // Open the relevant eBay store page in a new tab
+                window.open(eras[foundEra].products[0].link, '_blank');
             }
         }
     });
