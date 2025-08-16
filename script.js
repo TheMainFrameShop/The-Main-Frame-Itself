@@ -12,7 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Finalizing protocols...'
             ],
             disclaimer: 'Due to the unpredictable nature of online bidding, our inventory is subject to the whims of the highest bidder. Caveat Emptor.',
-            timelineImage: 'url("ebay-timeline.png")',
+            timelineImages: [
+                'https://web.archive.org/web/19991008080211im_/http://www.ebay.com/images/home/home_t.gif', // Image from 1999
+                'https://web.archive.org/web/20050810142646im_/http://pages.ebay.com/ebaystores/images/home_t.gif', // Image from 2005
+                'https://web.archive.org/web/20101017085112im_/http://www.ebay.com/images/home/home_t.gif', // Image from 2010
+                'https://web.archive.org/web/20150320144510im_/http://www.ebay.com/images/home/home_t.gif'  // Image from 2015
+            ],
             products: [
                 { name: 'Hammer', image: 'hammer.png', link: 'https://www.ebay.com/str/yourstore/ebay-era' },
                 { name: 'Shopping Cart', image: 'cart.png', link: 'https://www.ebay.com/str/yourstore/ebay-era' },
@@ -30,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Evolving for new transactions...'
             ],
             disclaimer: 'Warning: All life is currently single-celled and lacks complex thought. Transactions are highly volatile.',
-            timelineImage: 'url("genesis-timeline.png")',
+            timelineImages: ['genesis-timeline.png'],
             products: [
                 { name: 'Amoeba', image: 'amoeba.png', link: 'https://www.ebay.com/str/yourstore/genesis-era' },
                 { name: 'Proto-tool', image: 'tool.png', link: 'https://www.ebay.com/str/yourstore/genesis-era' },
@@ -48,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Inventing the wheel...'
             ],
             disclaimer: 'All sales are final. Disputes will be settled in a trial by combat or bartering with shiny rocks.',
-            timelineImage: 'url("neolithic-timeline.png")',
+            timelineImages: ['neolithic-timeline.png'],
             products: [
                 { name: 'Stone Axe', image: 'axe.png', link: 'https://www.ebay.com/str/yourstore/neolithic-era' },
                 { name: 'Clay Pot', image: 'pot.png', link: 'https://www.ebay.com/str/yourstore/neolithic-era' },
@@ -66,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Consulting the Senate...'
             ],
             disclaimer: 'The Emperor\'s inventory is vast and subject to the whims of the Senate. All transactions are recorded for taxation. Caveat Emptor.',
-            timelineImage: 'url("roman-timeline.png")',
+            timelineImages: ['roman-timeline.png'],
             products: [
                 { name: 'Chariot', image: 'chariot.png', link: 'https://www.ebay.com/str/yourstore/roman-empire' },
                 { name: 'Toga', image: 'toga.png', link: 'https://www.ebay.com/str/yourstore/roman-empire' },
@@ -111,8 +116,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update content
         eraTitle.textContent = era.title;
         productDisclaimer.textContent = era.disclaimer;
-        timelineImage.style.backgroundImage = era.timelineImage;
-
+        timelineImage.style.backgroundImage = 'url(' + era.timelineImages[0] + ')'; // Set initial image
+        
         // Randomly select a loading message
         const randomMessage = era.loadingMessages[Math.floor(Math.random() * era.loadingMessages.length)];
         loadingTextElement.textContent = randomMessage;
@@ -146,6 +151,12 @@ document.addEventListener('DOMContentLoaded', () => {
         loadingTextInterval = setInterval(() => {
             messageIndex = (messageIndex + 1) % era.loadingMessages.length;
             loadingTextElement.textContent = era.loadingMessages[messageIndex];
+            
+            // Randomly update timeline image within an era
+            if (era.timelineImages.length > 1) {
+                const randomImage = era.timelineImages[Math.floor(Math.random() * era.timelineImages.length)];
+                timelineImage.style.backgroundImage = 'url(' + randomImage + ')';
+            }
         }, 2000);
     }
 
