@@ -1,25 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Time Travelers Market Place OS</title>
-<link rel="stylesheet" href="style.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Time Travelers Market Place OS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js" defer></script>
 </head>
 <body>
+  <div id="bootScreen" aria-live="polite" aria-atomic="true">
+    <pre id="bootText"></pre>
+  </div>
 
-<div id="bootScreen">
-  <pre id="bootText"></pre>
-</div>
+  <div id="productOverlay" aria-label="Product modules and disclaimers"></div>
 
-<div id="productOverlay"></div>
+  <!-- Hidden Marginelia Overlay -->
+  <div class="marginelia" aria-hidden="true">
+    <!-- HISTORY ERA -->
+    "Sir Reginald insists this typewriter be handled with gloves. 🖋"
+    "Top secret: 42 top hats required for full boot sequence."
+    
+    <!-- LIFE ERA -->
+    "Primordial soup tastes better with a sprinkle of paradox."
+    "DNA helix optional; mutation guaranteed."
+    
+    <!-- PRESENT ERA -->
+    "Retro cameras only capture what they want you to see."
+    "Custom T-Shirt may self-replicate in alternate timeline."
+    
+    <!-- FUTURE ERA -->
+    "Hoverboards may spontaneously quantum leap."
+    "AI Assistant logs your secrets, but only in binary love notes."
+  </div>
 
-<div id="controls">
-  <input type="text" id="eraSearch" placeholder="Search Era...">
-  <button id="pauseBtn">Pause</button>
-</div>
+  <div id="controls">
+    <input type="search" id="eraSearch" placeholder="Search era: history • life • present • future" aria-label="Search era" />
+    <button id="pauseBtn" aria-pressed="false" title="AFK pause/resume">Pause</button>
+    <button id="vibeBtn" aria-pressed="false" title="Toggle No-Sleep Mode">No-Sleep: Off</button>
+    <button id="motionBtn" aria-pressed="false" title="Reduce motion for accessibility">Reduce Motion: Off</button>
+  </div>
 
-<script src="script.js"></script>
+  <noscript>
+    This site is an interactive experience that requires JavaScript enabled.
+  </noscript>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
