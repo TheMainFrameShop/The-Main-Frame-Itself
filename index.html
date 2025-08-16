@@ -106,7 +106,13 @@
             cursor: pointer;
             font-family: 'Courier New', Courier, monospace;
         }
-
+        .system-info {
+            font-size: 0.9em;
+            margin-top: 20px;
+            text-align: left;
+            white-space: pre-wrap;
+        }
+        
         /* Era-specific themes added by JS */
         .theme-ebay {
             border-color: #e0e0e0;
@@ -174,6 +180,7 @@
             <button id="play-pause-btn">Play</button>
             <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.5">
         </div>
+        <div id="system-info" class="system-info"></div>
     </div>
     
     <script>
@@ -203,7 +210,8 @@
                         { name: 'Lightsaber', image: 'lightsaber.png', link: 'https://www.ebay.com/str/yourstore/ebay-era' }
                     ],
                     music: 'audio/ebay-music.mp3',
-                    themeClass: 'theme-ebay'
+                    themeClass: 'theme-ebay',
+                    systemInfo: 'SYSTEM VERSION 1.1\nCOPYRIGHT (C) 1995\nALL RIGHTS RESERVED'
                 },
                 'genesis': {
                     title: 'GENESIS ERA',
@@ -223,7 +231,8 @@
                         { name: 'Damp Rock', image: 'rock.png', link: 'https://www.ebay.com/str/yourstore/genesis-era' }
                     ],
                     music: 'audio/genesis-music.mp3',
-                    themeClass: 'theme-genesis'
+                    themeClass: 'theme-genesis',
+                    systemInfo: 'SYSTEM VERSION 0.1-ALPHA\nCOPYRIGHT (C) 4.5 BILLION BC\nEVOLUTION.EXE PENDING'
                 },
                 'neolithic': {
                     title: 'NEOLITHIC ERA',
@@ -243,7 +252,8 @@
                         { name: 'Sharpened Stick', image: 'stick.png', link: 'https://www.ebay.com/str/yourstore/neolithic-era' }
                     ],
                     music: 'audio/neolithic-music.mp3',
-                    themeClass: 'theme-neolithic'
+                    themeClass: 'theme-neolithic',
+                    systemInfo: 'SYSTEM VERSION 1.0\nCOPYRIGHT (C) 10,000 BC\nSETTLEMENT PROTOCOLS ONLINE'
                 },
                 'roman': {
                     title: 'THE ROMAN EMPIRE',
@@ -263,7 +273,8 @@
                         { name: 'Scroll', image: 'scroll.png', link: 'https://www.ebay.com/str/yourstore/roman-empire' }
                     ],
                     music: 'audio/roman-music.mp3',
-                    themeClass: 'theme-roman'
+                    themeClass: 'theme-roman',
+                    systemInfo: 'SYSTEM VERSION 2.0\nCOPYRIGHT (C) 27 BC\nIMPERIAL.OS ONLINE'
                 },
                 'femme': {
                     title: 'Hello, Alice.',
@@ -277,7 +288,8 @@
                     timelineImages: [''], // Femme mode has no specific timeline image
                     products: [],
                     music: 'audio/femme-music.mp3',
-                    themeClass: 'theme-femme'
+                    themeClass: 'theme-femme',
+                    systemInfo: 'PROJECT: Expedition\nUSER: Alice\nSTATUS: ONLINE'
                 }
             };
 
@@ -292,13 +304,14 @@
             const playPauseBtn = document.getElementById('play-pause-btn');
             const volumeSlider = document.getElementById('volume-slider');
             const eraSearchInput = document.getElementById('era-search');
+            const systemInfoElement = document.getElementById('system-info');
 
             // --- STATE VARIABLES ---
             const eraNames = Object.keys(eras);
             let currentEraIndex = 0;
             let loadingTextInterval;
             let isPlaying = false;
-            const femmeModeEnabled = false;
+            let transitionInterval;
 
             // --- CORE LOGIC ---
             function updateEra(eraName) {
@@ -321,6 +334,8 @@
                 } else {
                     timelineImage.style.backgroundImage = 'none'; // Clear the image for femme mode
                 }
+                
+                systemInfoElement.textContent = era.systemInfo;
 
                 // Randomly select a loading message
                 const randomMessage = era.loadingMessages[Math.floor(Math.random() * era.loadingMessages.length)];
@@ -427,7 +442,7 @@
 
             // --- INITIALIZATION ---
             updateEra('ebay'); // Start with the eBay era
-            const transitionInterval = setInterval(transitionToNextEra, 10000); // Transition to a new era every 10 seconds
+            transitionInterval = setInterval(transitionToNextEra, 10000); // Transition to a new era every 10 seconds
         });
     </script>
 </body>
