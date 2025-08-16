@@ -1,11 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Time Travelers Market Place</title>
+<title>The Time Travelers Market Place OS</title>
 <link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
 </head>
 <body>
 
@@ -13,8 +13,11 @@
   <pre id="bootText"></pre>
 </div>
 
-<div id="productOverlay">
-  <!-- Product modules appear here during boot -->
+<div id="productOverlay"></div>
+
+<div id="controls">
+  <input type="text" id="eraSearch" placeholder="Search Era...">
+  <button id="pauseBtn">Pause</button>
 </div>
 
 <script src="script.js"></script>
